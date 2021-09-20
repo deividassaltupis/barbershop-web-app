@@ -1,0 +1,100 @@
+@use 'sass:math';
+main {
+  width: 100%;
+  height: auto;
+  background-color: #F1ECE7; }
+  main #contacts-content {
+    display: flex;
+    flex-direction: column; }
+    main #contacts-content .contacts-info-section {
+      display: flex;
+      flex-direction: column;
+      padding: 5px;
+      background-color: white; }
+      main #contacts-content .contacts-info-section .contacts-info__content {
+        display: flex;
+        flex-direction: column;
+        margin-top: 40px; }
+        main #contacts-content .contacts-info-section .contacts-info__content .contacts-image-box {
+          width: 100%;
+          height: 150px; }
+          main #contacts-content .contacts-info-section .contacts-info__content .contacts-image-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; }
+        main #contacts-content .contacts-info-section .contacts-info__content .info-text {
+          padding: 20px 0;
+          font-size: 18px; }
+        main #contacts-content .contacts-info-section .contacts-info__content .info-row {
+          display: flex;
+          flex-direction: column;
+          font-size: 16px;
+          margin-top: 20px; }
+          main #contacts-content .contacts-info-section .contacts-info__content .info-row .info-heading {
+            font-weight: bold; }
+          main #contacts-content .contacts-info-section .contacts-info__content .info-row .info-value {
+            margin-top: 5px; }
+    main #contacts-content .contacts-form-section {
+      display: flex;
+      flex-direction: column;
+      background-color: white;
+      padding: 5px; }
+      main #contacts-content .contacts-form-section .contacts-form__form {
+        display: flex;
+        flex-direction: column;
+        margin-top: 40px; }
+        main #contacts-content .contacts-form-section .contacts-form__form .form__row {
+          display: flex;
+          flex-wrap: wrap; }
+          main #contacts-content .contacts-form-section .contacts-form__form .form__row .label-input-group {
+            margin: 10px 30px 10px 0;
+            display: flex;
+            flex-direction: column; }
+            main #contacts-content .contacts-form-section .contacts-form__form .form__row .label-input-group label,
+            main #contacts-content .contacts-form-section .contacts-form__form .form__row .label-input-group input {
+              display: block; }
+            main #contacts-content .contacts-form-section .contacts-form__form .form__row .label-input-group input {
+              margin-top: 10px;
+              padding: 10px;
+              border-radius: 0 15px 15px 15px;
+              border: 1px solid #c5c5c5;
+              outline: none;
+              width: 250px; }
+            main #contacts-content .contacts-form-section .contacts-form__form .form__row .label-input-group input:hover {
+              border: 1px solid grey; }
+        main #contacts-content .contacts-form-section .contacts-form__form .label-input-group {
+          margin: 10px 30px 10px 0;
+          display: flex;
+          flex-direction: column; }
+          main #contacts-content .contacts-form-section .contacts-form__form .label-input-group label,
+          main #contacts-content .contacts-form-section .contacts-form__form .label-input-group textarea {
+            display: block; }
+          main #contacts-content .contacts-form-section .contacts-form__form .label-input-group textarea {
+            margin-top: 10px;
+            padding: 10px;
+            border-radius: 0 15px 15px 15px;
+            border: 1px solid #c5c5c5;
+            outline: none;
+            width: 250px;
+            height: 150px; }
+          main #contacts-content .contacts-form-section .contacts-form__form .label-input-group textarea:hover {
+            border: 1px solid grey; }
+        main #contacts-content .contacts-form-section .contacts-form__form button {
+          width: 200px;
+          margin: 30px auto; }
+
+@media only screen and (min-width: 768px) {
+  main #contacts-content .contacts-info-section {
+    padding: 20px; }
+    main #contacts-content .contacts-info-section .contacts-info__content .contacts-image-box {
+      height: 400px; }
+  main #contacts-content .contacts-form-section {
+    padding: 20px; }
+    main #contacts-content .contacts-form-section .contacts-form__form .form__row .label-input-group input {
+      width: 300px; }
+    main #contacts-content .contacts-form-section .contacts-form__form .label-input-group textarea {
+      width: 350px;
+      height: 150px; }
+    main #contacts-content .contacts-form-section .contacts-form__form button {
+      width: 200px;
+      margin: 40px 0; } }

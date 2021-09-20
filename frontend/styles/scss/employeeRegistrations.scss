@@ -1,0 +1,499 @@
+@import "variables";
+@import "employeeNavigation";
+@use 'sass:math';
+
+main {
+    width: 100%;
+    height: auto;
+    background-color: $default_bg_color;
+    #employee-registrations {
+        display: flex;
+        .registrations {
+            padding: 20px 0;
+            display: flex;
+            flex-direction: column;
+            background-color: white;
+
+            width: calc(100% - 10px);
+            height: auto;
+            max-width: 1300px;
+            .registrations__content {
+                display: flex;
+                flex-direction: column;
+                padding: 20px 5px 5px 5px;
+                .registrations__add-button-row {
+                    display: flex;
+                    button {
+                        width: 180px;
+                    }
+                }
+                .registrations__filter-row {
+                    display: flex;
+                    flex-direction: column;
+                    .filter__show-select-box {
+                        display: flex;
+                        align-items: center;
+                        justify-content: space-between;
+                        padding: 30px 0 0 0;
+                        select {
+                            width: 70%;
+                        }
+                    }
+                    .filter__date-box {
+                        display: flex;
+                        flex-direction: column;
+                        .filter__date-select-box {
+                            display: flex;
+                            flex-direction: column;
+                            label {
+                                padding: 20px 0 10px;
+                            }
+                            .filter__selection-row {
+                                display: flex;
+                                justify-content: space-between;
+                                select {
+                                    width: 30%;
+                                }
+                            }
+                        }
+                        .filter__date-button-row {
+                            display: flex;
+                            justify-content: center;
+                            padding: 20px 0;
+                            button {
+                                width: 90%;
+                            }
+                        }
+                    }
+                }
+                .registrations__filter-result {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    background-color: #f1e6cc;
+                    border: 1px solid rgb(124, 106, 56);
+                    margin-bottom: 10px;
+                    padding: 7px;
+                    border-radius: 5px;
+
+                    i {
+                        margin: 0;
+                    }
+                    p {
+                        line-height: 1.5;
+                    }
+                }
+                .registrations__card-headings {
+                    display: none;
+                }
+                .registrations__card-rows {
+                    display: flex;
+                    flex-direction: column;
+                    .card__row {
+                        display: flex;
+                        flex-direction: column;
+                        .card__label {
+                            text-align: center;
+                            padding: 20px 0;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            .card__label-icon {
+                                object-fit: contain;
+                            }
+                            .label-icon--past {
+                                width: 25px;
+                                height: 25px;
+                            }
+                            .label-icon--future {
+                                width: 20px;
+                                height: 20px;
+                                animation: rotation 8s infinite linear;
+                            }
+
+                            @keyframes rotation {
+                                from {
+                                    transform: rotate(0deg);
+                                }
+                                to {
+                                    transform: rotate(359deg);
+                                }
+                            }
+
+                            i {
+                                color: rgb(84, 161, 84);
+                            }
+                            p {
+                                font-weight: 600;
+                                font-size: 18px;
+                            }
+                            > :last-child {
+                                margin-left: 10px;
+                            }
+                        }
+                        .card__box {
+                            display: flex;
+                            flex-direction: column;
+                            padding: 7px;
+                            border-radius: 5px;
+                            .card__date-time-row {
+                                display: flex;
+                                align-items: center;
+                                .card__date {
+                                    position: absolute;
+                                    font-size: 14px;
+                                }
+                                .card__time {
+                                    font-weight: bold;
+                                    margin: 0 auto;
+                                    font-size: 16px;
+                                }
+                            }
+                            .card__info-box {
+                                display: flex;
+                                flex-direction: column;
+                                .card__customer-info {
+                                    margin-top: 10px;
+                                    display: flex;
+                                    flex-direction: column;
+                                }
+                                .card__service-title {
+                                    margin-top: 10px;
+                                }
+                                .card__service-price {
+                                    margin-top: 10px;
+                                    font-size: 17px;
+                                }
+                            }
+                            .card__actions-row {
+                                display: flex;
+                                margin-top: 20px;
+                                justify-content: flex-start;
+                                flex-wrap: wrap;
+                                .btn {
+                                    padding: 7px 20px;
+                                    margin: 0px 10px 10px 0px;
+                                    // font-size: 14px;
+                                    i {
+                                        margin-right: 5px;
+                                    }
+                                    &:last-child {
+                                        // padding: 5px 20px;
+                                        // font-style: 12px;
+                                    }
+                                }
+                            }
+                            .card__notification-row {
+                                display: flex;
+                                align-items: center;
+                                padding: 10px 0;
+                                img {
+                                    width: 20px;
+                                    height: 20px;
+                                    object-fit: contain;
+                                    margin-left: 2px;
+                                }
+                                p {
+                                    margin-left: 5px;
+                                }
+                            }
+                        }
+                        .card-box--past {
+                            background-color: #eaf2ee;
+                            border: 1px solid #788d82;
+                        }
+                        .card-box--current {
+                            background-color: #ebf1eb;
+                            border: 1px solid #86b979;
+                        }
+                        .card-box--future {
+                            background-color: #f5f1f1;
+                            border: 1px solid #e1801f;
+                        }
+                        .card-box--info {
+                            background-color: #e8e3e3;
+                            border: 1px solid #c2b5b5;
+                        }
+                    }
+                    .card__edit-row {
+                        position: relative;
+                        margin-top: -3px;
+                        display: flex;
+                        flex-direction: column;
+                        border-left: 1px solid #e1801f;
+                        border-bottom: 1px solid #e1801f;
+                        border-right: 1px solid #e1801f;
+                        background-color: #ebe2e2;
+                        padding: 5px;
+                        border-radius: 0px 0px 10px 10px;
+                        .card__edit-form {
+                            display: flex;
+                            flex-direction: row;
+                            flex-wrap: wrap;
+                            align-items: flex-end;
+                            .select-group {
+                                display: flex;
+                                flex-direction: column;
+                                padding: 5px 5px 5px 0;
+                                select {
+                                    font-size: 14px;
+                                    height: 30px;
+                                    padding: 0px 20px 0 5px;
+                                    outline: none;
+                                    background-color: white;
+                                    text-align: left;
+                                    color: black;
+                                }
+                                .edit__year-select,
+                                .edit__month-select,
+                                .edit__day-select {
+                                    width: 80px;
+                                }
+                                .edit__time-select {
+                                    width: 150px;
+                                }
+                            }
+                            button {
+                                height: 30px;
+                                padding: 0 12px;
+                                margin-bottom: 5px;
+                            }
+                        }
+                        .card__edit-info {
+                            padding: 10px 0 0 0;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media only screen and(min-width: 768px) {
+    main {
+        #employee-registrations {
+            .registrations {
+                .registrations__content {
+                    display: flex;
+                    flex-direction: column;
+                    padding: 40px 25px 25px 25px;
+                    .registrations__filter-row {
+                        flex-direction: row;
+                        justify-content: space-between;
+                        align-items: flex-start;
+                        padding: 20px 0;
+                        .filter__show-select-box {
+                            justify-content: space-between;
+                            padding: 0;
+                            select {
+                                width: 200px;
+                            }
+                            label {
+                                margin-right: 10px;
+                            }
+                        }
+                        .filter__date-box {
+                            .filter__date-select-box {
+                                display: flex;
+                                flex-direction: row;
+                                align-items: center;
+                                label {
+                                    padding: 0;
+                                }
+                                .filter__selection-row {
+                                    display: flex;
+                                    justify-content: space-between;
+                                    select {
+                                        width: auto;
+                                        margin: 0 1px;
+                                    }
+                                }
+                            }
+                            .filter__date-button-row {
+                                justify-content: flex-end;
+                                padding: 20px 0;
+                                button {
+                                    width: 150px;
+                                }
+                            }
+                        }
+                    }
+                    .registrations__filter-result {
+                        flex-direction: row;
+                        margin-bottom: 15px;
+                        padding: 15px 7px;
+
+                        i {
+                            margin: 0 10px;
+                        }
+                        p {
+                            line-height: 1.5;
+                        }
+                    }
+                    .registrations__card-headings {
+                        display: flex;
+                        display: flex;
+                        font-size: 14px;
+                        padding: 20px 0px 20px 65px;
+                        margin-bottom: 1px;
+                        background-color: #e8e3e3;
+                        border: 1px solid #ddd6d6;
+
+                        box-shadow: 6px 6px 8px -2px rgba(187, 187, 187, 0.59);
+                        -webkit-box-shadow: 6px 6px 8px -2px rgba(187, 187, 187, 0.59);
+                        -moz-box-shadow: 6px 6px 8px -2px rgba(187, 187, 187, 0.59);
+                        .card__date-heading {
+                            width: 20%;
+                        }
+                        .card__info-heading {
+                            width: 45%;
+                        }
+                        .card__actions-heading {
+                            width: 35%;
+                            text-align: right;
+                            span {
+                                margin-right: 20px;
+                            }
+                        }
+                    }
+                    .registrations__card-rows {
+                        padding-top: 15px;
+                        .card__row {
+                            display: flex;
+                            flex-direction: row;
+                            width: 100%;
+                            padding-top: 15px;
+                            .card__label {
+                                display: flex;
+                                flex-direction: row;
+                                align-items: center;
+                                justify-content: flex-start;
+
+                                width: 65px;
+                                text-align: center;
+                                padding: 0px 5px 0 0;
+                            }
+                            .card__box {
+                                display: flex;
+                                flex-direction: row;
+                                padding: 10px;
+                                width: 100%;
+                                .card__date-time-row {
+                                    display: flex;
+                                    flex-direction: column;
+                                    align-items: flex-start;
+                                    width: 20%;
+                                    .card__date {
+                                    }
+                                    .card__time {
+                                        margin: auto 0;
+                                    }
+                                }
+                                .card__info-box {
+                                    display: flex;
+                                    flex-direction: column;
+                                    width: 45%;
+                                    .card__customer-info {
+                                        margin-top: 0px;
+                                        display: flex;
+                                        flex-direction: column;
+                                    }
+                                    .card__service-title {
+                                        margin-top: 10px;
+                                    }
+                                    .card__service-price {
+                                        margin-top: 10px;
+                                        font-size: 17px;
+                                    }
+                                }
+                                .card__actions-row {
+                                    margin: 0;
+                                    flex-direction: column;
+                                    justify-content: flex-start;
+                                    align-items: flex-end;
+                                    width: 35%;
+                                    .btn {
+                                        max-height: 40px;
+                                    }
+                                }
+                                .card__notification-row {
+                                    img {
+                                        margin-left: 5px;
+                                    }
+                                    p {
+                                        margin-left: 15px;
+                                    }
+                                }
+                            }
+                        }
+                        .card__edit-row {
+                            padding: 10px;
+                            margin-left: 60px;
+                            .card__edit-form {
+                                button {
+                                    height: 30px;
+                                    padding: 0 30px;
+                                    margin-bottom: 5px;
+                                }
+                            }
+                            .card__edit-info {
+                                padding: 20px 0 0 0;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media only screen and(min-width: 1200px) {
+    main {
+        #employee-registrations {
+            .registrations {
+                .registrations__content {
+                    padding: 50px 25px 25px 25px;
+
+                    .registrations__add-button-row {
+                        display: flex;
+                        button {
+                            width: 200px;
+                        }
+                    }
+                    .registrations__filter-row {
+                        .filter__date-box {
+                            .filter__date-select-box {
+                                label {
+                                    padding: 0 15px;
+                                }
+                                .filter__selection-row {
+                                    select {
+                                        margin: 0 4px;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    .registrations__card-rows {
+                        .card__row {
+                            .card__box {
+                                .card__info-box {
+                                    .card__service-title {
+                                        margin-top: 15px;
+                                    }
+                                    .card__service-price {
+                                        margin-top: 15px;
+                                    }
+                                }
+                            }
+                        }
+                        .card__edit-row {
+                            padding: 10px;
+                            margin-left: 62px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

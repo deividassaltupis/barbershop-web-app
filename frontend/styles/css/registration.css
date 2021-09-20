@@ -1,0 +1,73 @@
+@use 'sass:math';
+main {
+  width: 100%;
+  height: auto;
+  background-color: #F1ECE7; }
+  main #registration-content {
+    display: flex;
+    flex-direction: column; }
+    main #registration-content .registration-section .registration__form-box {
+      background-color: white;
+      margin: 40px 0px;
+      padding: 0 8px;
+      display: flex;
+      flex-direction: column; }
+      main #registration-content .registration-section .registration__form-box #registration__form {
+        display: flex;
+        flex-direction: column; }
+        main #registration-content .registration-section .registration__form-box #registration__form p {
+          padding: 20px 0 10px; }
+        main #registration-content .registration-section .registration__form-box #registration__form .label-input-group {
+          margin: 10px 0; }
+          main #registration-content .registration-section .registration__form-box #registration__form .label-input-group label,
+          main #registration-content .registration-section .registration__form-box #registration__form .label-input-group input,
+          main #registration-content .registration-section .registration__form-box #registration__form .label-input-group select {
+            display: block; }
+          main #registration-content .registration-section .registration__form-box #registration__form .label-input-group input {
+            margin-top: 10px;
+            padding: 10px;
+            border-radius: 0 15px 15px 15px;
+            border: 1px solid #c5c5c5;
+            outline: none;
+            width: 100%;
+            max-width: 300px; }
+          main #registration-content .registration-section .registration__form-box #registration__form .label-input-group select {
+            margin-top: 10px;
+            border-radius: 0 15px 15px 15px;
+            border: 1px solid #c5c5c5;
+            width: 100%;
+            max-width: 300px; }
+          main #registration-content .registration-section .registration__form-box #registration__form .label-input-group select input:focus,
+          main #registration-content .registration-section .registration__form-box #registration__form .label-input-group input:hover {
+            border: 1px solid grey; }
+        main #registration-content .registration-section .registration__form-box #registration__form .date-and-time-select-row {
+          display: flex;
+          flex-wrap: wrap;
+          width: 100%; }
+          main #registration-content .registration-section .registration__form-box #registration__form .date-and-time-select-row .label-input-group {
+            padding-right: 15px; }
+            main #registration-content .registration-section .registration__form-box #registration__form .date-and-time-select-row .label-input-group select {
+              width: 100%; }
+          main #registration-content .registration-section .registration__form-box #registration__form .date-and-time-select-row .label-input-group:last-child {
+            width: 100%; }
+      main #registration-content .registration-section .registration__form-box .registration__button-row {
+        display: flex;
+        padding: 40px 0; }
+        main #registration-content .registration-section .registration__form-box .registration__button-row button {
+          width: 200px; }
+
+@media only screen and (min-width: 768px) {
+  main #registration-content .registration-section .registration__form-box {
+    margin: 60px 0px;
+    padding: 15px 30px; }
+    main #registration-content .registration-section .registration__form-box #registration__form {
+      display: flex;
+      flex-direction: column; }
+      main #registration-content .registration-section .registration__form-box #registration__form .date-and-time-select-row {
+        display: flex;
+        flex-wrap: nowrap;
+        width: 100%; }
+        main #registration-content .registration-section .registration__form-box #registration__form .date-and-time-select-row .label-input-group {
+          padding-right: 30px; }
+          main #registration-content .registration-section .registration__form-box #registration__form .date-and-time-select-row .label-input-group select {
+            width: auto; } }

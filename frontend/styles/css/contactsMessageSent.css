@@ -1,0 +1,27 @@
+@use 'sass:math';
+main {
+  width: 100%;
+  height: auto;
+  background-color: #F1ECE7; }
+  main #message-sent-content {
+    display: flex;
+    flex-direction: column; }
+    main #message-sent-content .message-sent {
+      display: flex;
+      flex-direction: column;
+      padding: 5px; }
+      main #message-sent-content .message-sent .message-sent__content {
+        background-color: white;
+        display: flex;
+        flex-direction: column;
+        margin-top: 40px; }
+        main #message-sent-content .message-sent .message-sent__content p {
+          text-align: center;
+          padding: 40px 0; }
+        main #message-sent-content .message-sent .message-sent__content button {
+          margin: 0px auto 40px;
+          font-size: 20px;
+          cursor: pointer;
+          transition: 1s; }
+          main #message-sent-content .message-sent .message-sent__content button:hover {
+            color: #232744; }

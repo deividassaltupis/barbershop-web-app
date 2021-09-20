@@ -1,0 +1,243 @@
+@import "variables";
+@import "employeeNavigation";
+@use 'sass:math';
+
+main {
+    width: 100%;
+    height: auto;
+    background-color: $default_bg_color;
+    #employee-settings {
+        display: flex;
+        .settings {
+            padding: 20px 0;
+            display: flex;
+            flex-direction: column;
+            background-color: white;
+
+            width: calc(100% - 10px);
+            height: auto;
+            max-width: 1300px;
+            .settings__content {
+                display: flex;
+                flex-direction: column;
+                padding: 20px 5px 5px 5px;
+                // -- SAME CSS FOR ADMIN PAGES DOWN TO THIS POINT
+                .settings__section-heading-row {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    margin: 30px 0 0 0;
+
+                    box-shadow: 6px 6px 8px -2px rgba(187, 187, 187, 0.59);
+                    -webkit-box-shadow: 6px 6px 8px -2px rgba(187, 187, 187, 0.59);
+                    -moz-box-shadow: 6px 6px 8px -2px rgba(187, 187, 187, 0.59);
+                    .settings__section-toggler {
+                        width: 50px;
+                        height: 50px;
+                        padding: 15px;
+                        outline: none;
+                        border: none;
+                        background-color: white;
+                        cursor: pointer;
+                        transition: 0.8s;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        &:hover {
+                            background-color: rgb(220, 222, 231);
+                        }
+                        img {
+                            width: 100%;
+                            height: 100%;
+                            object-fit: cover;
+                        }
+                    }
+                }
+
+                .settings__button {
+                    border-radius: 0 15px 15px 15px;
+                    outline: none;
+                    border: 1px solid grey;
+                    padding: 8px 30px;
+                    cursor: pointer;
+                    width: 50%;
+                }
+
+                .settings__user-info-box {
+                    display: flex;
+                    flex-direction: column;
+                }
+
+                .settings__form {
+                    flex-direction: column;
+                    padding: 30px 0;
+                    .input-group {
+                        display: flex;
+                        flex-direction: column;
+                        padding-bottom: 20px;
+                        label {
+                            padding-bottom: 10px;
+                            font-size: 16px;
+                        }
+                        input {
+                            padding: 7px 5px;
+                            font-size: 16px;
+                            outline: none;
+                            border-radius: 3px;
+                            width: 100%;
+                            max-width: 300px;
+                        }
+                        .input-group__sublabel {
+                            padding-top: 10px;
+                        }
+                    }
+                    .checkbox-group {
+                        display: flex;
+                        padding-bottom: 20px;
+                        label {
+                            padding-left: 10px;
+                        }
+                    }
+                    .radio-group {
+                        display: flex;
+                        margin-top: 20px;
+                        input[type="radio"] {
+                            width: 20px;
+                            height: 20px;
+                        }
+                        label {
+                            padding-left: 10px;
+                        }
+                    }
+                    .weekdays-checkbox-row {
+                        display: flex;
+                        flex-wrap: wrap;
+                        padding: 25px 0 10px 0;
+                        .weekday-checkbox-group {
+                            display: flex;
+                            flex-direction: column;
+                            align-items: center;
+                            padding: 20px 10px 0 0;
+                            width: 100px;
+                            label {
+                                font-size: 14px;
+                                padding-top: 14px;
+                                color: rgb(90, 13, 38);
+                            }
+                            .weekday-checkbox {
+                                width: 18px;
+                                height: 18px;
+                            }
+                        }
+                    }
+                    .workhours-input-groups-row {
+                        display: flex;
+                        align-items: center;
+                        margin-left: 30px;
+                        padding: 20px 0;
+                        .workhours__input-group {
+                            display: flex;
+                            align-items: center;
+                            input {
+                                width: 40px;
+                                height: 30px;
+                                text-align: center;
+                            }
+                            .workhours__mark {
+                                padding: 0 7px;
+                            }
+                        }
+                        .workhours__dash {
+                            padding: 0 15px;
+                        }
+                    }
+                }
+
+                .date-input-row {
+                    display: flex;
+                    flex-direction: column;
+                    padding: 10px 0;
+                    .date-input-group-label {
+                        padding-bottom: 10px;
+                    }
+                    .date-input-group {
+                        display: flex;
+                        align-items: center;
+                        input {
+                            width: 40px;
+                            padding: 5px;
+                            text-align: center;
+                            outline: none;
+                        }
+                        input:nth-child(1) {
+                            width: 70px;
+                        }
+                        span {
+                            padding: 0 5px;
+                        }
+                    }
+                }
+
+                .settings__schedule-list {
+                    flex-direction: column;
+                    padding: 30px 0;
+                    .schedule__item {
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: center;
+                        border: 1px solid rgb(209, 208, 219);
+                        padding: 10px;
+                        margin-bottom: 10px;
+                        .schedule__info {
+                            p:nth-child(2) {
+                                padding: 20px 0;
+                            }
+                        }
+                    }
+                }
+                .settings__vacation {
+                    flex-direction: column;
+                    padding: 30px 0;
+                    .vacation__list {
+                        display: flex;
+                        flex-direction: column;
+                        .vacation__item {
+                            display: flex;
+                            justify-content: space-between;
+                            align-items: center;
+                            border: 1px solid rgb(209, 208, 219);
+                            padding: 10px;
+                            margin-bottom: 10px;
+                            .vacation__info {
+                                p:nth-child(1) {
+                                    padding-bottom: 10px;
+                                }
+                            }
+                        }
+                    }
+                    button {
+                        margin: 30px 0;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media only screen and(min-width: 768px) {
+    main {
+        #employee-settings {
+            .settings {
+                .settings__content {
+                    padding: 40px 25px 25px 25px;
+                    .settings__button {
+                        width: 250px;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media only screen and(min-width: 1200px) {
+}

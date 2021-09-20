@@ -1,0 +1,170 @@
+#employee-nav {
+  position: absolute;
+  border-left: 3px solid #3d6bd6;
+  z-index: 1; }
+  #employee-nav .employee-nav__button-row {
+    background-color: white; }
+    #employee-nav .employee-nav__button-row .employee-nav__toggler {
+      display: block;
+      background-color: white;
+      border: none;
+      cursor: pointer;
+      transition: 0.8s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 50px;
+      height: 50px;
+      box-shadow: 6px 6px 8px -2px rgba(187, 187, 187, 0.59);
+      -webkit-box-shadow: 6px 6px 8px -2px rgba(187, 187, 187, 0.59);
+      -moz-box-shadow: 6px 6px 8px -2px rgba(187, 187, 187, 0.59); }
+  #employee-nav .employee-nav__toggler:hover {
+    background-color: #769bf1;
+    color: white; }
+  #employee-nav .employee-nav__list-box {
+    background-color: white;
+    box-shadow: 6px 6px 8px -2px rgba(187, 187, 187, 0.59);
+    -webkit-box-shadow: 6px 6px 8px -2px rgba(187, 187, 187, 0.59);
+    -moz-box-shadow: 6px 6px 8px -2px rgba(187, 187, 187, 0.59); }
+    #employee-nav .employee-nav__list-box ul {
+      display: flex;
+      flex-direction: column;
+      list-style-type: none; }
+      #employee-nav .employee-nav__list-box ul li {
+        padding: 20px 30px;
+        display: flex;
+        align-items: center;
+        transition: 0.8s; }
+        #employee-nav .employee-nav__list-box ul li img {
+          width: 20px;
+          height: 20px;
+          object-fit: cover; }
+        #employee-nav .employee-nav__list-box ul li span {
+          margin-left: 15px; }
+        #employee-nav .employee-nav__list-box ul li:last-child {
+          border-top: 1px solid #d3d7df; }
+      #employee-nav .employee-nav__list-box ul li:hover {
+        background-color: #769bf1;
+        color: white;
+        cursor: pointer; }
+
+@media only screen and (min-width: 1200px) {
+  #employee-nav {
+    position: relative;
+    width: 300px;
+    height: auto; }
+    #employee-nav .employee-nav__list-box {
+      padding: 30px 0; } }
+
+@use 'sass:math';
+main {
+  width: 100%;
+  height: auto;
+  background-color: #F1ECE7; }
+  main #employee-add-registration {
+    display: flex; }
+    main #employee-add-registration .add-reg {
+      padding: 20px 0;
+      display: flex;
+      flex-direction: column;
+      background-color: white;
+      width: calc(100% - 10px);
+      height: auto;
+      max-width: 1300px; }
+      main #employee-add-registration .add-reg .add-reg__content {
+        display: flex;
+        flex-direction: column;
+        padding: 20px 5px 5px 5px; }
+        main #employee-add-registration .add-reg .add-reg__content .add-reg__goback-button-row {
+          display: flex;
+          justify-content: flex-start;
+          margin: 20px 0; }
+          main #employee-add-registration .add-reg .add-reg__content .add-reg__goback-button-row .add-reg__goback-button {
+            display: flex;
+            align-items: center;
+            padding: 10px 7px;
+            background: linear-gradient(to bottom, #e5f0f9, #dce8f2);
+            border: 1px solid #bccad6;
+            transition: 1s; }
+            main #employee-add-registration .add-reg .add-reg__content .add-reg__goback-button-row .add-reg__goback-button img {
+              width: 18px;
+              height: 18px;
+              object-fit: contain;
+              margin: 0 10px 0 5px; }
+          main #employee-add-registration .add-reg .add-reg__content .add-reg__goback-button-row .add-reg__goback-button:hover {
+            filter: brightness(1.1);
+            border: 1px solid #636b72;
+            cursor: pointer; }
+        main #employee-add-registration .add-reg .add-reg__content .add-reg__info-box {
+          display: flex;
+          align-items: center;
+          padding: 10px; }
+          main #employee-add-registration .add-reg .add-reg__content .add-reg__info-box img {
+            width: 25px;
+            height: 25px;
+            object-fit: contain;
+            margin-right: 5px; }
+          main #employee-add-registration .add-reg .add-reg__content .add-reg__info-box p {
+            font-size: 14px; }
+        main #employee-add-registration .add-reg .add-reg__content .add-reg__form {
+          display: flex;
+          flex-direction: column; }
+          main #employee-add-registration .add-reg .add-reg__content .add-reg__form p {
+            padding: 20px 0 10px; }
+          main #employee-add-registration .add-reg .add-reg__content .add-reg__form .label-input-group {
+            margin: 10px 0; }
+            main #employee-add-registration .add-reg .add-reg__content .add-reg__form .label-input-group label,
+            main #employee-add-registration .add-reg .add-reg__content .add-reg__form .label-input-group input,
+            main #employee-add-registration .add-reg .add-reg__content .add-reg__form .label-input-group select {
+              display: block; }
+            main #employee-add-registration .add-reg .add-reg__content .add-reg__form .label-input-group input {
+              margin-top: 10px;
+              padding: 10px;
+              border-radius: 0 15px 15px 15px;
+              border: 1px solid #c5c5c5;
+              outline: none;
+              width: 100%;
+              max-width: 300px; }
+            main #employee-add-registration .add-reg .add-reg__content .add-reg__form .label-input-group select {
+              margin-top: 10px;
+              border-radius: 0 15px 15px 15px;
+              border: 1px solid #c5c5c5;
+              width: 100%;
+              max-width: 300px; }
+            main #employee-add-registration .add-reg .add-reg__content .add-reg__form .label-input-group select input:focus,
+            main #employee-add-registration .add-reg .add-reg__content .add-reg__form .label-input-group input:hover {
+              border: 1px solid grey; }
+          main #employee-add-registration .add-reg .add-reg__content .add-reg__form .date-and-time-select-row {
+            display: flex;
+            flex-wrap: wrap;
+            width: 100%; }
+            main #employee-add-registration .add-reg .add-reg__content .add-reg__form .date-and-time-select-row .label-input-group {
+              padding-right: 15px; }
+              main #employee-add-registration .add-reg .add-reg__content .add-reg__form .date-and-time-select-row .label-input-group select {
+                width: 100%; }
+            main #employee-add-registration .add-reg .add-reg__content .add-reg__form .date-and-time-select-row .label-input-group:last-child {
+              width: 100%; }
+          main #employee-add-registration .add-reg .add-reg__content .add-reg__form .registration__button-row {
+            display: flex;
+            padding: 40px 0; }
+            main #employee-add-registration .add-reg .add-reg__content .add-reg__form .registration__button-row button {
+              width: 200px; }
+
+@media only screen and (min-width: 768px) {
+  main #employee-add-registration .add-reg .add-reg__content {
+    padding: 40px 25px 25px 25px; }
+    main #employee-add-registration .add-reg .add-reg__content .add-reg__goback-button-row .add-reg__goback-button {
+      padding: 10px 20px; }
+    main #employee-add-registration .add-reg .add-reg__content .add-reg__info-box {
+      padding: 15px; }
+    main #employee-add-registration .add-reg .add-reg__content .add-reg__form {
+      display: flex;
+      flex-direction: column; }
+      main #employee-add-registration .add-reg .add-reg__content .add-reg__form .date-and-time-select-row {
+        display: flex;
+        flex-wrap: nowrap;
+        width: 100%; }
+        main #employee-add-registration .add-reg .add-reg__content .add-reg__form .date-and-time-select-row .label-input-group {
+          padding-right: 30px; }
+          main #employee-add-registration .add-reg .add-reg__content .add-reg__form .date-and-time-select-row .label-input-group select {
+            width: auto; } }

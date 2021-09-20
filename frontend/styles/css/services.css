@@ -1,0 +1,72 @@
+@use 'sass:math';
+main {
+  width: 100%;
+  height: auto;
+  background-color: #F1ECE7; }
+  main #registration-content {
+    display: flex;
+    flex-direction: column; }
+    main #registration-content .services-section .services__list {
+      display: flex;
+      flex-direction: column;
+      margin: 40px 0 0 0; }
+      main #registration-content .services-section .services__list .services__service-box {
+        display: flex;
+        flex-direction: column;
+        background-color: white;
+        margin-top: 20px; }
+        main #registration-content .services-section .services__list .services__service-box .services__service-heading-box {
+          display: flex;
+          align-items: center;
+          padding: 15px; }
+          main #registration-content .services-section .services__list .services__service-box .services__service-heading-box .services__service-icon {
+            width: 30px;
+            min-width: 30px;
+            height: 30px; }
+            main #registration-content .services-section .services__list .services__service-box .services__service-heading-box .services__service-icon img {
+              width: 100%;
+              height: 100%;
+              object-fit: contain; }
+          main #registration-content .services-section .services__list .services__service-box .services__service-heading-box .services__service-heading {
+            font-size: 15px;
+            padding-left: 10px; }
+        main #registration-content .services-section .services__list .services__service-box .services__service-info {
+          display: flex;
+          flex-wrap: wrap; }
+          main #registration-content .services-section .services__list .services__service-box .services__service-info .services__services-info-row {
+            padding: 10px; }
+            main #registration-content .services-section .services__list .services__service-box .services__service-info .services__services-info-row .services__service-info-title {
+              font-weight: bold; }
+            main #registration-content .services-section .services__list .services__service-box .services__service-info .services__services-info-row .services__service-info-value {
+              margin-left: 10px; }
+    main #registration-content .services-section .services__row {
+      margin: 50px 0;
+      display: flex;
+      justify-content: center; }
+
+@media only screen and (min-width: 768px) {
+  main #registration-content .services-section .services__list .services__service-box {
+    flex-direction: column;
+    margin-top: 20px;
+    justify-content: space-between; }
+    main #registration-content .services-section .services__list .services__service-box .services__service-heading-box {
+      display: flex;
+      align-items: center;
+      padding: 15px 0px 15px 15px;
+      width: 100%; }
+      main #registration-content .services-section .services__list .services__service-box .services__service-heading-box .services__service-heading {
+        font-size: 20px;
+        padding-left: 10px; }
+    main #registration-content .services-section .services__list .services__service-box .services__service-info {
+      display: flex;
+      align-items: center;
+      width: 100%; }
+      main #registration-content .services-section .services__list .services__service-box .services__service-info .services__services-info-row {
+        text-align: left;
+        display: flex;
+        min-width: 170px; }
+        main #registration-content .services-section .services__list .services__service-box .services__service-info .services__services-info-row .services__service-info-title {
+          font-weight: bold; }
+        main #registration-content .services-section .services__list .services__service-box .services__service-info .services__services-info-row .services__service-info-value {
+          margin-left: 10px;
+          word-wrap: break-word; } }

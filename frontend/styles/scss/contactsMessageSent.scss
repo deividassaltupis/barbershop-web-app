@@ -1,0 +1,36 @@
+@import "variables";
+@use 'sass:math';
+
+main {
+    width: 100%;
+    height: auto;
+    background-color: $default_bg_color;
+    #message-sent-content {
+        display: flex;
+        flex-direction: column;
+        .message-sent {
+            display: flex;
+            flex-direction: column;
+            padding: 5px;
+            .message-sent__content {
+                background-color: white;
+                display: flex;
+                flex-direction: column;
+                margin-top: 40px;
+                p {
+                    text-align: center;
+                    padding: 40px 0;
+                }
+                button {
+                    margin: 0px auto 40px;
+                    font-size: 20px;
+                    cursor: pointer;
+                    transition: 1s;
+                    &:hover {
+                        color: rgb(35, 39, 68);
+                    }
+                }
+            }
+        }
+    }
+}

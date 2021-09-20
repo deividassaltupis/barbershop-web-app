@@ -1,0 +1,47 @@
+@use 'sass:math';
+main {
+  width: 100%;
+  height: auto;
+  background-color: #F1ECE7; }
+  main #login-content {
+    display: flex;
+    flex-direction: column; }
+    main #login-content .login-section .login__form-box {
+      background-color: white;
+      margin: 40px 0px;
+      padding: 10px 8px;
+      display: flex;
+      flex-direction: column; }
+      main #login-content .login-section .login__form-box #login__form {
+        display: flex;
+        flex-direction: column; }
+        main #login-content .login-section .login__form-box #login__form .label-input-group {
+          margin: 10px 0; }
+          main #login-content .login-section .login__form-box #login__form .label-input-group label,
+          main #login-content .login-section .login__form-box #login__form .label-input-group input,
+          main #login-content .login-section .login__form-box #login__form .label-input-group select {
+            display: block; }
+          main #login-content .login-section .login__form-box #login__form .label-input-group input {
+            margin-top: 10px;
+            padding: 10px;
+            border-radius: 0 15px 15px 15px;
+            border: 1px solid #c5c5c5;
+            outline: none;
+            width: 100%;
+            max-width: 300px; }
+          main #login-content .login-section .login__form-box #login__form .label-input-group input:hover {
+            border: 1px solid grey; }
+      main #login-content .login-section .login__form-box .button-link {
+        width: 200px;
+        padding: 10px 0;
+        text-align: left; }
+      main #login-content .login-section .login__form-box .login__button-row {
+        display: flex;
+        padding: 40px 0; }
+        main #login-content .login-section .login__form-box .login__button-row button {
+          width: 200px; }
+
+@media only screen and (min-width: 768px) {
+  main #login-content .login-section .login__form-box {
+    margin: 60px 0px;
+    padding: 15px 30px; } }

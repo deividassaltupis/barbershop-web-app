@@ -1,0 +1,71 @@
+#employee-nav {
+    position: absolute;
+    border-left: 3px solid rgb(61, 107, 214);
+    z-index: 1;
+    .employee-nav__button-row {
+        background-color: white;
+        .employee-nav__toggler {
+            display: block;
+            background-color: white;
+            border: none;
+            cursor: pointer;
+            transition: 0.8s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+
+            box-shadow: 6px 6px 8px -2px rgba(187, 187, 187, 0.59);
+            -webkit-box-shadow: 6px 6px 8px -2px rgba(187, 187, 187, 0.59);
+            -moz-box-shadow: 6px 6px 8px -2px rgba(187, 187, 187, 0.59);
+        }
+    }
+    .employee-nav__toggler:hover {
+        background-color: rgb(118, 155, 241);
+        color: white;
+    }
+    .employee-nav__list-box {
+        background-color: white;
+        box-shadow: 6px 6px 8px -2px rgba(187, 187, 187, 0.59);
+        -webkit-box-shadow: 6px 6px 8px -2px rgba(187, 187, 187, 0.59);
+        -moz-box-shadow: 6px 6px 8px -2px rgba(187, 187, 187, 0.59);
+        ul {
+            display: flex;
+            flex-direction: column;
+            list-style-type: none;
+            li {
+                padding: 20px 30px;
+                display: flex;
+                align-items: center;
+                transition: 0.8s;
+                img {
+                    width: 20px;
+                    height: 20px;
+                    object-fit: cover;
+                }
+                span {
+                    margin-left: 15px;
+                }
+                &:last-child {
+                    border-top: 1px solid rgb(211, 215, 223);
+                }
+            }
+            li:hover {
+                background-color: rgb(118, 155, 241);
+                color: white;
+                cursor: pointer;
+            }
+        }
+    }
+}
+@media only screen and(min-width: 1200px) {
+    #employee-nav {
+        position: relative;
+        width: 300px;
+        height: auto;
+        .employee-nav__list-box {
+            padding: 30px 0;
+        }
+    }
+}

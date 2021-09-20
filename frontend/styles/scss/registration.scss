@@ -1,0 +1,108 @@
+@import "variables";
+@use 'sass:math';
+
+main {
+    width: 100%;
+    height: auto;
+    background-color: $default_bg_color;
+    #registration-content {
+        display: flex;
+        flex-direction: column;
+        .registration-section {
+            .registration__form-box {
+                background-color: white;
+                margin: 40px 0px;
+                padding: 0 8px;
+                display: flex;
+                flex-direction: column;
+                #registration__form {
+                    display: flex;
+                    flex-direction: column;
+
+                    p {
+                        padding: 20px 0 10px;
+                    }
+
+                    .label-input-group {
+                        margin: 10px 0;
+                        label,
+                        input,
+                        select {
+                            display: block;
+                        }
+                        input {
+                            margin-top: 10px;
+                            padding: 10px;
+                            border-radius: 0 15px 15px 15px;
+                            border: 1px solid rgb(197, 197, 197);
+                            outline: none;
+                            width: 100%;
+                            max-width: 300px;
+                        }
+                        select {
+                            margin-top: 10px;
+                            border-radius: 0 15px 15px 15px;
+                            border: 1px solid rgb(197, 197, 197);
+                            width: 100%;
+                            max-width: 300px;
+                        }
+                        select input:focus,
+                        input:hover {
+                            border: 1px solid grey;
+                        }
+                    }
+                    .date-and-time-select-row {
+                        display: flex;
+                        flex-wrap: wrap;
+                        width: 100%;
+                        .label-input-group {
+                            padding-right: 15px;
+                            select {
+                                width: 100%;
+                            }
+                        }
+                        .label-input-group:last-child {
+                            width: 100%;
+                        }
+                    }
+                }
+                .registration__button-row {
+                    display: flex;
+                    padding: 40px 0;
+                    button {
+                        width: 200px;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media only screen and(min-width: 768px) {
+    main {
+        #registration-content {
+            .registration-section {
+                .registration__form-box {
+                    margin: 60px 0px;
+                    padding: 15px 30px;
+                    #registration__form {
+                        display: flex;
+                        flex-direction: column;
+
+                        .date-and-time-select-row {
+                            display: flex;
+                            flex-wrap: nowrap;
+                            width: 100%;
+                            .label-input-group {
+                                padding-right: 30px;
+                                select {
+                                    width: auto;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

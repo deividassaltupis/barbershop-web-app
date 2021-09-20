@@ -1,0 +1,128 @@
+@use 'sass:math';
+header {
+  background-color: #fcfcfc;
+  width: 100vw;
+  position: fixed;
+  top: 0;
+  z-index: 2;
+  box-shadow: 6px 6px 8px -2px rgba(179, 171, 167, 0.7);
+  -webkit-box-shadow: 6px 6px 8px -2px rgba(179, 171, 167, 0.7);
+  -moz-box-shadow: 6px 6px 8px -2px rgba(179, 171, 167, 0.7); }
+  header #header-content {
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center; }
+    header #header-content .header__left .header__logo-box {
+      width: auto;
+      height: 36px; }
+      header #header-content .header__left .header__logo-box .header__logo {
+        width: auto;
+        height: 100%;
+        object-fit: contain; }
+    header #header-content .header__left .header__nav {
+      width: 100%;
+      display: block;
+      position: absolute;
+      right: auto;
+      top: 72px;
+      border: 1px solid #e2e1e1;
+      background-color: #ffffff;
+      opacity: 90%;
+      padding: 10px;
+      z-index: 1; }
+      header #header-content .header__left .header__nav .header__nav-list {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        list-style-type: none;
+        line-height: 2.5;
+        font-size: 24px;
+        font-weight: 500;
+        margin: 0 auto;
+        padding: 20px;
+        width: 100%; }
+        header #header-content .header__left .header__nav .header__nav-list .header__nav-list-item {
+          cursor: pointer;
+          height: 50px;
+          width: 50%;
+          text-align: center; }
+        header #header-content .header__left .header__nav .header__nav-list .current-page {
+          border-bottom: 1px solid #141414; }
+    header #header-content .header__right {
+      padding: 5px; }
+      header #header-content .header__right .header__nav-toggle-button {
+        border: 1px solid #ececec;
+        background-color: #ffffff;
+        justify-content: center;
+        align-items: center;
+        display: flex; }
+        header #header-content .header__right .header__nav-toggle-button .header__nav-toggle-icon {
+          width: 30px;
+          height: 30px;
+          padding: 15px;
+          box-sizing: content-box; }
+        header #header-content .header__right .header__nav-toggle-button :hover {
+          transition: 0.7s;
+          background-color: #ececec; }
+      header #header-content .header__right .header__social-links-box {
+        display: none; }
+
+@media only screen and (min-width: 768px) {
+  header #header-content {
+    width: calc(100% - 40px);
+    margin: 0 auto;
+    padding: 10px 0;
+    height: auto; }
+    header #header-content .header__left {
+      display: flex; }
+      header #header-content .header__left .header__logo-box {
+        width: auto;
+        height: 75px; }
+      header #header-content .header__left .header__nav {
+        width: auto;
+        display: flex;
+        align-items: center;
+        position: static;
+        border: none;
+        background-color: transparent;
+        opacity: 100%;
+        padding: 0; }
+        header #header-content .header__left .header__nav .header__nav-list {
+          flex-direction: row;
+          font-size: 18px;
+          font-weight: 500;
+          padding: 5px;
+          width: auto;
+          line-height: 1.5;
+          margin-top: 0; }
+          header #header-content .header__left .header__nav .header__nav-list .header__nav-list-item {
+            cursor: pointer;
+            height: 30px;
+            width: 50%;
+            text-align: center;
+            margin-left: 25px; }
+            header #header-content .header__left .header__nav .header__nav-list .header__nav-list-item img {
+              width: 25px;
+              height: 25px;
+              padding: 0;
+              margin: 0; }
+          header #header-content .header__left .header__nav .header__nav-list .header__nav-list-item:hover {
+            border-bottom: 1px solid #141414; }
+    header #header-content .header__right {
+      padding: 5px; }
+      header #header-content .header__right .header__nav-toggle-button {
+        display: none; }
+      header #header-content .header__right .header__social-links-box {
+        display: flex; }
+        header #header-content .header__right .header__social-links-box a {
+          padding: 5px; }
+          header #header-content .header__right .header__social-links-box a img {
+            width: 25px;
+            height: 25px;
+            filter: grayscale(40%); } }
+
+@media only screen and (min-width: 1200px) {
+  header #header-content {
+    max-width: 1200px; } }

@@ -1,0 +1,65 @@
+@import "variables";
+@use 'sass:math';
+
+main {
+    width: 100%;
+    height: auto;
+    background-color: $default_bg_color;
+    #registered-content {
+        display: flex;
+        flex-direction: column;
+        .registered {
+            display: flex;
+            flex-direction: column;
+            .registered__data-box {
+                background-color: white;
+                display: flex;
+                flex-direction: column;
+                margin-top: 40px;
+                padding: 5px;
+                .info-text {
+                    padding: 20px 0;
+                    font-size: 18px;
+                }
+                .info-row {
+                    display: flex;
+                    flex-direction: column;
+                    font-size: 16px;
+                    margin: 20px 0;
+                    .info-heading {
+                        font-weight: bold;
+                    }
+                    .info-value {
+                        margin-top: 5px;
+                    }
+                }
+                .info-text-center {
+                    text-align: center;
+                    padding: 20px 0;
+                    font-size: 18px;
+                }
+                button {
+                    margin: 0px auto 40px;
+                    font-size: 20px;
+                    cursor: pointer;
+                    transition: 1s;
+                    &:hover {
+                        color: rgb(35, 39, 68);
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media only screen and(min-width: 768px) {
+    main {
+        #registered-content {
+            .registered {
+                .registered__data-box {
+                    padding: 25px;
+                }
+            }
+        }
+    }
+}

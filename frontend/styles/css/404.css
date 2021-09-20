@@ -1,0 +1,14 @@
+@use 'sass:math';
+main {
+  width: 100%;
+  height: auto;
+  background-color: #F1ECE7; }
+  main #page-not-found-content {
+    display: flex;
+    flex-direction: column; }
+    main #page-not-found-content .not-found__box {
+      background-color: white;
+      display: flex;
+      flex-direction: column;
+      margin-top: 40px;
+      padding: 40px 5px; }

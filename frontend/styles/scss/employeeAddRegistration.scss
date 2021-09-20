@@ -1,0 +1,167 @@
+@import "variables";
+@import "employeeNavigation";
+@use 'sass:math';
+
+main {
+    width: 100%;
+    height: auto;
+    background-color: $default_bg_color;
+    #employee-add-registration {
+        display: flex;
+        .add-reg {
+            padding: 20px 0;
+            display: flex;
+            flex-direction: column;
+            background-color: white;
+
+            width: calc(100% - 10px);
+            height: auto;
+            max-width: 1300px;
+            .add-reg__content {
+                display: flex;
+                flex-direction: column;
+                padding: 20px 5px 5px 5px;
+                // -- SAME CSS FOR ADMIN PAGES DOWN TO THIS POINT
+                .add-reg__goback-button-row {
+                    display: flex;
+                    justify-content: flex-start;
+                    margin: 20px 0;
+                    .add-reg__goback-button {
+                        display: flex;
+                        align-items: center;
+                        padding: 10px 7px;
+                        background: linear-gradient(
+                            to bottom,
+                            #e5f0f9,
+                            #dce8f2
+                        );
+                        border: 1px solid #bccad6;
+                        transition: 1s;
+                        img {
+                            width: 18px;
+                            height: 18px;
+                            object-fit: contain;
+                            margin: 0 10px 0 5px;
+                        }
+                    }
+                    .add-reg__goback-button:hover {
+                        filter: brightness(1.1);
+                        border: 1px solid #636b72;
+                        cursor: pointer;
+                    }
+                }
+                .add-reg__info-box {
+                    display: flex;
+                    align-items: center;
+                    padding: 10px;
+                    img {
+                        width: 25px;
+                        height: 25px;
+                        object-fit: contain;
+                        margin-right: 5px;
+                    }
+                    p {
+                        font-size: 14px;
+                    }
+                }
+                .add-reg__form {
+                    display: flex;
+                    flex-direction: column;
+                    p {
+                        padding: 20px 0 10px;
+                    }
+
+                    .label-input-group {
+                        margin: 10px 0;
+                        label,
+                        input,
+                        select {
+                            display: block;
+                        }
+                        input {
+                            margin-top: 10px;
+                            padding: 10px;
+                            border-radius: 0 15px 15px 15px;
+                            border: 1px solid rgb(197, 197, 197);
+                            outline: none;
+                            width: 100%;
+                            max-width: 300px;
+                        }
+                        select {
+                            margin-top: 10px;
+                            border-radius: 0 15px 15px 15px;
+                            border: 1px solid rgb(197, 197, 197);
+                            width: 100%;
+                            max-width: 300px;
+                        }
+                        select input:focus,
+                        input:hover {
+                            border: 1px solid grey;
+                        }
+                    }
+                    .date-and-time-select-row {
+                        display: flex;
+                        flex-wrap: wrap;
+                        width: 100%;
+                        .label-input-group {
+                            padding-right: 15px;
+                            select {
+                                width: 100%;
+                            }
+                        }
+                        .label-input-group:last-child {
+                            width: 100%;
+                        }
+                    }
+                    .registration__button-row {
+                        display: flex;
+                        padding: 40px 0;
+                        button {
+                            width: 200px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media only screen and(min-width: 768px) {
+    main {
+        #employee-add-registration {
+            .add-reg {
+                .add-reg__content {
+                    padding: 40px 25px 25px 25px;
+                    // -- SAME CSS FOR ADMIN PAGES DOWN TO THIS POINT
+                    .add-reg__goback-button-row {
+                        .add-reg__goback-button {
+                            padding: 10px 20px;
+                        }
+                    }
+                    .add-reg__info-box {
+                        padding: 15px;
+                    }
+                    .add-reg__form {
+                        display: flex;
+                        flex-direction: column;
+
+                        .date-and-time-select-row {
+                            display: flex;
+                            flex-wrap: nowrap;
+                            width: 100%;
+                            .label-input-group {
+                                padding-right: 30px;
+                                select {
+                                    width: auto;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media only screen and(min-width: 1200px) {
+}

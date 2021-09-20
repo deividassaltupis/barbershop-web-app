@@ -1,0 +1,19 @@
+@import "variables";
+@use 'sass:math';
+
+main {
+    width: 100%;
+    height: auto;
+    background-color: $default_bg_color;
+    #page-not-found-content {
+        display: flex;
+        flex-direction: column;
+        .not-found__box {
+            background-color: white;
+            display: flex;
+            flex-direction: column;
+            margin-top: 40px;
+            padding: 40px 5px;
+        }
+    }
+}

@@ -1,0 +1,315 @@
+@import "variables";
+@import "employeeNavigation";
+@use 'sass:math';
+
+main {
+    width: 100%;
+    height: auto;
+    background-color: $default_bg_color;
+    #employee-services {
+        display: flex;
+        .services {
+            padding: 20px 0;
+            display: flex;
+            flex-direction: column;
+            background-color: white;
+
+            width: calc(100% - 10px);
+            height: auto;
+            max-width: 1300px;
+            .services__content {
+                display: flex;
+                flex-direction: column;
+                padding: 20px 5px 5px 5px;
+                .services__add-service-row {
+                    display: flex;
+                    justify-content: center;
+                    .add-service__button {
+                        display: flex;
+                        align-items: center;
+                        padding: 10px 7px;
+                        background: linear-gradient(
+                            to bottom,
+                            #e5f0f9,
+                            #dce8f2
+                        );
+                        border: 1px solid #bccad6;
+                        transition: 1s;
+                        img {
+                            width: 18px;
+                            height: 18px;
+                            object-fit: contain;
+                            margin: 0 10px 0 5px;
+                        }
+                    }
+                    .add-service__button:hover {
+                        filter: brightness(1.1);
+                        border: 1px solid #636b72;
+                        cursor: pointer;
+                    }
+                }
+                .services__headings {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: flex-end;
+
+                    box-shadow: 6px 6px 8px -2px rgba(187, 187, 187, 0.59);
+                    -webkit-box-shadow: 6px 6px 8px -2px rgba(187, 187, 187, 0.59);
+                    -moz-box-shadow: 6px 6px 8px -2px rgba(187, 187, 187, 0.59);
+
+                    background-color: #e8e3e3;
+                    border: 1px solid #ddd6d6;
+
+                    padding: 15px 20px;
+                    margin: 40px 0 20px;
+                    font-size: 14px;
+                }
+                .services__rows {
+                    display: flex;
+                    flex-direction: column;
+                    .service__row {
+                        display: flex;
+                        flex-direction: column;
+                        width: 100%;
+                        .service__label {
+                            font-size: 14px;
+                            text-align: center;
+                            padding: 15px 0px 5px;
+                        }
+                        .label--active {
+                            color: #1e2040;
+                        }
+                        .label--inactive {
+                            color: #9d9eaf;
+                        }
+
+                        .service__body {
+                            padding: 10px 2px;
+                            display: flex;
+                            justify-content: space-between;
+                            .service__subbody {
+                                display: flex;
+                                flex-direction: column;
+                                .service__title {
+                                    font-size: 14px;
+                                    margin-bottom: 20px;
+                                }
+                                .service__duration {
+                                    font-size: 14px;
+                                    margin-bottom: 20px;
+                                }
+                                .service__price {
+                                    font-size: 16px;
+                                }
+                            }
+                            .service__actions {
+                                display: flex;
+                                flex-direction: column;
+                                align-items: flex-end;
+                                .service__action-button {
+                                    width: 120px;
+                                    text-align: left;
+                                    padding: 7px 0 7px 5px;
+                                    margin-bottom: 10px;
+                                    display: flex;
+                                    align-items: center;
+                                    cursor: pointer;
+
+                                    img {
+                                        width: 15px;
+                                        height: 15px;
+                                        object-fit: contain;
+                                        margin-right: 5px;
+                                    }
+                                }
+                                .action-btn--edit {
+                                    background-color: #f2eedc;
+                                    border: 1px solid #bfb99d;
+                                    transition: 0.8s;
+                                }
+                                .action-btn--delete {
+                                    background-color: #e8c8ad;
+                                    border: 1px solid #a57045;
+                                    transition: 0.8s;
+                                }
+                                .action-btn--edit:hover {
+                                    background-color: #e6ddb6;
+                                    border: 1px solid #a09772;
+                                }
+                                .action-btn--delete:hover {
+                                    background-color: #e2af86;
+                                    border: 1px solid #915728;
+                                }
+                                .actions__status-input-group {
+                                    display: flex;
+                                    flex-direction: column;
+                                    align-items: center;
+                                    text-align: center;
+                                    margin-top: 10px;
+                                    input {
+                                        margin-top: 10px;
+                                    }
+                                }
+                            }
+                        }
+                        .service--active {
+                            background-color: #eef8f7;
+                            border: 1px solid #aed6d2;
+                        }
+                        .service--inactive {
+                            background-color: #e5e5e5;
+                            border: 1px solid #d3dddc;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media only screen and(min-width: 768px) {
+    main {
+        #employee-services {
+            .services {
+                .services__content {
+                    padding: 40px 25px 25px 25px;
+                    .services__add-service-row {
+                        display: flex;
+                        justify-content: flex-start;
+                        .add-service__button {
+                            padding: 15px 10px;
+                            img {
+                                margin: 0 15px 0 8px;
+                            }
+                        }
+                    }
+                    // Come back here to fix headings
+                    .services__headings {
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: flex-end;
+
+                        padding: 15px 20px 15px 40px;
+                        margin: 40px 0 20px;
+                        font-size: 14px;
+                        width: 100%;
+                        .headings__left {
+                            display: flex;
+                            width: 60%;
+                            .heading__service {
+                                width: 70%;
+                            }
+                            .heading__duration {
+                                width: 15%;
+                            }
+                            .heading__price {
+                                width: 15%;
+                            }
+                        }
+                        .headings__right {
+                            width: 40%;
+                            display: flex;
+                            justify-content: flex-end;
+                            .heading__actions {
+                                margin-right: 10px;
+                            }
+                        }
+                    }
+                    .services__rows {
+                        .service__row {
+                            flex-direction: row;
+                            width: 100%;
+                            margin-bottom: 10px;
+                            .service__label {
+                                font-size: 15px;
+                                text-align: left;
+                                padding: 0px 10px 0px 0px;
+                                margin: auto 0;
+                                width: 30px;
+                            }
+
+                            .service__body {
+                                width: 100%;
+                                padding: 10px 10px;
+                                justify-content: space-between;
+                                .service__subbody {
+                                    width: 60%;
+                                    flex-direction: row;
+                                    .service__title {
+                                        margin-bottom: 0px;
+                                        width: 70%;
+                                    }
+                                    .service__duration {
+                                        margin-bottom: 0px;
+                                        width: 15%;
+                                    }
+                                    .service__price {
+                                        width: 15%;
+                                    }
+                                }
+                                .service__actions {
+                                    width: 40%;
+                                    flex-direction: row;
+                                    flex-wrap: wrap;
+                                    justify-content: flex-end;
+                                    align-items: flex-start;
+                                    .service__action-button {
+                                        width: 130px;
+                                        padding: 10px 0 10px 10px;
+                                        margin: 0 0 0 5px;
+                                        img {
+                                            width: 15px;
+                                            height: 15px;
+                                            object-fit: contain;
+                                            margin-right: 8px;
+                                        }
+                                    }
+                                    .actions__status-input-group {
+                                        flex-direction: row;
+                                        align-items: center;
+                                        text-align: left;
+                                        margin: 0;
+                                        padding: 5px 0 0 5px;
+                                        label {
+                                            margin-right: 15px;
+                                        }
+                                        input {
+                                            margin-top: 0px;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media only screen and(min-width: 1200px) {
+    main {
+        #employee-services {
+            .services {
+                .services__content {
+                    .services__rows {
+                        .service__row {
+                            .service__body {
+                                .service__actions {
+                                    .service__action-button {
+                                        width: 135px;
+                                        padding: 10px 0 10px 13px;
+                                        margin: 0 0 0 7px;
+                                    }
+                                    .actions__status-input-group {
+                                        padding: 5px 0 0 8px;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

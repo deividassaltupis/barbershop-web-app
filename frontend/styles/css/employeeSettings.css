@@ -1,0 +1,231 @@
+#employee-nav {
+  position: absolute;
+  border-left: 3px solid #3d6bd6;
+  z-index: 1; }
+  #employee-nav .employee-nav__button-row {
+    background-color: white; }
+    #employee-nav .employee-nav__button-row .employee-nav__toggler {
+      display: block;
+      background-color: white;
+      border: none;
+      cursor: pointer;
+      transition: 0.8s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 50px;
+      height: 50px;
+      box-shadow: 6px 6px 8px -2px rgba(187, 187, 187, 0.59);
+      -webkit-box-shadow: 6px 6px 8px -2px rgba(187, 187, 187, 0.59);
+      -moz-box-shadow: 6px 6px 8px -2px rgba(187, 187, 187, 0.59); }
+  #employee-nav .employee-nav__toggler:hover {
+    background-color: #769bf1;
+    color: white; }
+  #employee-nav .employee-nav__list-box {
+    background-color: white;
+    box-shadow: 6px 6px 8px -2px rgba(187, 187, 187, 0.59);
+    -webkit-box-shadow: 6px 6px 8px -2px rgba(187, 187, 187, 0.59);
+    -moz-box-shadow: 6px 6px 8px -2px rgba(187, 187, 187, 0.59); }
+    #employee-nav .employee-nav__list-box ul {
+      display: flex;
+      flex-direction: column;
+      list-style-type: none; }
+      #employee-nav .employee-nav__list-box ul li {
+        padding: 20px 30px;
+        display: flex;
+        align-items: center;
+        transition: 0.8s; }
+        #employee-nav .employee-nav__list-box ul li img {
+          width: 20px;
+          height: 20px;
+          object-fit: cover; }
+        #employee-nav .employee-nav__list-box ul li span {
+          margin-left: 15px; }
+        #employee-nav .employee-nav__list-box ul li:last-child {
+          border-top: 1px solid #d3d7df; }
+      #employee-nav .employee-nav__list-box ul li:hover {
+        background-color: #769bf1;
+        color: white;
+        cursor: pointer; }
+
+@media only screen and (min-width: 1200px) {
+  #employee-nav {
+    position: relative;
+    width: 300px;
+    height: auto; }
+    #employee-nav .employee-nav__list-box {
+      padding: 30px 0; } }
+
+@use 'sass:math';
+main {
+  width: 100%;
+  height: auto;
+  background-color: #F1ECE7; }
+  main #employee-settings {
+    display: flex; }
+    main #employee-settings .settings {
+      padding: 20px 0;
+      display: flex;
+      flex-direction: column;
+      background-color: white;
+      width: calc(100% - 10px);
+      height: auto;
+      max-width: 1300px; }
+      main #employee-settings .settings .settings__content {
+        display: flex;
+        flex-direction: column;
+        padding: 20px 5px 5px 5px; }
+        main #employee-settings .settings .settings__content .settings__section-heading-row {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          margin: 30px 0 0 0;
+          box-shadow: 6px 6px 8px -2px rgba(187, 187, 187, 0.59);
+          -webkit-box-shadow: 6px 6px 8px -2px rgba(187, 187, 187, 0.59);
+          -moz-box-shadow: 6px 6px 8px -2px rgba(187, 187, 187, 0.59); }
+          main #employee-settings .settings .settings__content .settings__section-heading-row .settings__section-toggler {
+            width: 50px;
+            height: 50px;
+            padding: 15px;
+            outline: none;
+            border: none;
+            background-color: white;
+            cursor: pointer;
+            transition: 0.8s;
+            display: flex;
+            justify-content: center;
+            align-items: center; }
+            main #employee-settings .settings .settings__content .settings__section-heading-row .settings__section-toggler:hover {
+              background-color: #dcdee7; }
+            main #employee-settings .settings .settings__content .settings__section-heading-row .settings__section-toggler img {
+              width: 100%;
+              height: 100%;
+              object-fit: cover; }
+        main #employee-settings .settings .settings__content .settings__button {
+          border-radius: 0 15px 15px 15px;
+          outline: none;
+          border: 1px solid grey;
+          padding: 8px 30px;
+          cursor: pointer;
+          width: 50%; }
+        main #employee-settings .settings .settings__content .settings__user-info-box {
+          display: flex;
+          flex-direction: column; }
+        main #employee-settings .settings .settings__content .settings__form {
+          flex-direction: column;
+          padding: 30px 0; }
+          main #employee-settings .settings .settings__content .settings__form .input-group {
+            display: flex;
+            flex-direction: column;
+            padding-bottom: 20px; }
+            main #employee-settings .settings .settings__content .settings__form .input-group label {
+              padding-bottom: 10px;
+              font-size: 16px; }
+            main #employee-settings .settings .settings__content .settings__form .input-group input {
+              padding: 7px 5px;
+              font-size: 16px;
+              outline: none;
+              border-radius: 3px;
+              width: 100%;
+              max-width: 300px; }
+            main #employee-settings .settings .settings__content .settings__form .input-group .input-group__sublabel {
+              padding-top: 10px; }
+          main #employee-settings .settings .settings__content .settings__form .checkbox-group {
+            display: flex;
+            padding-bottom: 20px; }
+            main #employee-settings .settings .settings__content .settings__form .checkbox-group label {
+              padding-left: 10px; }
+          main #employee-settings .settings .settings__content .settings__form .radio-group {
+            display: flex;
+            margin-top: 20px; }
+            main #employee-settings .settings .settings__content .settings__form .radio-group input[type="radio"] {
+              width: 20px;
+              height: 20px; }
+            main #employee-settings .settings .settings__content .settings__form .radio-group label {
+              padding-left: 10px; }
+          main #employee-settings .settings .settings__content .settings__form .weekdays-checkbox-row {
+            display: flex;
+            flex-wrap: wrap;
+            padding: 25px 0 10px 0; }
+            main #employee-settings .settings .settings__content .settings__form .weekdays-checkbox-row .weekday-checkbox-group {
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+              padding: 20px 10px 0 0;
+              width: 100px; }
+              main #employee-settings .settings .settings__content .settings__form .weekdays-checkbox-row .weekday-checkbox-group label {
+                font-size: 14px;
+                padding-top: 14px;
+                color: #5a0d26; }
+              main #employee-settings .settings .settings__content .settings__form .weekdays-checkbox-row .weekday-checkbox-group .weekday-checkbox {
+                width: 18px;
+                height: 18px; }
+          main #employee-settings .settings .settings__content .settings__form .workhours-input-groups-row {
+            display: flex;
+            align-items: center;
+            margin-left: 30px;
+            padding: 20px 0; }
+            main #employee-settings .settings .settings__content .settings__form .workhours-input-groups-row .workhours__input-group {
+              display: flex;
+              align-items: center; }
+              main #employee-settings .settings .settings__content .settings__form .workhours-input-groups-row .workhours__input-group input {
+                width: 40px;
+                height: 30px;
+                text-align: center; }
+              main #employee-settings .settings .settings__content .settings__form .workhours-input-groups-row .workhours__input-group .workhours__mark {
+                padding: 0 7px; }
+            main #employee-settings .settings .settings__content .settings__form .workhours-input-groups-row .workhours__dash {
+              padding: 0 15px; }
+        main #employee-settings .settings .settings__content .date-input-row {
+          display: flex;
+          flex-direction: column;
+          padding: 10px 0; }
+          main #employee-settings .settings .settings__content .date-input-row .date-input-group-label {
+            padding-bottom: 10px; }
+          main #employee-settings .settings .settings__content .date-input-row .date-input-group {
+            display: flex;
+            align-items: center; }
+            main #employee-settings .settings .settings__content .date-input-row .date-input-group input {
+              width: 40px;
+              padding: 5px;
+              text-align: center;
+              outline: none; }
+            main #employee-settings .settings .settings__content .date-input-row .date-input-group input:nth-child(1) {
+              width: 70px; }
+            main #employee-settings .settings .settings__content .date-input-row .date-input-group span {
+              padding: 0 5px; }
+        main #employee-settings .settings .settings__content .settings__schedule-list {
+          flex-direction: column;
+          padding: 30px 0; }
+          main #employee-settings .settings .settings__content .settings__schedule-list .schedule__item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: 1px solid #d1d0db;
+            padding: 10px;
+            margin-bottom: 10px; }
+            main #employee-settings .settings .settings__content .settings__schedule-list .schedule__item .schedule__info p:nth-child(2) {
+              padding: 20px 0; }
+        main #employee-settings .settings .settings__content .settings__vacation {
+          flex-direction: column;
+          padding: 30px 0; }
+          main #employee-settings .settings .settings__content .settings__vacation .vacation__list {
+            display: flex;
+            flex-direction: column; }
+            main #employee-settings .settings .settings__content .settings__vacation .vacation__list .vacation__item {
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+              border: 1px solid #d1d0db;
+              padding: 10px;
+              margin-bottom: 10px; }
+              main #employee-settings .settings .settings__content .settings__vacation .vacation__list .vacation__item .vacation__info p:nth-child(1) {
+                padding-bottom: 10px; }
+          main #employee-settings .settings .settings__content .settings__vacation button {
+            margin: 30px 0; }
+
+@media only screen and (min-width: 768px) {
+  main #employee-settings .settings .settings__content {
+    padding: 40px 25px 25px 25px; }
+    main #employee-settings .settings .settings__content .settings__button {
+      width: 250px; } }

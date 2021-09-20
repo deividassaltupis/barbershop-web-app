@@ -1,0 +1,402 @@
+#employee-nav {
+  position: absolute;
+  border-left: 3px solid #3d6bd6;
+  z-index: 1; }
+  #employee-nav .employee-nav__button-row {
+    background-color: white; }
+    #employee-nav .employee-nav__button-row .employee-nav__toggler {
+      display: block;
+      background-color: white;
+      border: none;
+      cursor: pointer;
+      transition: 0.8s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 50px;
+      height: 50px;
+      box-shadow: 6px 6px 8px -2px rgba(187, 187, 187, 0.59);
+      -webkit-box-shadow: 6px 6px 8px -2px rgba(187, 187, 187, 0.59);
+      -moz-box-shadow: 6px 6px 8px -2px rgba(187, 187, 187, 0.59); }
+  #employee-nav .employee-nav__toggler:hover {
+    background-color: #769bf1;
+    color: white; }
+  #employee-nav .employee-nav__list-box {
+    background-color: white;
+    box-shadow: 6px 6px 8px -2px rgba(187, 187, 187, 0.59);
+    -webkit-box-shadow: 6px 6px 8px -2px rgba(187, 187, 187, 0.59);
+    -moz-box-shadow: 6px 6px 8px -2px rgba(187, 187, 187, 0.59); }
+    #employee-nav .employee-nav__list-box ul {
+      display: flex;
+      flex-direction: column;
+      list-style-type: none; }
+      #employee-nav .employee-nav__list-box ul li {
+        padding: 20px 30px;
+        display: flex;
+        align-items: center;
+        transition: 0.8s; }
+        #employee-nav .employee-nav__list-box ul li img {
+          width: 20px;
+          height: 20px;
+          object-fit: cover; }
+        #employee-nav .employee-nav__list-box ul li span {
+          margin-left: 15px; }
+        #employee-nav .employee-nav__list-box ul li:last-child {
+          border-top: 1px solid #d3d7df; }
+      #employee-nav .employee-nav__list-box ul li:hover {
+        background-color: #769bf1;
+        color: white;
+        cursor: pointer; }
+
+@media only screen and (min-width: 1200px) {
+  #employee-nav {
+    position: relative;
+    width: 300px;
+    height: auto; }
+    #employee-nav .employee-nav__list-box {
+      padding: 30px 0; } }
+
+@use 'sass:math';
+main {
+  width: 100%;
+  height: auto;
+  background-color: #F1ECE7; }
+  main #employee-registrations {
+    display: flex; }
+    main #employee-registrations .registrations {
+      padding: 20px 0;
+      display: flex;
+      flex-direction: column;
+      background-color: white;
+      width: calc(100% - 10px);
+      height: auto;
+      max-width: 1300px; }
+      main #employee-registrations .registrations .registrations__content {
+        display: flex;
+        flex-direction: column;
+        padding: 20px 5px 5px 5px; }
+        main #employee-registrations .registrations .registrations__content .registrations__add-button-row {
+          display: flex; }
+          main #employee-registrations .registrations .registrations__content .registrations__add-button-row button {
+            width: 180px; }
+        main #employee-registrations .registrations .registrations__content .registrations__filter-row {
+          display: flex;
+          flex-direction: column; }
+          main #employee-registrations .registrations .registrations__content .registrations__filter-row .filter__show-select-box {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 30px 0 0 0; }
+            main #employee-registrations .registrations .registrations__content .registrations__filter-row .filter__show-select-box select {
+              width: 70%; }
+          main #employee-registrations .registrations .registrations__content .registrations__filter-row .filter__date-box {
+            display: flex;
+            flex-direction: column; }
+            main #employee-registrations .registrations .registrations__content .registrations__filter-row .filter__date-box .filter__date-select-box {
+              display: flex;
+              flex-direction: column; }
+              main #employee-registrations .registrations .registrations__content .registrations__filter-row .filter__date-box .filter__date-select-box label {
+                padding: 20px 0 10px; }
+              main #employee-registrations .registrations .registrations__content .registrations__filter-row .filter__date-box .filter__date-select-box .filter__selection-row {
+                display: flex;
+                justify-content: space-between; }
+                main #employee-registrations .registrations .registrations__content .registrations__filter-row .filter__date-box .filter__date-select-box .filter__selection-row select {
+                  width: 30%; }
+            main #employee-registrations .registrations .registrations__content .registrations__filter-row .filter__date-box .filter__date-button-row {
+              display: flex;
+              justify-content: center;
+              padding: 20px 0; }
+              main #employee-registrations .registrations .registrations__content .registrations__filter-row .filter__date-box .filter__date-button-row button {
+                width: 90%; }
+        main #employee-registrations .registrations .registrations__content .registrations__filter-result {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          background-color: #f1e6cc;
+          border: 1px solid #7c6a38;
+          margin-bottom: 10px;
+          padding: 7px;
+          border-radius: 5px; }
+          main #employee-registrations .registrations .registrations__content .registrations__filter-result i {
+            margin: 0; }
+          main #employee-registrations .registrations .registrations__content .registrations__filter-result p {
+            line-height: 1.5; }
+        main #employee-registrations .registrations .registrations__content .registrations__card-headings {
+          display: none; }
+        main #employee-registrations .registrations .registrations__content .registrations__card-rows {
+          display: flex;
+          flex-direction: column; }
+          main #employee-registrations .registrations .registrations__content .registrations__card-rows .card__row {
+            display: flex;
+            flex-direction: column; }
+            main #employee-registrations .registrations .registrations__content .registrations__card-rows .card__row .card__label {
+              text-align: center;
+              padding: 20px 0;
+              display: flex;
+              align-items: center;
+              justify-content: center; }
+              main #employee-registrations .registrations .registrations__content .registrations__card-rows .card__row .card__label .card__label-icon {
+                object-fit: contain; }
+              main #employee-registrations .registrations .registrations__content .registrations__card-rows .card__row .card__label .label-icon--past {
+                width: 25px;
+                height: 25px; }
+              main #employee-registrations .registrations .registrations__content .registrations__card-rows .card__row .card__label .label-icon--future {
+                width: 20px;
+                height: 20px;
+                animation: rotation 8s infinite linear; }
+
+@keyframes rotation {
+  from {
+    transform: rotate(0deg); }
+  to {
+    transform: rotate(359deg); } }
+              main #employee-registrations .registrations .registrations__content .registrations__card-rows .card__row .card__label i {
+                color: #54a154; }
+              main #employee-registrations .registrations .registrations__content .registrations__card-rows .card__row .card__label p {
+                font-weight: 600;
+                font-size: 18px; }
+              main #employee-registrations .registrations .registrations__content .registrations__card-rows .card__row .card__label > :last-child {
+                margin-left: 10px; }
+            main #employee-registrations .registrations .registrations__content .registrations__card-rows .card__row .card__box {
+              display: flex;
+              flex-direction: column;
+              padding: 7px;
+              border-radius: 5px; }
+              main #employee-registrations .registrations .registrations__content .registrations__card-rows .card__row .card__box .card__date-time-row {
+                display: flex;
+                align-items: center; }
+                main #employee-registrations .registrations .registrations__content .registrations__card-rows .card__row .card__box .card__date-time-row .card__date {
+                  position: absolute;
+                  font-size: 14px; }
+                main #employee-registrations .registrations .registrations__content .registrations__card-rows .card__row .card__box .card__date-time-row .card__time {
+                  font-weight: bold;
+                  margin: 0 auto;
+                  font-size: 16px; }
+              main #employee-registrations .registrations .registrations__content .registrations__card-rows .card__row .card__box .card__info-box {
+                display: flex;
+                flex-direction: column; }
+                main #employee-registrations .registrations .registrations__content .registrations__card-rows .card__row .card__box .card__info-box .card__customer-info {
+                  margin-top: 10px;
+                  display: flex;
+                  flex-direction: column; }
+                main #employee-registrations .registrations .registrations__content .registrations__card-rows .card__row .card__box .card__info-box .card__service-title {
+                  margin-top: 10px; }
+                main #employee-registrations .registrations .registrations__content .registrations__card-rows .card__row .card__box .card__info-box .card__service-price {
+                  margin-top: 10px;
+                  font-size: 17px; }
+              main #employee-registrations .registrations .registrations__content .registrations__card-rows .card__row .card__box .card__actions-row {
+                display: flex;
+                margin-top: 20px;
+                justify-content: flex-start;
+                flex-wrap: wrap; }
+                main #employee-registrations .registrations .registrations__content .registrations__card-rows .card__row .card__box .card__actions-row .btn {
+                  padding: 7px 20px;
+                  margin: 0px 10px 10px 0px; }
+                  main #employee-registrations .registrations .registrations__content .registrations__card-rows .card__row .card__box .card__actions-row .btn i {
+                    margin-right: 5px; }
+              main #employee-registrations .registrations .registrations__content .registrations__card-rows .card__row .card__box .card__notification-row {
+                display: flex;
+                align-items: center;
+                padding: 10px 0; }
+                main #employee-registrations .registrations .registrations__content .registrations__card-rows .card__row .card__box .card__notification-row img {
+                  width: 20px;
+                  height: 20px;
+                  object-fit: contain;
+                  margin-left: 2px; }
+                main #employee-registrations .registrations .registrations__content .registrations__card-rows .card__row .card__box .card__notification-row p {
+                  margin-left: 5px; }
+            main #employee-registrations .registrations .registrations__content .registrations__card-rows .card__row .card-box--past {
+              background-color: #eaf2ee;
+              border: 1px solid #788d82; }
+            main #employee-registrations .registrations .registrations__content .registrations__card-rows .card__row .card-box--current {
+              background-color: #ebf1eb;
+              border: 1px solid #86b979; }
+            main #employee-registrations .registrations .registrations__content .registrations__card-rows .card__row .card-box--future {
+              background-color: #f5f1f1;
+              border: 1px solid #e1801f; }
+            main #employee-registrations .registrations .registrations__content .registrations__card-rows .card__row .card-box--info {
+              background-color: #e8e3e3;
+              border: 1px solid #c2b5b5; }
+          main #employee-registrations .registrations .registrations__content .registrations__card-rows .card__edit-row {
+            position: relative;
+            margin-top: -3px;
+            display: flex;
+            flex-direction: column;
+            border-left: 1px solid #e1801f;
+            border-bottom: 1px solid #e1801f;
+            border-right: 1px solid #e1801f;
+            background-color: #ebe2e2;
+            padding: 5px;
+            border-radius: 0px 0px 10px 10px; }
+            main #employee-registrations .registrations .registrations__content .registrations__card-rows .card__edit-row .card__edit-form {
+              display: flex;
+              flex-direction: row;
+              flex-wrap: wrap;
+              align-items: flex-end; }
+              main #employee-registrations .registrations .registrations__content .registrations__card-rows .card__edit-row .card__edit-form .select-group {
+                display: flex;
+                flex-direction: column;
+                padding: 5px 5px 5px 0; }
+                main #employee-registrations .registrations .registrations__content .registrations__card-rows .card__edit-row .card__edit-form .select-group select {
+                  font-size: 14px;
+                  height: 30px;
+                  padding: 0px 20px 0 5px;
+                  outline: none;
+                  background-color: white;
+                  text-align: left;
+                  color: black; }
+                main #employee-registrations .registrations .registrations__content .registrations__card-rows .card__edit-row .card__edit-form .select-group .edit__year-select,
+                main #employee-registrations .registrations .registrations__content .registrations__card-rows .card__edit-row .card__edit-form .select-group .edit__month-select,
+                main #employee-registrations .registrations .registrations__content .registrations__card-rows .card__edit-row .card__edit-form .select-group .edit__day-select {
+                  width: 80px; }
+                main #employee-registrations .registrations .registrations__content .registrations__card-rows .card__edit-row .card__edit-form .select-group .edit__time-select {
+                  width: 150px; }
+              main #employee-registrations .registrations .registrations__content .registrations__card-rows .card__edit-row .card__edit-form button {
+                height: 30px;
+                padding: 0 12px;
+                margin-bottom: 5px; }
+            main #employee-registrations .registrations .registrations__content .registrations__card-rows .card__edit-row .card__edit-info {
+              padding: 10px 0 0 0; }
+
+@media only screen and (min-width: 768px) {
+  main #employee-registrations .registrations .registrations__content {
+    display: flex;
+    flex-direction: column;
+    padding: 40px 25px 25px 25px; }
+    main #employee-registrations .registrations .registrations__content .registrations__filter-row {
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: flex-start;
+      padding: 20px 0; }
+      main #employee-registrations .registrations .registrations__content .registrations__filter-row .filter__show-select-box {
+        justify-content: space-between;
+        padding: 0; }
+        main #employee-registrations .registrations .registrations__content .registrations__filter-row .filter__show-select-box select {
+          width: 200px; }
+        main #employee-registrations .registrations .registrations__content .registrations__filter-row .filter__show-select-box label {
+          margin-right: 10px; }
+      main #employee-registrations .registrations .registrations__content .registrations__filter-row .filter__date-box .filter__date-select-box {
+        display: flex;
+        flex-direction: row;
+        align-items: center; }
+        main #employee-registrations .registrations .registrations__content .registrations__filter-row .filter__date-box .filter__date-select-box label {
+          padding: 0; }
+        main #employee-registrations .registrations .registrations__content .registrations__filter-row .filter__date-box .filter__date-select-box .filter__selection-row {
+          display: flex;
+          justify-content: space-between; }
+          main #employee-registrations .registrations .registrations__content .registrations__filter-row .filter__date-box .filter__date-select-box .filter__selection-row select {
+            width: auto;
+            margin: 0 1px; }
+      main #employee-registrations .registrations .registrations__content .registrations__filter-row .filter__date-box .filter__date-button-row {
+        justify-content: flex-end;
+        padding: 20px 0; }
+        main #employee-registrations .registrations .registrations__content .registrations__filter-row .filter__date-box .filter__date-button-row button {
+          width: 150px; }
+    main #employee-registrations .registrations .registrations__content .registrations__filter-result {
+      flex-direction: row;
+      margin-bottom: 15px;
+      padding: 15px 7px; }
+      main #employee-registrations .registrations .registrations__content .registrations__filter-result i {
+        margin: 0 10px; }
+      main #employee-registrations .registrations .registrations__content .registrations__filter-result p {
+        line-height: 1.5; }
+    main #employee-registrations .registrations .registrations__content .registrations__card-headings {
+      display: flex;
+      display: flex;
+      font-size: 14px;
+      padding: 20px 0px 20px 65px;
+      margin-bottom: 1px;
+      background-color: #e8e3e3;
+      border: 1px solid #ddd6d6;
+      box-shadow: 6px 6px 8px -2px rgba(187, 187, 187, 0.59);
+      -webkit-box-shadow: 6px 6px 8px -2px rgba(187, 187, 187, 0.59);
+      -moz-box-shadow: 6px 6px 8px -2px rgba(187, 187, 187, 0.59); }
+      main #employee-registrations .registrations .registrations__content .registrations__card-headings .card__date-heading {
+        width: 20%; }
+      main #employee-registrations .registrations .registrations__content .registrations__card-headings .card__info-heading {
+        width: 45%; }
+      main #employee-registrations .registrations .registrations__content .registrations__card-headings .card__actions-heading {
+        width: 35%;
+        text-align: right; }
+        main #employee-registrations .registrations .registrations__content .registrations__card-headings .card__actions-heading span {
+          margin-right: 20px; }
+    main #employee-registrations .registrations .registrations__content .registrations__card-rows {
+      padding-top: 15px; }
+      main #employee-registrations .registrations .registrations__content .registrations__card-rows .card__row {
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+        padding-top: 15px; }
+        main #employee-registrations .registrations .registrations__content .registrations__card-rows .card__row .card__label {
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          justify-content: flex-start;
+          width: 65px;
+          text-align: center;
+          padding: 0px 5px 0 0; }
+        main #employee-registrations .registrations .registrations__content .registrations__card-rows .card__row .card__box {
+          display: flex;
+          flex-direction: row;
+          padding: 10px;
+          width: 100%; }
+          main #employee-registrations .registrations .registrations__content .registrations__card-rows .card__row .card__box .card__date-time-row {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            width: 20%; }
+            main #employee-registrations .registrations .registrations__content .registrations__card-rows .card__row .card__box .card__date-time-row .card__time {
+              margin: auto 0; }
+          main #employee-registrations .registrations .registrations__content .registrations__card-rows .card__row .card__box .card__info-box {
+            display: flex;
+            flex-direction: column;
+            width: 45%; }
+            main #employee-registrations .registrations .registrations__content .registrations__card-rows .card__row .card__box .card__info-box .card__customer-info {
+              margin-top: 0px;
+              display: flex;
+              flex-direction: column; }
+            main #employee-registrations .registrations .registrations__content .registrations__card-rows .card__row .card__box .card__info-box .card__service-title {
+              margin-top: 10px; }
+            main #employee-registrations .registrations .registrations__content .registrations__card-rows .card__row .card__box .card__info-box .card__service-price {
+              margin-top: 10px;
+              font-size: 17px; }
+          main #employee-registrations .registrations .registrations__content .registrations__card-rows .card__row .card__box .card__actions-row {
+            margin: 0;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: flex-end;
+            width: 35%; }
+            main #employee-registrations .registrations .registrations__content .registrations__card-rows .card__row .card__box .card__actions-row .btn {
+              max-height: 40px; }
+          main #employee-registrations .registrations .registrations__content .registrations__card-rows .card__row .card__box .card__notification-row img {
+            margin-left: 5px; }
+          main #employee-registrations .registrations .registrations__content .registrations__card-rows .card__row .card__box .card__notification-row p {
+            margin-left: 15px; }
+      main #employee-registrations .registrations .registrations__content .registrations__card-rows .card__edit-row {
+        padding: 10px;
+        margin-left: 60px; }
+        main #employee-registrations .registrations .registrations__content .registrations__card-rows .card__edit-row .card__edit-form button {
+          height: 30px;
+          padding: 0 30px;
+          margin-bottom: 5px; }
+        main #employee-registrations .registrations .registrations__content .registrations__card-rows .card__edit-row .card__edit-info {
+          padding: 20px 0 0 0; } }
+
+@media only screen and (min-width: 1200px) {
+  main #employee-registrations .registrations .registrations__content {
+    padding: 50px 25px 25px 25px; }
+    main #employee-registrations .registrations .registrations__content .registrations__add-button-row {
+      display: flex; }
+      main #employee-registrations .registrations .registrations__content .registrations__add-button-row button {
+        width: 200px; }
+    main #employee-registrations .registrations .registrations__content .registrations__filter-row .filter__date-box .filter__date-select-box label {
+      padding: 0 15px; }
+    main #employee-registrations .registrations .registrations__content .registrations__filter-row .filter__date-box .filter__date-select-box .filter__selection-row select {
+      margin: 0 4px; }
+    main #employee-registrations .registrations .registrations__content .registrations__card-rows .card__row .card__box .card__info-box .card__service-title {
+      margin-top: 15px; }
+    main #employee-registrations .registrations .registrations__content .registrations__card-rows .card__row .card__box .card__info-box .card__service-price {
+      margin-top: 15px; }
+    main #employee-registrations .registrations .registrations__content .registrations__card-rows .card__edit-row {
+      padding: 10px;
+      margin-left: 62px; } }

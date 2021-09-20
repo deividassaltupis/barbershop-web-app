@@ -1,0 +1,118 @@
+@import "variables";
+@import "employeeNavigation";
+@use 'sass:math';
+
+main {
+    width: 100%;
+    height: auto;
+    background-color: $default_bg_color;
+    #employee-add-service {
+        display: flex;
+        .add-service {
+            padding: 20px 0;
+            display: flex;
+            flex-direction: column;
+            background-color: white;
+
+            width: calc(100% - 10px);
+            height: auto;
+            max-width: 1300px;
+            .add-service__content {
+                display: flex;
+                flex-direction: column;
+                padding: 20px 5px 5px 5px;
+                // -- SAME CSS FOR ADMIN PAGES DOWN TO THIS POINT
+                .add-service__goback-button-row {
+                    display: flex;
+                    justify-content: flex-start;
+                    margin: 20px 0;
+                    .add-service__goback-button {
+                        display: flex;
+                        align-items: center;
+                        padding: 10px 7px;
+                        background: linear-gradient(
+                            to bottom,
+                            #e5f0f9,
+                            #dce8f2
+                        );
+                        border: 1px solid #bccad6;
+                        transition: 1s;
+                        img {
+                            width: 18px;
+                            height: 18px;
+                            object-fit: contain;
+                            margin: 0 10px 0 5px;
+                        }
+                    }
+                    .add-service__goback-button:hover {
+                        filter: brightness(1.1);
+                        border: 1px solid #636b72;
+                        cursor: pointer;
+                    }
+                }
+                .add-service__form {
+                    display: flex;
+                    flex-direction: column;
+                    .input-group {
+                        display: flex;
+                        flex-direction: column;
+                        margin-top: 20px;
+                        label {
+                            font-size: 16px;
+                            padding-bottom: 10px;
+                        }
+                        input,
+                        select {
+                            width: 100%;
+                            max-width: 300px;
+                            padding: 10px 5px;
+                            background-color: #dde5ee;
+                            outline: none;
+                        }
+                    }
+                    button {
+                        margin-top: 30px;
+                        width: 150px;
+                        padding: 10px 20px;
+                        border-radius: 0 15px 15px 15px;
+                        cursor: pointer;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media only screen and(min-width: 768px) {
+    main {
+        #employee-add-service {
+            .add-service {
+                .add-service__content {
+                    padding: 40px 25px 25px 25px;
+                    // -- SAME CSS FOR ADMIN PAGES DOWN TO THIS POINT
+                    .add-service__goback-button-row {
+                        .add-service__goback-button {
+                            padding: 10px 20px;
+                        }
+                    }
+                    .add-service__form {
+                        .input-group {
+                            flex-direction: row;
+                            align-items: center;
+                            label {
+                                padding-bottom: 0px;
+                                width: 100px;
+                                text-align: right;
+                                padding-right: 20px;
+                            }
+                        }
+                        button {
+                            width: 180px;
+                            margin-left: 100px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
