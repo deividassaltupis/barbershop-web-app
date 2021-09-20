@@ -4,14 +4,14 @@ import crypto from "crypto";
 import { generateToken, getCleanUser } from "../utils/auth.js";
 
 const loginController = async (req, res) => {
-    console.log("login attempt");
     const username = req.body.username;
     const password = req.body.password;
 
     if (!username || !password) {
         return res.status(400).json({
             error: true,
-            message: "Username and password are required",
+            message:
+                "Būtina nurodyti vartotojo prisijungimo vardą ir slaptažodį",
         });
     }
     const hashedPassword = crypto
@@ -23,12 +23,14 @@ const loginController = async (req, res) => {
     if (!user)
         return res.status(401).json({
             error: true,
-            message: "User name or password is incorrect",
+            message:
+                "Vartotojo prisijungimo vardas, arba slaptažodis klaidingas",
         });
     if (user.password !== hashedPassword)
         return res.status(401).json({
             error: true,
-            message: "User name or password is incorrect",
+            message:
+                "Vartotojo prisijungimo vardas, arba slaptažodis klaidingas",
         });
 
     const token = generateToken(user);

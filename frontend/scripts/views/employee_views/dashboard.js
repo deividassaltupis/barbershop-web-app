@@ -32,12 +32,30 @@ const employeeDashboard = (data = {}) => {
         </div>
         `;
 
-    employeeDashboard.insertBefore(
-        employeeNav(),
-        employeeDashboard.querySelector(".dashboard")
-    );
+    const mountView = () => {
+        employeeDashboard.insertBefore(
+            employeeNav(),
+            employeeDashboard.querySelector(".dashboard")
+        );
+    };
 
-    return employeeDashboard;
+    const viewDidMount = () => {
+        axios
+            .get("http://127.0.0.1:5000/api/users/", data.authHeader)
+            .then((res) => console.log(res.data))
+            .catch((err) => {
+                if (err.response.status === 401)
+                    console.log(err.response.data.message);
+            });
+    };
+
+    const unmountView = () => {};
+
+    // - Events
+
+    mountView();
+
+    return { view: employeeDashboard, viewDidMount: viewDidMount };
 };
 
 export default employeeDashboard;

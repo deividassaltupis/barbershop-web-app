@@ -9,6 +9,7 @@ import pageNotFound from "../views/404.js";
 import contactsMessageSent from "../views/contactsMessageSent.js";
 import registrationComplete from "../views/registrationComplete.js";
 import login from "../views/login.js";
+import errorView from "../views/error.js";
 
 import { initStyles, setMainStyle } from "../modules/initStyles.js";
 
@@ -99,13 +100,19 @@ const render = (page, data = {}) => {
             setView(login, "styles/css/login.css", data);
             break;
 
+        case "klaida":
+            setView(errorView, "styles/css/error.css", data);
+            break;
+
         case "darbuotojo_darbalaukis":
             setMainStyle("styles/css/employeeDashboard.css");
             (async () => {
                 const dashboard = await importProtectedView(
                     "../views/employee_views/dashboard.js"
                 );
-                mainElement.append(dashboard(data));
+                const { view, viewDidMount } = dashboard(data);
+                mainElement.append(view);
+                viewDidMount();
 
                 const employeeChart = await importProtectedView(
                     "../views/components/employeeChart.js"

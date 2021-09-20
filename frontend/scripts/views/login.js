@@ -43,67 +43,66 @@ const login = (data = {}) => {
     const usernameInput = login.querySelector("#username-input");
     const passwordInput = login.querySelector("#password-input");
 
-    // This function is called on view mounting stage (Before view is rendered to UI). In this function essential to view elements can be appended, or actions take place.
-    const mountView = () => {
-        // displayError(
-        //     "Įvyko klaida nepavyko prisijungti prie serverio",
-        //     login.querySelector(".login__form-box"),
-        //     login.querySelector("#login__form")
-        // );
-        // displayWarning(
-        //     "Prašome užpildyti visus formos laukelius",
-        //     login.querySelector(".login__form-box"),
-        //     login.querySelector("#login__form")
-        // );
-        // displaySuccess(
-        //     "Success message",
-        //     login.querySelector(".login__form-box"),
-        //     login.querySelector("#login__form")
-        // );
+    const handleLogin = (e) => {
+        e.preventDefault();
+        const username = usernameInput.value;
+        const password = passwordInput.value;
+        usernameInput.value = passwordInput.value = "";
 
-        loginButton.addEventListener("click", (e) => {
-            e.preventDefault();
-            const username = usernameInput.value;
-            const password = passwordInput.value;
-            usernameInput.value = passwordInput.value = "";
-
-            if (!username || !password) {
-                displayWarning(
-                    "Prašome užpildyti visus formos laukelius",
-                    login.querySelector(".login__form-box"),
-                    login.querySelector("#login__form")
-                );
-                return;
-            }
-            axios
-                .post(USER_LOGIN_URI, {
-                    username: username,
-                    password: password,
-                })
-                .then((res) => {
-                    setUserSession(res.data.token, res.data.user);
-                    console.log(res.data.user.role);
-                    if (res.data.user.role == "Employee")
-                        route("/darbuotojo_darbalaukis", {}, unmountView);
-                    else if (res.data.user.role == "Admin")
-                        route("/admin_darbalaukis", {}, unmountView);
-                })
-                .catch((err) => {
-                    console.log("error occured: ", err);
+        if (!username || !password) {
+            displayWarning(
+                "Prašome užpildyti visus formos laukelius",
+                login.querySelector(".login__form-box"),
+                login.querySelector("#login__form")
+            );
+            return;
+        }
+        axios
+            .post(USER_LOGIN_URI, {
+                username: username,
+                password: password,
+            })
+            .then((res) => {
+                setUserSession(res.data.token, res.data.user);
+                console.log(res.data.user.role);
+                if (res.data.user.role == "Employee")
+                    route("/darbuotojo_darbalaukis", {}, unmountView);
+                else if (res.data.user.role == "Admin")
+                    route("/admin_darbalaukis", {}, unmountView);
+            })
+            .catch((err) => {
+                if (typeof err.response != "undefined") {
                     if (err.response.status == 401)
                         displayError(
                             err.response.data.message,
                             login.querySelector(".login__form-box"),
                             login.querySelector("#login__form")
                         );
-                    else
+                    else if (err.response.data.message)
                         displayError(
-                            "Įvyko sistemos nesklandumų bandant prisijungt, pabandykite vėliau",
+                            `Įvyko sistemos nesklandumų bandant prisijungti, pabandykite vėliau. ${
+                                err.response.data.message
+                                    ? "<br>Serverio atsakymas: (" +
+                                      err.response.status +
+                                      ") " +
+                                      err.response.data.message
+                                    : ""
+                            }`,
                             login.querySelector(".login__form-box"),
                             login.querySelector("#login__form")
                         );
-                });
-        });
+                } else
+                    displayError(
+                        "Atsiprašome, tačiau nepavyko prisijungti prie serverio. Pabandykite vėliau.",
+                        login.querySelector(".login__form-box"),
+                        login.querySelector("#login__form")
+                    );
+            });
+    };
+
+    // This function is called on view mounting stage (Before view is rendered to UI). In this function essential to view elements can be appended, or actions take place.
+    const mountView = () => {
+        loginButton.addEventListener("click", (e) => handleLogin(e));
 
         forgetPasswordButton.addEventListener("click", () => {
             route("/pamirsau_slaptazodi", {}, unmountView);
@@ -116,6 +115,7 @@ const login = (data = {}) => {
     // Callback function unmountView is called while leaving current view. (e.g: when on routing to another view, event listeners, or intervals can be stopped here).
     const unmountView = () => {
         forgetPasswordButton.removeEventListener("click", route);
+        loginButton.removeEventListener("click", handleLogin);
     };
 
     mountView();

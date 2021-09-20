@@ -1,7 +1,7 @@
 import render from "./render.js";
 import session from "../utils/session.js";
 import { verifyUser } from "./auth.js";
-import { removeUserSession, getUser } from "../utils/session.js";
+import { removeUserSession, getUser, getToken } from "../utils/session.js";
 
 const defaultPage = "pradzia";
 
@@ -30,7 +30,20 @@ const route = async (req, data = {}, unmountComponent = null) => {
             render("registracija_sekminga", data);
             break;
         case "/prisijungimas":
+            if ((await verifyUser()) === true) {
+                const user = getUser();
+                if (user.role === "Employee") {
+                    route("/darbuotojo_darbalaukis", data);
+                    break;
+                } else if (user.role === "Admin") {
+                    route("/admin_darbalaukis", data);
+                    break;
+                }
+            }
             render("prisijungimas", data);
+            break;
+        case "/klaida":
+            render("klaida", data);
             break;
         case "/atsijungti":
             removeUserSession();
@@ -44,13 +57,24 @@ const route = async (req, data = {}, unmountComponent = null) => {
         case "/darbuotojas_prideti_paslauga":
         case "/darbuotojas_atnaujinti_paslauga":
             if ((await verifyUser()) == false) {
-                console.log("user not verified");
                 render("prisijungimas", data);
                 break;
             }
             const user = getUser();
+            if (user.role !== "Employee") {
+                render("klaida", {
+                    errorMessage:
+                        "Nurodytu užklausos maršrutu patekti galima tik darbuotojo rolę turintiems vartotojams.",
+                });
+                break;
+            }
+            const token = getToken();
             data.user = user;
-            console.log("user verified");
+            data.authHeader = {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            };
             switch (req) {
                 case "/darbuotojo_darbalaukis":
                     render("darbuotojo_darbalaukis", data);

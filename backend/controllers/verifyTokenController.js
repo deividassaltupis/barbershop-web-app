@@ -9,28 +9,8 @@ const verifyTokenController = async (req, res) => {
     if (!token)
         return res.status(400).json({
             error: true,
-            message: "Token is required",
+            message: "Vartotojo autentifikacija nepavyko",
         });
-
-    // const jwtVerify = Promise(Jwt.verify);
-
-    // const user = await jwtVerify(token, TOKEN_SECRET_KEY)
-    //     .then((user) => user)
-    //     .catch((err) =>
-    //         res.status(401).json({
-    //             error: true,
-    //             message: "Invalid token",
-    //         })
-    //     );
-
-    // const userObj = await User.find({ _id: user.userID });
-    // if (!userObj)
-    //     return res.status(401).json({
-    //         error: true,
-    //         message: "Invalid user",
-    //     });
-    // const cleanUserObj = getCleanUser(userObj);
-    // return res.json({ user: cleanUserObj, token });
 
     const tokenUserObj = await Jwt.verify(
         token,
@@ -39,7 +19,7 @@ const verifyTokenController = async (req, res) => {
             if (err)
                 return res.status(401).json({
                     error: true,
-                    message: "Invalid token",
+                    message: "Vartotojo autentifikacija nepavyko",
                 });
             return user;
         }
@@ -48,7 +28,7 @@ const verifyTokenController = async (req, res) => {
     if (!userObj)
         return res.status(401).json({
             error: true,
-            message: "Invalid user",
+            message: "Duomenys apie vartotoją duomenų bazėje nerasti",
         });
     const cleanUserObj = getCleanUser(userObj);
     return res.json({ user: cleanUserObj, token: token });

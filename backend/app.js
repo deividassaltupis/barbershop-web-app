@@ -11,7 +11,7 @@ import verifyTokenController from "./controllers/verifyTokenController.js";
 import addUserController from "./controllers/addUserController.js";
 
 // -- Middlewares
-import accessVerification from "./middleware/accessVerification.js";
+import authentification from "./middleware/authentification.js";
 import dbConnectionCheck from "./middleware/dbConnectionCheck.js";
 
 // --- dotenv Configuration && environment variables
@@ -50,14 +50,14 @@ app.listen(PORT, () => {
 app.use(dbConnectionCheck);
 
 app.get("/", (req, res) => {
-    res.send("Server is running...");
+    return res.send("Server is running...");
 });
-
-app.use(accessVerification);
 
 app.post("/api/users/login/", loginController);
 
 app.get("/api/users/verify_token/:token", verifyTokenController);
+
+app.use(authentification);
 
 app.get("/api/users/", usersController);
 
