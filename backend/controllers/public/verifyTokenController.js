@@ -1,8 +1,8 @@
 //import jwt from "jsonwebtoken";
 import Jwt from "jsonwebtoken";
-import { User } from "../models/User.js";
-import { getCleanUser } from "../utils/auth.js";
-import { TOKEN_SECRET_KEY } from "../app.js";
+import { User } from "../../models/User.js";
+import { getCleanUser } from "../../utils/auth.js";
+import { TOKEN_SECRET_KEY } from "../../app.js";
 
 const verifyTokenController = async (req, res) => {
     const token = req.body.token || req.params.token;

@@ -61,5 +61,26 @@ const displaySuccess = (text, parentElem, beforeElem) => {
         parentElem.insertBefore(alertElement, beforeElem);
     }
 };
+const displayInfo = (text, parentElem, beforeElem) => {
+    const alertID = "info-alert";
+    const iconLink = "styles/images/icons/information-button.png";
+    if (document.getElementById(alertID)) {
+        document.getElementById(alertID).innerHTML =
+            `<img src='${iconLink}' alt='info-icon'/>` +
+            "<span>" +
+            text +
+            "</span>";
+    } else {
+        const alertElement = document.createElement("div");
+        alertElement.id = alertID;
+        alertElement.classList.add("info-alert");
+        alertElement.innerHTML =
+            `<img src='${iconLink}' alt='info-icon'/>` +
+            "<span>" +
+            text +
+            "</span>";
+        parentElem.insertBefore(alertElement, beforeElem);
+    }
+};
 
-export { displayError, displayWarning, displaySuccess };
+export { displayError, displayWarning, displaySuccess, displayInfo };

@@ -41,7 +41,7 @@ const userSchema = mongoose.Schema(
         serviceList: [
             {
                 serviceID: {
-                    type: mongoose.Schema.Types.ObjectId,
+                    type: String,
                     required: false,
                 },
                 serviceAvailable: {

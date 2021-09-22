@@ -1,9 +1,9 @@
-import { User } from "../models/User.js";
-import { PASSWORD_SECRET_KEY } from "../app.js";
+import { User } from "../../../models/User.js";
+import { PASSWORD_SECRET_KEY } from "../../../app.js";
 import crypto from "crypto";
-import { ADMIN_ROLE, EMPLOYEE_ROLE } from "../utils/defines.js";
-import { getCleanUser } from "../utils/auth.js";
-import adminAuthorization from "../middleware/adminAuthorization.js";
+import { ADMIN_ROLE, EMPLOYEE_ROLE } from "../../../utils/defines.js";
+import { getCleanUser } from "../../../utils/auth.js";
+import adminAuthorization from "../../../middleware/adminAuthorization.js";
 
 const addUserController = async (req, res) => {
     if (!adminAuthorization(req, res)) return;

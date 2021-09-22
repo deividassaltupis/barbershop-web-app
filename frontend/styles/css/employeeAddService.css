@@ -56,7 +56,7 @@
     #employee-nav .employee-nav__list-box {
       padding: 30px 0; } }
 
-@use 'sass:math';
+@use "sass:math";
 main {
   width: 100%;
   height: auto;
@@ -103,21 +103,56 @@ main {
             flex-direction: column;
             margin-top: 20px; }
             main #employee-add-service .add-service .add-service__content .add-service__form .input-group label {
-              font-size: 16px;
+              font-size: 15px;
               padding-bottom: 10px; }
             main #employee-add-service .add-service .add-service__content .add-service__form .input-group input,
             main #employee-add-service .add-service .add-service__content .add-service__form .input-group select {
               width: 100%;
               max-width: 300px;
-              padding: 10px 5px;
+              padding: 6px 5px;
               background-color: #dde5ee;
-              outline: none; }
+              outline: none;
+              font-size: 14px; }
+          main #employee-add-service .add-service .add-service__content .add-service__form .radio-group {
+            display: flex;
+            align-items: center;
+            padding: 30px 0 0; }
+            main #employee-add-service .add-service .add-service__content .add-service__form .radio-group label {
+              font-size: 15px;
+              width: 170px;
+              font-weight: bold; }
+            main #employee-add-service .add-service .add-service__content .add-service__form .radio-group input {
+              margin-left: 10px; }
           main #employee-add-service .add-service .add-service__content .add-service__form button {
             margin-top: 30px;
             width: 150px;
             padding: 10px 20px;
             border-radius: 0 15px 15px 15px;
             cursor: pointer; }
+          main #employee-add-service .add-service .add-service__content .add-service__form .add-service__icon-select-label {
+            padding: 30px 0 10px; }
+          main #employee-add-service .add-service .add-service__content .add-service__form .add-service__icon-list {
+            display: flex;
+            flex-wrap: wrap; }
+            main #employee-add-service .add-service .add-service__content .add-service__form .add-service__icon-list .add-service__icon-box {
+              width: 55px;
+              height: 55px;
+              background-color: #c6cbce;
+              padding: 10px;
+              margin: 4px;
+              transition: 0.5s; }
+              main #employee-add-service .add-service .add-service__content .add-service__form .add-service__icon-list .add-service__icon-box img {
+                width: 100%;
+                height: 100%;
+                object-fit: contain; }
+              main #employee-add-service .add-service .add-service__content .add-service__form .add-service__icon-list .add-service__icon-box:hover {
+                background-color: #dfe9ee;
+                cursor: pointer;
+                padding: 7px; }
+            main #employee-add-service .add-service .add-service__content .add-service__form .add-service__icon-list .add-service__icon-box--selected {
+              background-color: #9bc7f1; }
+              main #employee-add-service .add-service .add-service__content .add-service__form .add-service__icon-list .add-service__icon-box--selected:hover {
+                background-color: #c1d7eb; }
 
 @media only screen and (min-width: 768px) {
   main #employee-add-service .add-service .add-service__content {
@@ -129,7 +164,7 @@ main {
       align-items: center; }
       main #employee-add-service .add-service .add-service__content .add-service__form .input-group label {
         padding-bottom: 0px;
-        width: 100px;
+        width: 150px;
         text-align: right;
         padding-right: 20px; }
     main #employee-add-service .add-service .add-service__content .add-service__form button {

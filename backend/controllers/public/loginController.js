@@ -1,7 +1,7 @@
-import { User } from "../models/User.js";
-import { PASSWORD_SECRET_KEY } from "../app.js";
+import { User } from "../../models/User.js";
+import { PASSWORD_SECRET_KEY } from "../../app.js";
 import crypto from "crypto";
-import { generateToken, getCleanUser } from "../utils/auth.js";
+import { generateToken, getCleanUser } from "../../utils/auth.js";
 
 const loginController = async (req, res) => {
     const username = req.body.username;

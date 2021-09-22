@@ -64,7 +64,6 @@ const login = (data = {}) => {
             })
             .then((res) => {
                 setUserSession(res.data.token, res.data.user);
-                console.log(res.data.user.role);
                 if (res.data.user.role == "Employee")
                     route("/darbuotojo_darbalaukis", {}, unmountView);
                 else if (res.data.user.role == "Admin")

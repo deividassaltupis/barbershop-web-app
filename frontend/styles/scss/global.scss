@@ -438,6 +438,24 @@ select {
     }
 }
 
+.info-alert {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    margin-bottom: 15px;
+    border: 1px solid rgb(169, 205, 236);
+    background-color: rgb(233, 245, 255);
+    img {
+        width: 20px;
+        height: 20px;
+    }
+    span {
+        margin-left: 15px;
+        color: rgb(8, 68, 92);
+        font-size: 16px;
+    }
+}
+
 .button-link {
     border: 0;
     background-color: transparent;

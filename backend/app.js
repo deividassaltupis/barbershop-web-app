@@ -5,10 +5,25 @@ import mongoose from "mongoose";
 import colors from "colors";
 
 // -- Controllers
-import usersController from "./controllers/usersController.js";
-import loginController from "./controllers/loginController.js";
-import verifyTokenController from "./controllers/verifyTokenController.js";
-import addUserController from "./controllers/addUserController.js";
+// ---- Public controllers.
+import loginController from "./controllers/public/loginController.js";
+import verifyTokenController from "./controllers/public/verifyTokenController.js";
+import getServicesController from "./controllers/public/getServicesController.js";
+
+// ---- Private controllers. For all authentificated web app users (admins and employess)
+import updateUserController from "./controllers/private/updateUserController.js";
+import getUserController from "./controllers/private/getUserController.js";
+
+// ---- Private controllers. For authorized web app administrators
+import usersController from "./controllers/private/admin/usersController.js";
+import addUserController from "./controllers/private/admin/addUserController.js";
+
+// ---- Private controllers. For authorized web app employees.
+import addServiceController from "./controllers/private/employee/addServiceController.js";
+import addExistingServiceController from "./controllers/private/employee/addExistingServiceController.js";
+import getEmployeeServicesController from "./controllers/private/employee/getEmployeeServicesController.js";
+import editServiceController from "./controllers/private/employee/editServiceController.js";
+import getSingleServiceController from "./controllers/private/employee/getSingleServiceController.js";
 
 // -- Middlewares
 import authentification from "./middleware/authentification.js";
@@ -30,6 +45,7 @@ app.use(
     // }
 );
 // --- express build-in middleware function for incoming requests with JSON payload parsing.
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -49,6 +65,8 @@ app.listen(PORT, () => {
 
 app.use(dbConnectionCheck);
 
+// - PUBLIC ROUTES
+
 app.get("/", (req, res) => {
     return res.send("Server is running...");
 });
@@ -57,8 +75,41 @@ app.post("/api/users/login/", loginController);
 
 app.get("/api/users/verify_token/:token", verifyTokenController);
 
+// * /api/users/add_registration/ - Mutual route for both visitors and employees to add new registrations.
+//app.post("/api/users/add_registration/");
+
+app.get("/api/services/", getServicesController);
+
+// - AUTHENTIFICATION of user. If auth succeeds user will be allowed to access next routes.
 app.use(authentification);
 
-app.get("/api/users/", usersController);
+// - USER ROUTES (for both employees and admins)
+app.get("/api/user/", getUserController);
+app.put("/api/user/", updateUserController);
 
-app.post("/api/users/", addUserController);
+// - ADMIN ROUTES
+
+app.get("/api/admin/get_users/", usersController);
+app.post("/api/admin/add_user/", addUserController);
+
+// - EMPLOYEE ROUTES
+
+// --- Registrations
+
+//app.get("/api/employee/get_registrations/");
+
+//app.put("/api/employee/edit_registration/");
+
+//app.delete("/api/employee/delete_registration/");
+
+// --- Services
+
+app.post("/api/employee/add_service/", addServiceController);
+app.post("/api/employee/add_existing_service/", addExistingServiceController);
+app.get("/api/employee/get_services/", getEmployeeServicesController);
+app.get("/api/employee/get_service/:serviceID", getSingleServiceController);
+app.put("/api/employee/update_service/:serviceID", editServiceController);
+
+//app.put("/api/employee/edit_service/");
+
+//app.delete("/api/employee/delete_service/");

@@ -5,9 +5,9 @@ const serviceSchema = mongoose.Schema({
         type: String,
         required: true,
     },
-    iconUrl: {
+    iconID: {
         type: String,
-        required: false,
+        required: true,
     },
     timeSlots: {
         type: Number,
