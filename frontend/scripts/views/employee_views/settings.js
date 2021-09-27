@@ -1,5 +1,15 @@
 import route from "../../modules/route.js";
 import employeeNav from "../components/employeeNav.js";
+import {
+    EMPLOYEE_GET_SCHEDULES_URI,
+    EMPLOYEE_ADD_SCHEDULE_URI,
+    EMPLOYEE_DELETE_SCHEDULE_URI,
+} from "../../utils/endpoints.js";
+import {
+    displaySuccess,
+    displayError,
+    displayWarning,
+} from "../components/alerts.js";
 
 const employeeSettings = (data = {}) => {
     let employeeSettings = document.createElement("div");
@@ -81,7 +91,7 @@ const employeeSettings = (data = {}) => {
                     <button class="settings__button btn-purple" type='button'>Atnaujinti slaptažodį</button>
                 </form>
 
-                <!-- Employee work schedule form -->
+                <!-- Employee add work schedule form -->
                 <div class="settings__section-heading-row">
                     <h2 class="settings__section-heading">Nustatyti naują darbo grafiką</h2>
                     <button class="settings__section-toggler" type="button" data-box-id="work-schedule-form" style="display: flex;">
@@ -119,21 +129,21 @@ const employeeSettings = (data = {}) => {
                             <label for="checkbox-saturday">Šeštadienis</label>
                         </div>
                         <div class="weekday-checkbox-group">
-                            <input type="checkbox" class="weekday-checkbox" id="checkbox-sunday" data-weekday="7" disabled/>
+                            <input type="checkbox" class="weekday-checkbox" id="checkbox-sunday" data-weekday="0" disabled/>
                             <label for="checkbox-sunday">Sekmadienis</label>
                         </div>
                     </div>
                     <div class="workhours-input-groups-row" id="workhours-weekdays">
                         <div class="workhours__input-group">
-                            <input type="text" value="11" class="work-start-hour" disabled/>
+                            <input type="text" value="" class="work-start-hour" disabled/>
                             <span class="workhours__mark">:</span>
-                            <input type="text" value="00" class="work-start-min" disabled/>
+                            <input type="text" value="" class="work-start-min" disabled/>
                         </div>
                         <span class="workhours__dash">-</span>
                         <div class="workhours__input-group">
-                            <input type="text" value="22" class="work-start-hour"  disabled/>
+                            <input type="text" value="" class="work-end-hour"  disabled/>
                             <span class="workhours__mark">:</span>
-                            <input type="text" value="00" class="work-start-min"  disabled/>
+                            <input type="text" value="" class="work-end-min"  disabled/>
                         </div>
                     </div>
 
@@ -143,15 +153,15 @@ const employeeSettings = (data = {}) => {
                     </div>
                     <div class="workhours-input-groups-row" id="workhours-even-days">
                         <div class="workhours__input-group">
-                            <input type="text" value="11" class="work-start-hour"  disabled/>
+                            <input type="text" value="" class="work-start-hour"  disabled/>
                             <span class="workhours__mark">:</span>
-                            <input type="text" value="00" class="work-start-min"  disabled/>
+                            <input type="text" value="" class="work-start-min"  disabled/>
                         </div>
                         <span class="workhours__dash">-</span>
                         <div class="workhours__input-group">
-                            <input type="text" value="22" class="work-end-hour" disabled />
+                            <input type="text" value="" class="work-end-hour" disabled />
                             <span class="workhours__mark">:</span>
-                            <input type="text" value="00" class="work-end-min"  disabled/>
+                            <input type="text" value="" class="work-end-min"  disabled/>
                         </div>
                     </div>
 
@@ -161,39 +171,51 @@ const employeeSettings = (data = {}) => {
                     </div>
                     <div class="workhours-input-groups-row" id="workhours-odd-days">
                         <div class="workhours__input-group">
-                            <input type="text" value="11" class="work-start-hour"  disabled/>
+                            <input type="text" value="" class="work-start-hour"  disabled/>
                             <span class="workhours__mark">:</span>
-                            <input type="text" value="00" class="work-start-min"  disabled/>
+                            <input type="text" value="" class="work-start-min"  disabled/>
                         </div>
                         <span class="workhours__dash">-</span>
                         <div class="workhours__input-group">
-                            <input type="text" value="22" class="work-end-hour"  disabled/>
+                            <input type="text" value="" class="work-end-hour"  disabled/>
                             <span class="workhours__mark">:</span>
-                            <input type="text" value="00" class="work-end-min"  disabled/>
+                            <input type="text" value="" class="work-end-min"  disabled/>
                         </div>
                     </div>
 
                     <div class="date-input-row">
                         <p class="date-input-group-label">Nustatyti šį darbo grafiką veikti nuo:</p>
                         <div class="date-input-group">
-                            <input type="text" value="2021" class="schedule-start-year" />
+                            <input type="text" value="" class="schedule-start-year" />
                             <span>-</span>
-                            <input type="text" value="09" class="schedule-start-month" />
+                            <input type="text" value="" class="schedule-start-month" />
                             <span>-</span>
-                            <input type="text" value="30" class="schedule-start-day" />
+                            <input type="text" value="" class="schedule-start-day" />
                         </div>
-                        <p class="text-c-blue">(Rekomenduojama data)</p>
+                        <p class="text-c-blue" style='display: none;' id="reco-new-schedule-date-label">(Rekomenduojama data)</p>
                     </div>
 
-                    <p class="py-20">Vėliausias registruotas kliento vizitas numatytas<br>
-                    <span id="latest-visit-date-time" class="text-nowrap">2021-09-29 20:30 - 21:35</span></p>
+                    <div class="date-input-row">
+                        <p class="date-input-group-label">Iki:</p>
+                        <div class="date-input-group">
+                            <input type="text" value="" class="schedule-end-year" />
+                            <span>-</span>
+                            <input type="text" value="" class="schedule-end-month" />
+                            <span>-</span>
+                            <input type="text" value="" class="schedule-end-day" />
+                        </div>
+                    </div>
 
-                    <p class="py-20" style="display: none;" id="registrations-cancel-note">Nustačius įsigaliojimui šį darbo grafiką ankščiau negu <span id="recommended-new-schedule-date" class="bold-text text-nowrap ">2021-08-25</span> visi pagal seną darbo grafiką registruoti vizitai laikotarpyje <span class="removed-registrations-period">2021-08-20 - 2021-08-24</span> bus panaikinti, klientams bus išsiųsti informaciniai pranešiai.</p>
+                    <!-- <p class="py-20">Vėliausias registruotas kliento vizitas numatytas<br>
+                    // <span id="latest-visit-date-time" class="text-nowrap">2021-09-29 20:30 - 21:35</span></p>
+                    -->
 
-                    <button class="settings__button btn-cherry" type='button'>Išsaugoti darbo grafiką</button>
+                    <p class="py-20" style="display: none;" id="registrations-cancel-note"></p>
+
+                    <button class="settings__button btn-cherry" type='button' id="add-schedule-btn">Išsaugoti darbo grafiką</button>
                 </form>
 
-                <!-- Employee work schedule list -->
+                <!-- Employee schedule list -->
                 <div class="settings__section-heading-row">
                     <h2 class="settings__section-heading">Mano darbo grafikai</h2>
                     <button class="settings__section-toggler" type="button" data-box-id="work-schedule-list" style="display: flex;">
@@ -201,33 +223,9 @@ const employeeSettings = (data = {}) => {
                     </button>
                 </div>
                 <div class="settings__schedule-list" id="work-schedule-list" style="display: none;">
-                    <div class="schedule__item">
-                        <div class="schedule__info">
-                            <p><span class="bold-text text-c-red">Nebegalioja</span><br>nuo 2021-07-01 iki 2021-07-31</p>
-                            <p><span class="bold-text">Darbo dienos:</span> Nelyginės mėnesio dienos</p>
-                            <p><span class="bold-text">Darbo valandos:</span> 12:00 - 19:00</p>
-                        </div>
-                        <button class="button-link text-c-red">Panaikinti grafiką</button>
-                    </div>
-                    <div class="schedule__item">
-                        <div class="schedule__info">
-                            <p><span class="bold-text">Galioja</span><br>nuo 2021-08-01 iki 2021-09-30</p>
-                            <p><span class="bold-text">Darbo dienos:</span> I, II, III, IV, V</p>
-                            <p><span class="bold-text">Darbo valandos:</span> 10:00 - 21:00</p>
-                        </div>
-                        <button class="button-link text-c-red">Panaikinti grafiką</button>
-                    </div>
-                    <div class="schedule__item">
-                        <div class="schedule__info">
-                            <p><span class="bold-text">Galioja</span><br>nuo 2021-10-01 iki 2021-10-29</p>
-                            <p><span class="bold-text">Darbo dienos:</span> Lyginės mėnesio dienos</p>
-                            <p><span class="bold-text">Darbo valandos:</span> 11:00 - 22:00</p>
-                        </div>
-                        <button class="button-link text-c-red">Panaikinti grafiką</button>
-                    </div>
                 </div>
 
-                <!-- Employee work schedule list -->
+                <!-- Employee vacation list -->
                 <div class="settings__section-heading-row">
                     <h2 class="settings__section-heading">Mano atostogos</h2>
                     <button class="settings__section-toggler" type="button" data-box-id="vacation-section" style="display: flex;">
@@ -276,23 +274,45 @@ const employeeSettings = (data = {}) => {
 
     // - Variables
 
+    // section togglers
     const toggleArray = employeeSettings.querySelectorAll(
         ".settings__section-toggler"
     );
 
+    // ADD SCHEDULE SECTION vars
+    const addScheduleFormElem = employeeSettings.querySelector(
+        "#work-schedule-form"
+    );
     const radioInputWeekdays =
         employeeSettings.querySelector("#radio-weekdays");
     const radioEvenDays = employeeSettings.querySelector("#radio-even-days");
     const radioOddDays = employeeSettings.querySelector("#radio-odd-days");
+    const addScheduleButton =
+        employeeSettings.querySelector("#add-schedule-btn");
 
-    // - Functions, which run on current View load.
-
-    employeeSettings.insertBefore(
-        employeeNav(),
-        employeeSettings.querySelector(".settings")
+    // SCHEDULE LIST SECTION vars
+    const scheduleListElem = employeeSettings.querySelector(
+        "#work-schedule-list"
     );
 
-    // - Functions, called by demand
+    // BASIC settings view functions
+
+    const sectionToggleHandler = (toggleBtn) => {
+        const boxElem = employeeSettings.querySelector(
+            "#" + toggleBtn.dataset.boxId
+        );
+        const toggleImg = toggleBtn.querySelector("img");
+        if (boxElem.style.display == "flex") {
+            boxElem.style.display = "none";
+            toggleImg.src =
+                "styles/images/icons/arrow-down-sign-to-navigate.png";
+        } else {
+            boxElem.style.display = "flex";
+            toggleImg.src = "styles/images/icons/navigate-up-arrow.png";
+        }
+    };
+
+    // SET NEW SCHEDULE SECTION functions
 
     const changeWeekdayScheduleInputStates = (status) => {
         const weekdayScheduleRowElem = employeeSettings.querySelector(
@@ -333,52 +353,410 @@ const employeeSettings = (data = {}) => {
         });
     };
 
-    // - Events
-
-    toggleArray.forEach((toggleBtn) => {
-        toggleBtn.addEventListener("click", () => {
-            const boxElem = employeeSettings.querySelector(
-                "#" + toggleBtn.dataset.boxId
-            );
-            const toggleImg = toggleBtn.querySelector("img");
-            if (boxElem.style.display == "flex") {
-                boxElem.style.display = "none";
-                toggleImg.src =
-                    "styles/images/icons/arrow-down-sign-to-navigate.png";
-            } else {
-                boxElem.style.display = "flex";
-                toggleImg.src = "styles/images/icons/navigate-up-arrow.png";
-            }
-        });
-    });
-
-    radioInputWeekdays.addEventListener("click", () => {
+    const activeScheduleWeekdayInputs = () => {
         if (radioInputWeekdays.checked) {
             changeWeekdayScheduleInputStates(true);
             changeEvenDaysScheduleInputStates(false);
             changeOddDaysScheduleInputStates(false);
         }
-    });
-    radioEvenDays.addEventListener("click", () => {
+    };
+    const activateScheduleEvenDayInputs = () => {
         if (radioEvenDays.checked) {
             changeWeekdayScheduleInputStates(false);
             changeEvenDaysScheduleInputStates(true);
             changeOddDaysScheduleInputStates(false);
         }
-    });
-    radioOddDays.addEventListener("click", () => {
+    };
+    const activateScheduleOddDayInputs = () => {
         if (radioOddDays.checked) {
             changeWeekdayScheduleInputStates(false);
             changeEvenDaysScheduleInputStates(false);
             changeOddDaysScheduleInputStates(true);
         }
-    });
+    };
 
-    // functions
+    const clearAddScheduleFormInputs = () => {
+        const weekdayCheckboxes =
+            addScheduleFormElem.querySelectorAll(".weekday-checkbox");
+        weekdayCheckboxes.forEach((checkbox) => (checkbox.checked = false));
+        radioInputWeekdays.checked = false;
+        radioEvenDays.checked = false;
+        radioOddDays.checked = false;
 
-    const mountView = () => {};
+        addScheduleFormElem
+            .querySelectorAll(".work-start-hour")
+            .forEach((input) => (input.value = ""));
 
-    const viewDidMount = () => {};
+        addScheduleFormElem
+            .querySelectorAll(".work-start-min")
+            .forEach((input) => (input.value = ""));
+
+        addScheduleFormElem
+            .querySelectorAll(".work-end-hour")
+            .forEach((input) => (input.value = ""));
+
+        addScheduleFormElem
+            .querySelectorAll(".work-end-min")
+            .forEach((input) => (input.value = ""));
+
+        addScheduleFormElem.querySelector(".schedule-end-year").value = "";
+        addScheduleFormElem.querySelector(".schedule-end-month").value = "";
+        addScheduleFormElem.querySelector(".schedule-end-day").value = "";
+    };
+
+    const addScheduleButtonHandler = async (e) => {
+        e.preventDefault();
+
+        const schedule = {};
+        schedule.selectedWeekdays = [];
+        let workTimeInputBox = null;
+
+        if (radioInputWeekdays.checked) {
+            const weekdayCheckboxes =
+                addScheduleFormElem.querySelectorAll(".weekday-checkbox");
+            weekdayCheckboxes.forEach((checkbox) => {
+                if (checkbox.checked)
+                    schedule.selectedWeekdays.push(
+                        parseInt(checkbox.dataset.weekday)
+                    );
+            });
+            if (!schedule.selectedWeekdays.length) {
+                displayWarning(
+                    "Prašome nurodyti savaitės dienas kuriomis norite dirbti.",
+                    employeeSettings.querySelector(".settings__content"),
+                    employeeSettings.querySelector("#work-schedule-form")
+                );
+                return;
+            }
+
+            schedule.scheduleType = 1;
+            workTimeInputBox = addScheduleFormElem.querySelector(
+                "#workhours-weekdays"
+            );
+        } else if (radioEvenDays.checked) {
+            schedule.scheduleType = 2;
+            workTimeInputBox = addScheduleFormElem.querySelector(
+                "#workhours-even-days"
+            );
+        } else if (radioOddDays.checked) {
+            schedule.scheduleType = 3;
+            workTimeInputBox = addScheduleFormElem.querySelector(
+                "#workhours-odd-days"
+            );
+        } else {
+            displayWarning(
+                "Prašome užpildyti formą apie naują darbo grafiką.",
+                employeeSettings.querySelector(".settings__content"),
+                employeeSettings.querySelector("#work-schedule-form")
+            );
+            employeeSettings
+                .querySelector("#work-schedule-form")
+                .scrollIntoView({ behavior: "smooth" });
+            return;
+        }
+
+        const workTimeStart = {};
+        const workTimeEnd = {};
+
+        workTimeStart.startHour = parseInt(
+            workTimeInputBox.querySelector(".work-start-hour").value
+        );
+        workTimeStart.startMin = parseInt(
+            workTimeInputBox.querySelector(".work-start-min").value
+        );
+        workTimeEnd.endHour = parseInt(
+            workTimeInputBox.querySelector(".work-end-hour").value
+        );
+        workTimeEnd.endMin = parseInt(
+            workTimeInputBox.querySelector(".work-end-min").value
+        );
+        if (
+            !workTimeInputBox.querySelector(".work-start-hour").value ||
+            !workTimeInputBox.querySelector(".work-start-min").value ||
+            !workTimeInputBox.querySelector(".work-end-hour").value ||
+            !workTimeInputBox.querySelector(".work-end-min").value
+        ) {
+            displayWarning(
+                "Prašome nurodyti darbo valandas.",
+                employeeSettings.querySelector(".settings__content"),
+                employeeSettings.querySelector("#work-schedule-form")
+            );
+            return;
+        }
+        if (
+            workTimeStart.startHour >= 24 ||
+            workTimeStart.startMin >= 60 ||
+            workTimeEnd.endHour >= 24 ||
+            workTimeEnd.endMin >= 60
+        ) {
+            displayWarning(
+                "Prašome nurodyti darbo valandas (00:00 - 23:55) laikotarpyje.",
+                employeeSettings.querySelector(".settings__content"),
+                employeeSettings.querySelector("#work-schedule-form")
+            );
+            return;
+        }
+        if (workTimeStart.startHour >= workTimeEnd.endHour) {
+            displayWarning(
+                "Darbo trukmė negali būti trumpesnė negu 1 valanda.",
+                employeeSettings.querySelector(".settings__content"),
+                employeeSettings.querySelector("#work-schedule-form")
+            );
+            return;
+        }
+
+        schedule.workTimeStart = workTimeStart;
+        schedule.workTimeEnd = workTimeEnd;
+
+        const scheduleStartDate = {};
+        const scheduleEndDate = {};
+
+        scheduleStartDate.year = parseInt(
+            addScheduleFormElem.querySelector(".schedule-start-year").value
+        );
+        scheduleStartDate.month = parseInt(
+            addScheduleFormElem.querySelector(".schedule-start-month").value
+        );
+        scheduleStartDate.day = parseInt(
+            addScheduleFormElem.querySelector(".schedule-start-day").value
+        );
+
+        scheduleEndDate.year = parseInt(
+            addScheduleFormElem.querySelector(".schedule-end-year").value
+        );
+        scheduleEndDate.month = parseInt(
+            addScheduleFormElem.querySelector(".schedule-end-month").value
+        );
+        scheduleEndDate.day = parseInt(
+            addScheduleFormElem.querySelector(".schedule-end-day").value
+        );
+
+        schedule.scheduleStartDate = scheduleStartDate;
+        schedule.scheduleEndDate = scheduleEndDate;
+
+        await axios
+            .post(EMPLOYEE_ADD_SCHEDULE_URI, { schedule }, data.authHeader)
+            .then((res) => {
+                displaySuccess(
+                    "Grafikas sėkmingai pridėtas.",
+                    employeeSettings.querySelector(".settings__content"),
+                    employeeSettings.querySelector("#work-schedule-form")
+                );
+            })
+            .catch((err) => {
+                displayError(
+                    err.response.data.message,
+                    employeeSettings.querySelector(".settings__content"),
+                    employeeSettings.querySelector("#work-schedule-form")
+                );
+            });
+        clearAddScheduleFormInputs();
+        displaySchedules();
+    };
+
+    const displayLatestScheduleNotification = (scheduleArr) => {
+        const latestScheduleDate = new Date(
+            Math.max(
+                ...scheduleArr.map((schedule) => new Date(schedule.endDate))
+            )
+        );
+        const recommendedNewScheduleDate = new Date(
+            latestScheduleDate.getTime()
+        );
+        recommendedNewScheduleDate.setDate(
+            recommendedNewScheduleDate.getDate() + 1
+        );
+
+        // vu - Valid Until
+        const vuYear = latestScheduleDate.getUTCFullYear();
+        const vuMonth = ("0" + (latestScheduleDate.getUTCMonth() + 1)).slice(
+            -2
+        );
+        const vuDay = ("0" + latestScheduleDate.getUTCDate()).slice(-2);
+
+        // reco - Recommended new schedule date
+        const recoYear = recommendedNewScheduleDate.getUTCFullYear();
+        const recoMonth = (
+            "0" +
+            (recommendedNewScheduleDate.getUTCMonth() + 1)
+        ).slice(-2);
+        const recoDay = ("0" + recommendedNewScheduleDate.getUTCDate()).slice(
+            -2
+        );
+
+        const latestScheduleNoteElement = employeeSettings.querySelector(
+            "#registrations-cancel-note"
+        );
+        latestScheduleNoteElement.style.display = "block";
+        latestScheduleNoteElement.innerHTML =
+            /*html*/
+            `
+            Paskutinis jūsų darbo grafikas galioja iki: <span class="bold-text text-nowrap ">${vuYear}-${vuMonth}-${vuDay}</span>.
+            <br>
+            Nustačiaus naują grafiką ankščiau seno grafiko pabaigos, dalis registruotų vizitų gali būti atšaukti.
+            `;
+
+        addScheduleFormElem.querySelector(".schedule-start-year").value =
+            recoYear;
+
+        addScheduleFormElem.querySelector(".schedule-start-month").value =
+            recoMonth;
+
+        addScheduleFormElem.querySelector(".schedule-start-day").value =
+            recoDay;
+
+        addScheduleFormElem.querySelector(
+            "#reco-new-schedule-date-label"
+        ).style.display = "block";
+    };
+
+    // SCHEDULE LIST
+
+    const fetchSchedules = async () => {
+        const schedules = await axios
+            .get(EMPLOYEE_GET_SCHEDULES_URI, data.authHeader)
+            .then((res) => res.data.schedules)
+            .catch((err) => {
+                displayError(
+                    err.response.data.message,
+                    employeeSettings.querySelector(".settings__content"),
+                    employeeSettings.querySelector("#work-schedule-list")
+                );
+            });
+        return schedules;
+    };
+
+    const displaySchedules = async () => {
+        const schedules = await fetchSchedules();
+
+        scheduleListElem.innerHTML = "";
+        if (schedules.length) {
+            // - In ADD SCHEDULE section displays notification about latest schedule.
+            displayLatestScheduleNotification(schedules);
+
+            schedules.forEach((schedule) => {
+                console.log(schedule);
+                const validFrom = new Date(schedule.startDate);
+                const vfYear = validFrom.getUTCFullYear();
+                const vfMonth = ("0" + (validFrom.getUTCMonth() + 1)).slice(-2);
+                const vfDay = ("0" + validFrom.getUTCDate()).slice(-2);
+
+                const validUntil = new Date(schedule.endDate);
+                const vuYear = validUntil.getUTCFullYear();
+                const vuMonth = ("0" + (validUntil.getUTCMonth() + 1)).slice(
+                    -2
+                );
+                const vuDay = ("0" + validUntil.getUTCDate()).slice(-2);
+
+                const currentDate = new Date();
+
+                const currentlyValid =
+                    validUntil.getTime() < currentDate.getTime() ? false : true;
+
+                scheduleListElem.innerHTML +=
+                    /*html*/
+                    `
+                <div class="schedule__item">
+                    <div class="schedule__info">
+                        <p><span class="bold-text ${
+                            !currentlyValid && "text-c-red"
+                        }">${
+                        currentlyValid ? "Galioja" : "Nebegalioja"
+                    }</span><br>nuo ${vfYear}-${vfMonth}-${vfDay} iki ${vuYear}-${vuMonth}-${vuDay}</p>
+                        <p><span class="bold-text">Darbo dienos:</span> ${
+                            schedule.workingDays
+                        }</p>
+                        <p><span class="bold-text">Darbo valandos:</span>
+                        ${("0" + schedule.workStartTime.startHour).slice(
+                            -2
+                        )}:${("0" + schedule.workStartTime.startMinute).slice(
+                        -2
+                    )} - 
+                        ${("0" + schedule.workEndTime.endHour).slice(-2)}:${(
+                        "0" + schedule.workEndTime.endMinute
+                    ).slice(-2)}</p>
+                    </div>
+                    <button class="button-link text-c-red remove-schedule-btn" data-schedule-id="${
+                        schedule._id
+                    }">Panaikinti grafiką</button>
+                </div>
+            `;
+            });
+            const removeScheduleBtns = scheduleListElem.querySelectorAll(
+                ".remove-schedule-btn"
+            );
+            removeScheduleBtns.forEach((btn) => {
+                btn.addEventListener("click", () =>
+                    removeScheduleButtonHandler(btn.dataset.scheduleId)
+                );
+            });
+        } else {
+            scheduleListElem.innerHTML +=
+                /*html*/
+                `
+                <div class="schedule__item">
+                    <div class="schedule__info">
+                        <p>
+                            <span class="text-c-red">Grafikų nerasta. Pridėti naują grafiką galite skyriuje 'Nustatyti naują darbo grafiką'</span>
+                        </p>
+                    </div>
+                </div>
+                `;
+        }
+    };
+
+    const removeScheduleButtonHandler = async (scheduleID) => {
+        await axios
+            .delete(EMPLOYEE_DELETE_SCHEDULE_URI + scheduleID, data.authHeader)
+            .then((res) => {
+                displaySuccess(
+                    res.data.message,
+                    employeeSettings.querySelector(".settings__content"),
+                    employeeSettings.querySelector("#work-schedule-list")
+                );
+            })
+            .catch((err) => {
+                displayError(
+                    err.response.data.message,
+                    employeeSettings.querySelector(".settings__content"),
+                    employeeSettings.querySelector("#work-schedule-list")
+                );
+            });
+        displaySchedules();
+    };
+
+    // ESSENTIAL VIEW FUNCTIONS:
+
+    const mountView = () => {
+        employeeSettings.insertBefore(
+            employeeNav(),
+            employeeSettings.querySelector(".settings")
+        );
+        toggleArray.forEach((toggleBtn) => {
+            toggleBtn.addEventListener("click", () =>
+                sectionToggleHandler(toggleBtn)
+            );
+        });
+
+        // SET NEW SCHEDULE EVENTS
+        radioInputWeekdays.addEventListener("click", () =>
+            activeScheduleWeekdayInputs()
+        );
+        radioEvenDays.addEventListener("click", () =>
+            activateScheduleEvenDayInputs()
+        );
+        radioOddDays.addEventListener("click", () =>
+            activateScheduleOddDayInputs()
+        );
+
+        addScheduleButton.addEventListener("click", (e) =>
+            addScheduleButtonHandler(e)
+        );
+    };
+
+    const viewDidMount = () => {
+        displaySchedules();
+    };
 
     const unmountView = () => {};
 

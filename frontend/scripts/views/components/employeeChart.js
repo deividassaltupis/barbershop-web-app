@@ -15,7 +15,7 @@ const employeeChart = (chartElementID) => {
                 label: "Klientai",
                 backgroundColor: "rgb(10, 10, 238)",
                 borderColor: "rgb(10, 10, 238)",
-                data: [0, 0, 0, 10, 31, 65, 101],
+                data: [0, 0, 0, 0, 0, 0, 0],
             },
         ],
     };

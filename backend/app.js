@@ -25,6 +25,10 @@ import getEmployeeServicesController from "./controllers/private/employee/getEmp
 import editServiceController from "./controllers/private/employee/editServiceController.js";
 import getSingleServiceController from "./controllers/private/employee/getSingleServiceController.js";
 
+import addScheduleController from "./controllers/private/employee/addScheduleController.js";
+import getSchedulesController from "./controllers/private/employee/getSchedulesController.js";
+import deleteScheduleController from "./controllers/private/employee/deleteScheduleController.js";
+
 // -- Middlewares
 import authentification from "./middleware/authentification.js";
 import dbConnectionCheck from "./middleware/dbConnectionCheck.js";
@@ -78,6 +82,11 @@ app.get("/api/users/verify_token/:token", verifyTokenController);
 // * /api/users/add_registration/ - Mutual route for both visitors and employees to add new registrations.
 //app.post("/api/users/add_registration/");
 
+// -
+app.get("/api/get_services_and_employees", (req, res) => {});
+
+app.get("/api/get_free_registration_dates_and_times", (req, res) => {});
+
 app.get("/api/services/", getServicesController);
 
 // - AUTHENTIFICATION of user. If auth succeeds user will be allowed to access next routes.
@@ -110,6 +119,11 @@ app.get("/api/employee/get_services/", getEmployeeServicesController);
 app.get("/api/employee/get_service/:serviceID", getSingleServiceController);
 app.put("/api/employee/update_service/:serviceID", editServiceController);
 
-//app.put("/api/employee/edit_service/");
+// --- Schedules
 
-//app.delete("/api/employee/delete_service/");
+app.get("/api/employee/get_schedules/", getSchedulesController);
+app.post("/api/employee/add_schedule/", addScheduleController);
+app.delete(
+    "/api/employee/delete_schedule/:scheduleID",
+    deleteScheduleController
+);

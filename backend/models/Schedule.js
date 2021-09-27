@@ -28,7 +28,7 @@ const scheduleSchema = mongoose.Schema({
             required: true,
         },
     },
-    workdEndTime: {
+    workEndTime: {
         endHour: {
             type: Number,
             required: true,
@@ -37,6 +37,18 @@ const scheduleSchema = mongoose.Schema({
             type: Number,
             required: true,
         },
+    },
+    startDate: {
+        type: Date,
+        required: true,
+    },
+    endDate: {
+        type: Date,
+        required: true,
+    },
+    workingDays: {
+        type: String,
+        required: false,
     },
 });
 

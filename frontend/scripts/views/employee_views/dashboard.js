@@ -17,12 +17,12 @@ const employeeDashboard = (data = {}) => {
                     <div class='dashboard__statistics-item'>
                         <img src="styles/images/icons/customer.png" alt="" />
                         <p class="dashboard__item-title">Viso klientų aptarnauta per einamąjį mėnesį</p>
-                        <span class="dashboard__item-value">129</span>
+                        <span class="dashboard__item-value">0</span>
                     </div>
                     <div class='dashboard__statistics-item'>
                         <img src="styles/images/icons/profits.png" alt="" />
                         <p class="dashboard__item-title">Šio mėnesio pajamos</p>
-                        <span class="dashboard__item-value">2040 &euro;</span>
+                        <span class="dashboard__item-value">0 &euro;</span>
                     </div>
                 </div>
                 <div class="dashboard__chart-box">
