@@ -27,28 +27,22 @@ const registrationSchema = mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         required: true,
     },
+    serviceTitle: {
+        type: String,
+        required: true,
+    },
+    servicePrice: {
+        type: Number,
+        required: true,
+    },
     timeSlots: [mongoose.Schema.Types.ObjectId],
-    dateAndTime: {
-        year: {
-            type: Number,
-            required: true,
-        },
-        month: {
-            type: Number,
-            required: true,
-        },
-        day: {
-            type: Number,
-            required: true,
-        },
-        hour: {
-            type: Number,
-            required: true,
-        },
-        minute: {
-            type: Number,
-            required: true,
-        },
+    startDate: {
+        type: Date,
+        required: true,
+    },
+    endDate: {
+        type: Date,
+        required: true,
     },
     payMethod: {
         type: Number,
@@ -56,6 +50,10 @@ const registrationSchema = mongoose.Schema({
     },
     paid: {
         type: Boolean,
+        required: true,
+    },
+    visitStatus: {
+        type: Number,
         required: true,
     },
 });

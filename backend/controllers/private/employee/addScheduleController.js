@@ -3,22 +3,7 @@ import { Schedule } from "../../../models/Schedule.js";
 import { RegistrationTimeSlot } from "../../../models/RegistrationTimeSlot.js";
 import { REG_TIME_SLOT_DURATION_IN_MINUTES } from "../../../utils/defines.js";
 
-const getDaysOfMonth = (year, month) => new Date(year, month, 0).getDate();
-
-const addMinutesToTime = (currentTime, minutes) => {
-    if (
-        typeof currentTime.hour == "undefined" ||
-        typeof currentTime.minute == "undefined"
-    )
-        return;
-    const time = { ...currentTime };
-    time.minute += minutes;
-    while (time.minute >= 60) {
-        time.minute -= 60;
-        time.hour++;
-    }
-    return { hour: time.hour, minute: time.minute };
-};
+import { addMinutesToTime, getDaysOfMonth } from "../../../utils/time.js";
 
 const addScheduleController = async (req, res) => {
     if (!employeeAuthorization(req, res)) return;
@@ -249,8 +234,34 @@ const addScheduleController = async (req, res) => {
                         timeSlotEnd.minute > wTimeEnd.endMin
                     )
                         break;
+
+                    let slotStartDate = new Date(
+                        year,
+                        month - 1,
+                        day,
+                        timeSlotStart.hour,
+                        timeSlotStart.minute
+                    );
+                    let slotEndDate = new Date(
+                        year,
+                        month - 1,
+                        day,
+                        timeSlotEnd.hour,
+                        timeSlotEnd.minute
+                    );
+
+                    // slotStartDate = new Date(
+                    //     slotStartDate.getTime() +
+                    //         Math.abs(slotStartDate.getTimezoneOffset() * 60000)
+                    // );
+                    // slotEndDate = new Date(
+                    //     slotEndDate.getTime() +
+                    //         Math.abs(slotEndDate.getTimezoneOffset() * 60000)
+                    // );
+
                     const regTimeSlot = {
                         scheduleID: null,
+                        employeeID: userID,
                         start: {
                             startYear: year,
                             startMonth: month,
@@ -265,6 +276,8 @@ const addScheduleController = async (req, res) => {
                             endHour: timeSlotEnd.hour,
                             endMinute: timeSlotEnd.minute,
                         },
+                        startDate: slotStartDate,
+                        endDate: slotEndDate,
                         taken: false,
                     };
                     registrationSlots.push(regTimeSlot);
@@ -282,6 +295,16 @@ const addScheduleController = async (req, res) => {
     }
     //scheduleStartDate.year
 
+    /* 
+    startDate: new Date(
+            startDate.getTime() +
+                Math.abs(startDate.getTimezoneOffset() * 60000)
+        ),
+        endDate: new Date(
+            endDate.getTime() + Math.abs(endDate.getTimezoneOffset() * 60000)
+        ),
+    */
+
     const scheduleObj = new Schedule({
         employeeID: userID,
         workPeriods: workPeriods,
@@ -293,13 +316,8 @@ const addScheduleController = async (req, res) => {
             endHour: wTimeEnd.endHour,
             endMinute: wTimeEnd.endMin,
         },
-        startDate: new Date(
-            startDate.getTime() +
-                Math.abs(startDate.getTimezoneOffset() * 60000)
-        ),
-        endDate: new Date(
-            endDate.getTime() + Math.abs(endDate.getTimezoneOffset() * 60000)
-        ),
+        startDate: startDate,
+        endDate: endDate,
         workingDays: workingDaysLabel,
     });
     const createdSchedule = await scheduleObj.save();

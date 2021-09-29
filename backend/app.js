@@ -9,6 +9,9 @@ import colors from "colors";
 import loginController from "./controllers/public/loginController.js";
 import verifyTokenController from "./controllers/public/verifyTokenController.js";
 import getServicesController from "./controllers/public/getServicesController.js";
+import getEmployeesController from "./controllers/public/getEmployeesController.js";
+import getFreeRegistrationDatesAndTimes from "./controllers/public/getFreeRegistrationDatesAndTimesController.js";
+import addRegistrationController from "./controllers/public/addRegistrationController.js";
 
 // ---- Private controllers. For all authentificated web app users (admins and employess)
 import updateUserController from "./controllers/private/updateUserController.js";
@@ -28,6 +31,8 @@ import getSingleServiceController from "./controllers/private/employee/getSingle
 import addScheduleController from "./controllers/private/employee/addScheduleController.js";
 import getSchedulesController from "./controllers/private/employee/getSchedulesController.js";
 import deleteScheduleController from "./controllers/private/employee/deleteScheduleController.js";
+
+import getRegistrationsController from "./controllers/private/employee/getRegistrationsController.js";
 
 // -- Middlewares
 import authentification from "./middleware/authentification.js";
@@ -80,14 +85,16 @@ app.post("/api/users/login/", loginController);
 app.get("/api/users/verify_token/:token", verifyTokenController);
 
 // * /api/users/add_registration/ - Mutual route for both visitors and employees to add new registrations.
-//app.post("/api/users/add_registration/");
+app.post("/api/add_registration/", addRegistrationController);
 
-// -
-app.get("/api/get_services_and_employees", (req, res) => {});
-
-app.get("/api/get_free_registration_dates_and_times", (req, res) => {});
+app.post(
+    "/api/get_free_registration_dates_and_times/",
+    getFreeRegistrationDatesAndTimes
+);
 
 app.get("/api/services/", getServicesController);
+
+app.get("/api/employees/", getEmployeesController);
 
 // - AUTHENTIFICATION of user. If auth succeeds user will be allowed to access next routes.
 app.use(authentification);
@@ -105,7 +112,7 @@ app.post("/api/admin/add_user/", addUserController);
 
 // --- Registrations
 
-//app.get("/api/employee/get_registrations/");
+app.post("/api/employee/get_registrations/", getRegistrationsController);
 
 //app.put("/api/employee/edit_registration/");
 

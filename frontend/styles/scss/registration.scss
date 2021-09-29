@@ -1,5 +1,5 @@
 @import "variables";
-@use 'sass:math';
+@use "sass:math";
 
 main {
     width: 100%;
@@ -57,13 +57,14 @@ main {
                         width: 100%;
                         .label-input-group {
                             padding-right: 15px;
-                            select {
+                            width: 100%;
+                            #date-time-select {
                                 width: 100%;
                             }
                         }
-                        .label-input-group:last-child {
-                            width: 100%;
-                        }
+                        // .label-input-group:last-child {
+                        //     width: 100%;
+                        // }
                     }
                 }
                 .registration__button-row {

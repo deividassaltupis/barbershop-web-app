@@ -1,6 +1,6 @@
 @import "variables";
 @import "employeeNavigation";
-@use 'sass:math';
+@use "sass:math";
 
 main {
     width: 100%;
@@ -23,6 +23,7 @@ main {
                 padding: 20px 5px 5px 5px;
                 .registrations__add-button-row {
                     display: flex;
+                    padding: 10px 0;
                     button {
                         width: 180px;
                     }
@@ -48,11 +49,19 @@ main {
                             label {
                                 padding: 20px 0 10px;
                             }
-                            .filter__selection-row {
+                            .filter__input-row {
                                 display: flex;
                                 justify-content: space-between;
-                                select {
-                                    width: 30%;
+                                input {
+                                    padding: 5px;
+                                    margin: 3px;
+                                    width: 80px;
+                                }
+                                .filter-input-1x {
+                                    width: 40px;
+                                }
+                                .filter-input-2x {
+                                    width: 80px;
                                 }
                             }
                         }
@@ -244,13 +253,8 @@ main {
                                     text-align: left;
                                     color: black;
                                 }
-                                .edit__year-select,
-                                .edit__month-select,
-                                .edit__day-select {
-                                    width: 80px;
-                                }
-                                .edit__time-select {
-                                    width: 150px;
+                                .edit__year-select {
+                                    width: 230px;
                                 }
                             }
                             button {

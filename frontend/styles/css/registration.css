@@ -1,4 +1,4 @@
-@use 'sass:math';
+@use "sass:math";
 main {
   width: 100%;
   height: auto;
@@ -45,11 +45,10 @@ main {
           flex-wrap: wrap;
           width: 100%; }
           main #registration-content .registration-section .registration__form-box #registration__form .date-and-time-select-row .label-input-group {
-            padding-right: 15px; }
-            main #registration-content .registration-section .registration__form-box #registration__form .date-and-time-select-row .label-input-group select {
-              width: 100%; }
-          main #registration-content .registration-section .registration__form-box #registration__form .date-and-time-select-row .label-input-group:last-child {
+            padding-right: 15px;
             width: 100%; }
+            main #registration-content .registration-section .registration__form-box #registration__form .date-and-time-select-row .label-input-group #date-time-select {
+              width: 100%; }
       main #registration-content .registration-section .registration__form-box .registration__button-row {
         display: flex;
         padding: 40px 0; }

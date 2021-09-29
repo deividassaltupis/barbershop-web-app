@@ -56,7 +56,7 @@
     #employee-nav .employee-nav__list-box {
       padding: 30px 0; } }
 
-@use 'sass:math';
+@use "sass:math";
 main {
   width: 100%;
   height: auto;
@@ -76,7 +76,8 @@ main {
         flex-direction: column;
         padding: 20px 5px 5px 5px; }
         main #employee-registrations .registrations .registrations__content .registrations__add-button-row {
-          display: flex; }
+          display: flex;
+          padding: 10px 0; }
           main #employee-registrations .registrations .registrations__content .registrations__add-button-row button {
             width: 180px; }
         main #employee-registrations .registrations .registrations__content .registrations__filter-row {
@@ -97,11 +98,17 @@ main {
               flex-direction: column; }
               main #employee-registrations .registrations .registrations__content .registrations__filter-row .filter__date-box .filter__date-select-box label {
                 padding: 20px 0 10px; }
-              main #employee-registrations .registrations .registrations__content .registrations__filter-row .filter__date-box .filter__date-select-box .filter__selection-row {
+              main #employee-registrations .registrations .registrations__content .registrations__filter-row .filter__date-box .filter__date-select-box .filter__input-row {
                 display: flex;
                 justify-content: space-between; }
-                main #employee-registrations .registrations .registrations__content .registrations__filter-row .filter__date-box .filter__date-select-box .filter__selection-row select {
-                  width: 30%; }
+                main #employee-registrations .registrations .registrations__content .registrations__filter-row .filter__date-box .filter__date-select-box .filter__input-row input {
+                  padding: 5px;
+                  margin: 3px;
+                  width: 80px; }
+                main #employee-registrations .registrations .registrations__content .registrations__filter-row .filter__date-box .filter__date-select-box .filter__input-row .filter-input-1x {
+                  width: 40px; }
+                main #employee-registrations .registrations .registrations__content .registrations__filter-row .filter__date-box .filter__date-select-box .filter__input-row .filter-input-2x {
+                  width: 80px; }
             main #employee-registrations .registrations .registrations__content .registrations__filter-row .filter__date-box .filter__date-button-row {
               display: flex;
               justify-content: center;
@@ -245,12 +252,8 @@ main {
                   background-color: white;
                   text-align: left;
                   color: black; }
-                main #employee-registrations .registrations .registrations__content .registrations__card-rows .card__edit-row .card__edit-form .select-group .edit__year-select,
-                main #employee-registrations .registrations .registrations__content .registrations__card-rows .card__edit-row .card__edit-form .select-group .edit__month-select,
-                main #employee-registrations .registrations .registrations__content .registrations__card-rows .card__edit-row .card__edit-form .select-group .edit__day-select {
-                  width: 80px; }
-                main #employee-registrations .registrations .registrations__content .registrations__card-rows .card__edit-row .card__edit-form .select-group .edit__time-select {
-                  width: 150px; }
+                main #employee-registrations .registrations .registrations__content .registrations__card-rows .card__edit-row .card__edit-form .select-group .edit__year-select {
+                  width: 230px; }
               main #employee-registrations .registrations .registrations__content .registrations__card-rows .card__edit-row .card__edit-form button {
                 height: 30px;
                 padding: 0 12px;

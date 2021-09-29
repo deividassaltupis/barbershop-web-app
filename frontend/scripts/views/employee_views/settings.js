@@ -637,16 +637,14 @@ const employeeSettings = (data = {}) => {
             schedules.forEach((schedule) => {
                 console.log(schedule);
                 const validFrom = new Date(schedule.startDate);
-                const vfYear = validFrom.getUTCFullYear();
-                const vfMonth = ("0" + (validFrom.getUTCMonth() + 1)).slice(-2);
-                const vfDay = ("0" + validFrom.getUTCDate()).slice(-2);
+                const vfYear = validFrom.getFullYear();
+                const vfMonth = ("0" + (validFrom.getMonth() + 1)).slice(-2);
+                const vfDay = ("0" + validFrom.getDate()).slice(-2);
 
                 const validUntil = new Date(schedule.endDate);
-                const vuYear = validUntil.getUTCFullYear();
-                const vuMonth = ("0" + (validUntil.getUTCMonth() + 1)).slice(
-                    -2
-                );
-                const vuDay = ("0" + validUntil.getUTCDate()).slice(-2);
+                const vuYear = validUntil.getFullYear();
+                const vuMonth = ("0" + (validUntil.getMonth() + 1)).slice(-2);
+                const vuDay = ("0" + validUntil.getDate()).slice(-2);
 
                 const currentDate = new Date();
 

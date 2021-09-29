@@ -359,8 +359,7 @@ const employeeAddService = (data = {}) => {
     };
 
     const loadExistingServices = async () => {
-        let servicesArr = (await axios.get(GET_ALL_SERVICES_URI)).data
-            .servicesArr;
+        let servicesArr = (await axios.get(GET_ALL_SERVICES_URI)).data.services;
         servicesArr = servicesArr.filter(
             (service) =>
                 !data.user.serviceList.find(

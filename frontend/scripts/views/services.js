@@ -1,4 +1,9 @@
 import route from "../modules/route.js";
+import {
+    GET_ALL_EMPLOYEES_URI,
+    GET_ALL_SERVICES_URI,
+} from "../utils/endpoints.js";
+import { displayError } from "./components/alerts.js";
 
 const services = (data = {}) => {
     let services = document.createElement("div");
@@ -12,54 +17,6 @@ const services = (data = {}) => {
                 <h2><span>Paslaugos</span></h2>
             </div>
             <div class="services__list">
-
-                <div class="services__service-box">
-                    <div class="services__service-heading-box">
-                        <div class="services__service-icon">
-                            <img src="styles/images/icons/hairdressing-scissors.png" alt="" />
-                        </div>
-                        <span class='services__service-heading'>Vyriškas kirpimas</span>
-                    </div>
-                    <div class='services__service-info'>
-                        <div class='services__services-info-row'>
-                            <span class='services__service-info-title'>Trukmė:</span>
-                            <span class='services__service-info-value'>60 min</span>
-                        </div>
-                        <div class='services__services-info-row'>
-                            <span class='services__service-info-title'>Kaina:</span>
-                            <span class='services__service-info-value'>20 &euro;</span>
-                        </div>
-                        <div class='services__services-info-row'>
-                            <span class='services__service-info-title'>Paslauga teikia:</span>
-                            <span class='services__service-info-value'>Kamila, Eduard</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="services__service-box">
-                    <div class="services__service-heading-box">
-                        <div class="services__service-icon">
-                            <img src="styles/images/icons/hairdressing-scissors.png" alt="" />
-                        </div>
-                        <span class='services__service-heading'>PLAUKŲ KIRPIMAS IR BARZDOS MODELIAVIMAS 
-                        NAUDOJANT KARŠTUS RANKŠLUOSČIUS </span>
-                    </div>
-                    <div class='services__service-info'>
-                        <div class='services__services-info-row'>
-                            <span class='services__service-info-title'>Trukmė:</span>
-                            <span class='services__service-info-value'>1h 20 min</span>
-                        </div>
-                        <div class='services__services-info-row'>
-                            <span class='services__service-info-title'>Kaina:</span>
-                            <span class='services__service-info-value'>35 &euro;</span>
-                        </div>
-                        <div class='services__services-info-row'>
-                            <span class='services__service-info-title'>Paslauga teikia:</span>
-                            <span class='services__service-info-value'>Eduard, Evelina, Ieva, Tatjana, Egle, Silvija</span>
-                        </div>
-                    </div>
-                </div>
-
             </div>
             <div class='services__row'>
                 <button id='linkToRegistration' class='btn btn-lg btn-spring-green-light'>Registruotis vizitui</button>
@@ -67,15 +24,111 @@ const services = (data = {}) => {
         </section>
         `;
 
-    services
-        .querySelector("#linkToRegistration")
-        .addEventListener("click", () => route("/registracija"));
+    const serviceListElem = services.querySelector(".services__list");
+    const registerButtonElem = services.querySelector("#linkToRegistration");
 
-    const mountView = () => {};
+    const fetchServices = async () => {
+        return await axios
+            .get(GET_ALL_SERVICES_URI)
+            .then((res) => res.data.services)
+            .catch((err) => {
+                displayError(
+                    "Įvyko klaida nepavyko užkrauti paslaugų sąrašo.",
+                    services.querySelector(".services-section"),
+                    services.querySelector(".services__list")
+                );
+            });
+    };
+    const fetchEmployees = async () => {
+        return await axios
+            .get(GET_ALL_EMPLOYEES_URI)
+            .then((res) => res.data.employees)
+            .catch((err) => {
+                displayError(
+                    "Įvyko klaida nepavyko užkrauti paslaugų sąrašo.",
+                    services.querySelector(".services-section"),
+                    services.querySelector(".services__list")
+                );
+            });
+    };
 
-    const viewDidMount = () => {};
+    const displayServices = async () => {
+        const serviceArr = await fetchServices();
+        const employeeArr = await fetchEmployees();
 
-    const unmountView = () => {};
+        serviceListElem.innerHTML = "";
+
+        serviceArr.forEach((serviceObj) => {
+            const serviceProvidedBy = [];
+            employeeArr.forEach((employee) => {
+                if (
+                    employee.serviceList.find(
+                        (eService) =>
+                            eService.serviceID == serviceObj._id &&
+                            eService.serviceAvailable
+                    )
+                )
+                    serviceProvidedBy.push(employee.name);
+            });
+            if (serviceProvidedBy.length) {
+                let employeeNames = serviceProvidedBy.reduce(
+                    (eNames, eName, index, array) => {
+                        return index == array.length - 1
+                            ? eNames + eName
+                            : eNames + eName + ", ";
+                    },
+                    ""
+                );
+                serviceListElem.innerHTML +=
+                    /*html*/
+                    `
+                    <div class="services__service-box">
+                            <div class="services__service-heading-box">
+                                <div class="services__service-icon">
+                                    <img src='./styles/images/icons/service-icons/${serviceObj.iconID}.png' alt="" />
+                                </div>
+                                <span class='services__service-heading'>${serviceObj.title}</span>
+                            </div>
+                            <div class='services__service-info'>
+                                <div class='services__services-info-row'>
+                                    <span class='services__service-info-title'>Trukmė:</span>
+                                    <span class='services__service-info-value'>${serviceObj.duration}</span>
+                                </div>
+                                <div class='services__services-info-row'>
+                                    <span class='services__service-info-title'>Kaina:</span>
+                                    <span class='services__service-info-value'>${serviceObj.price} &euro;</span>
+                                </div>
+                                <div class='services__services-info-row'>
+                                    <span class='services__service-info-title'>Paslauga teikia:</span>
+                                    <span class='services__service-info-value'>${employeeNames}</span>
+                                </div>
+                            </div>
+                        </div>
+            `;
+            }
+        });
+
+        if (!serviceListElem.innerHTML)
+            serviceListElem.innerHTML +=
+                /*html*/
+                `
+            <h3 class="text-center">Teikiamų paslaugų nerasta</h3>
+            `;
+    };
+
+    const mountView = () => {
+        registerButtonElem.addEventListener("click", () =>
+            route("/registracija", {}, unmountView)
+        );
+    };
+
+    const viewDidMount = () => {
+        displayServices();
+    };
+
+    const unmountView = () => {
+        registerButtonElem.removeEventListener("click", route);
+    };
 
     // - Events
 

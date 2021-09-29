@@ -50,12 +50,24 @@ const registrationTimeSlotSchema = mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         required: true,
     },
+    employeeID: {
+        type: mongoose.Schema.Types.ObjectId,
+        required: true,
+    },
     start: {
         type: timeSlotStartDate,
         required: true,
     },
     end: {
         type: timeSlotEndDate,
+        required: true,
+    },
+    startDate: {
+        type: Date,
+        required: true,
+    },
+    endDate: {
+        type: Date,
         required: true,
     },
     taken: {

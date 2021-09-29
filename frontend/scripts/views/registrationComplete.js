@@ -2,6 +2,23 @@ import route from "../modules/route.js";
 const registrationComplete = (data = {}) => {
     let registrationComplete = document.createElement("div");
     registrationComplete.id = "registered-content";
+
+    if (!data.registrationData) route("/");
+    const regData = data.registrationData;
+    const startDate = new Date(regData.startDate);
+    const endDate = new Date(regData.endDate);
+
+    const dtYear = startDate.getFullYear();
+    const dtMonth = ("0" + (startDate.getMonth() + 1)).slice(-2);
+    const dtDay = ("0" + startDate.getDate()).slice(-2);
+
+    const dtStartHour = ("0" + startDate.getHours()).slice(-2);
+    const dtStartMin = ("0" + startDate.getMinutes()).slice(-2);
+    const dtEndHour = ("0" + endDate.getHours()).slice(-2);
+    const dtEndMin = ("0" + endDate.getMinutes()).slice(-2);
+
+    const visitDateTime = /*html*/ `${dtYear}-${dtMonth}-${dtDay} ${dtStartHour}:${dtStartMin}-${dtEndHour}:${dtEndMin}`;
+
     registrationComplete.innerHTML =
         /*html*/
         `
@@ -14,37 +31,37 @@ const registrationComplete = (data = {}) => {
                 <p class="info-text">Jūsų registracija priimta</p>
                 <div class='info-row'>
                     <p class='info-heading'>Vardas pavardė:</p>
-                    <p class='info-value'>Vardenis pavardenis</p>
+                    <p class='info-value'>${regData.customer.name} ${regData.customer.surname}</p>
                 </div>
 
                 <div class='info-row'>
                     <p class='info-heading'>El.paštas:</p>
-                    <p class='info-value'>klientopastas@gmail.com</p>
+                    <p class='info-value'>${regData.customer.email}</p>
                 </div>
 
                 <div class='info-row'>
                     <p class='info-heading'>Tel. nr:</p>
-                    <p class='info-value'>+370666666666</p>
+                    <p class='info-value'>${regData.customer.phone}</p>
                 </div>
 
                 <div class='info-row'>
-                    <p class='info-heading'>Rezervuotas laikas:</p>
-                    <p class='info-value'>13:30-14:15</p>
+                    <p class='info-heading'>Rezervuota data ir laikas:</p>
+                    <p class='info-value'>${visitDateTime}</p>
                 </div>
 
                 <div class='info-row'>
                     <p class='info-heading'>Pasirinktas meistras:</p>
-                    <p class='info-value'>Ferdinand</p>
+                    <p class='info-value'>${regData.employeeName}</p>
                 </div>
 
                 <div class='info-row'>
                     <p class='info-heading'>Pasirinkta paslauga:</p>
-                    <p class='info-value'>Barzdos modeliavimas</p>
+                    <p class='info-value'>${regData.serviceTitle}</p>
                 </div>
 
                 <div class='info-row'>
                     <p class='info-heading'>Kaina:</p>
-                    <p class='info-value'>20 &euro;</p>
+                    <p class='info-value'>${regData.servicePrice} &euro;</p>
                 </div>
 
                 <div class='info-row'>
@@ -54,24 +71,28 @@ const registrationComplete = (data = {}) => {
 
                 <p class="info-text-center">Jeigu turite klausimų, arba norite pakeisti apsilankymo laiką kreipkites:</p>
 
-                <h3 class="info-text-center">+3706484118415</h3>
+                <h3 class="info-text-center">+37000000000</h3>
                 <p class="info-text-center">arba</p>
-                <p class="info-text-center">masteremail@oldschoolbarbershop.lt</p>
+                <p class="info-text-center">elpastoadresas@gmail.com</p>
 
                 <button class="button-link" id='linkToHomePage'>Grižti į pradinį puslapį</button>
             </div>
         </section>
         `;
 
-    registrationComplete
-        .querySelector("#linkToHomePage")
-        .addEventListener("click", () => route("/"));
+    const goHomeButton = registrationComplete.querySelector("#linkToHomePage");
 
-    const mountView = () => {};
+    const mountView = () => {
+        goHomeButton.addEventListener("click", () =>
+            route("/", {}, unmountView)
+        );
+    };
 
     const viewDidMount = () => {};
 
-    const unmountView = () => {};
+    const unmountView = () => {
+        goHomeButton.removeEventListener("click", route);
+    };
 
     // - Events
 
