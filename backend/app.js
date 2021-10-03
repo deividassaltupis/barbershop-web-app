@@ -53,12 +53,11 @@ export const PASSWORD_SECRET_KEY = process.env.PASSWORD_SECRET_KEY;
 
 const app = express();
 // ---
-app.use(
-    cors()
-        {
-        origin: "http://127.0.0.1:5501",
-    }
-);
+// app.use(
+//     cors({
+//         origin: "http://127.0.0.1:5501",
+//     })
+// );
 // --- express build-in middleware function for incoming requests with JSON payload parsing.
 
 app.use(express.json());

@@ -1,4 +1,4 @@
-const SERVER_ADRESS = "http://localhost:5000";
+const SERVER_ADRESS = "https://barbershop-severside.herokuapp.com";
 
 // PUBLIC ENDPOINTS
 export const USER_VERIFICATION_URI = SERVER_ADRESS + "/api/users/verify_token/";
