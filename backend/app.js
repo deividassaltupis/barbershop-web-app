@@ -55,9 +55,9 @@ const app = express();
 // ---
 app.use(
     cors()
-    //     {
-    //     origin: "http://127.0.0.1:5501",
-    // }
+        {
+        origin: "http://127.0.0.1:5501",
+    }
 );
 // --- express build-in middleware function for incoming requests with JSON payload parsing.
 
