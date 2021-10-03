@@ -4,7 +4,6 @@ import { Registration } from "../../models/Registration.js";
 import { RegistrationTimeSlot } from "../../models/RegistrationTimeSlot.js";
 
 const addRegistrationController = async (req, res) => {
-    console.log(req.body);
     if (
         !req.body.customer ||
         !req.body.employeeID ||
@@ -18,7 +17,6 @@ const addRegistrationController = async (req, res) => {
     }
     if (
         !req.body.customer.name ||
-        !req.body.customer.surname ||
         !req.body.customer.email ||
         !req.body.customer.phone
     ) {

@@ -305,7 +305,7 @@ const employeeAddService = (data = {}) => {
     const loadAllServiceIcons = () => {
         const iconDest = "./styles/images/icons/service-icons/";
         const iconExt = ".png";
-        const iconQuantity = 6;
+        const iconQuantity = 11;
         for (let i = 1; i <= iconQuantity; i++) {
             serviceIconList.innerHTML += /*html*/ `
             <div class="add-service__icon-box" id="icon-${i}" data-icon-id='${i}'>

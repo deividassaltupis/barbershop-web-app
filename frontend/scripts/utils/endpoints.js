@@ -34,7 +34,19 @@ export const EMPLOYEE_DELETE_SCHEDULE_URI =
 // registrations
 export const EMPLOYEE_GET_REGISTRATIONS_URI =
     SERVER_ADRESS + "/api/employee/get_registrations/";
+export const EMPLOYEE_GET_SINGLE_REGISTRATION_URI =
+    SERVER_ADRESS + "/api/employee/get_single_registration/";
+export const EMPLOYEE_CHANGE_REGISTRATION_DATE_TIME_URI =
+    SERVER_ADRESS + "/api/employee/change_registration_date_time/";
+export const EMPLOYEE_CANCEL_REGISTRATION_URI =
+    SERVER_ADRESS + "/api/employee/cancel_registration/";
+export const EMPLOYEE_DELETE_REGISTRATION_RECORD_URI =
+    SERVER_ADRESS + "/api/employee/delete_registration_record/";
+export const EMPLOYEE_UPDATE_REGISTRATION_STATUS_URI =
+    SERVER_ADRESS + "/api/employee/update_registration_status/";
 
 // CUSTOM ENDPOINTS FOR ALL AUTHENTIFICATED USERS
 export const GET_USER_URI = SERVER_ADRESS + "/api/user/";
 export const UPDATE_USER_URI = SERVER_ADRESS + "/api/user/";
+export const CHANGE_USER_PASSWORD_URI =
+    SERVER_ADRESS + "/api/user/change_password/";

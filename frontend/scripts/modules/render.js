@@ -117,7 +117,7 @@ const render = (page, data = {}) => {
                 const employeeChart = await importProtectedView(
                     "../views/components/employeeChart.js"
                 );
-                employeeChart("statisticsChart");
+                employeeChart("statisticsChart", data.authHeader, data.user);
             })();
             break;
         case "darbuotojo_registracijos":

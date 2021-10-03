@@ -12,6 +12,8 @@ const getRegistrationsController = async (req, res) => {
 
     const dateFilter = req.body;
 
+    console.log(dateFilter);
+
     const startDate = new Date(dateFilter.startDate);
     const endDate = new Date(dateFilter.endDate);
 

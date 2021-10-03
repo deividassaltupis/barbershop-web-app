@@ -13,4 +13,4 @@ export const addMinutesToTime = (currentTime, minutes) => {
     return { hour: time.hour, minute: time.minute };
 };
 export const getDaysOfMonth = (year, month) =>
-    new Date(year, month, 0).getDate();
+    new Date(year, month + 1, 0).getDate();

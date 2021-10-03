@@ -4,6 +4,8 @@ import {
     EMPLOYEE_GET_SCHEDULES_URI,
     EMPLOYEE_ADD_SCHEDULE_URI,
     EMPLOYEE_DELETE_SCHEDULE_URI,
+    CHANGE_USER_PASSWORD_URI,
+    UPDATE_USER_URI,
 } from "../../utils/endpoints.js";
 import {
     displaySuccess,
@@ -65,7 +67,7 @@ const employeeSettings = (data = {}) => {
                         }"/>
                         <p class="input-group__sublabel">(Vieštai rodoma, skirta klientams susisiekti)</p>
                     </div>
-                    <button class="settings__button btn-skyblue" type='button'>Išsaugoti</button>
+                    <button class="settings__button btn-skyblue" type='button' id="update-user-data-btn">Išsaugoti</button>
                 </form>
 
                 <!-- User password change form -->
@@ -82,13 +84,13 @@ const employeeSettings = (data = {}) => {
                     </div>
                     <div class="input-group">
                         <label for="surname-input">Naujas slaptažodis</label>
-                        <input class="input-purple" type="password" id="current-password-input" />
+                        <input class="input-purple" type="password" id="new-password-input" />
                     </div>
                     <div class="input-group">
                         <label for="surname-input">Pakartoti naują slaptažodį</label>
                         <input class="input-purple" type="password" id="repeat-password-input" />
                     </div>
-                    <button class="settings__button btn-purple" type='button'>Atnaujinti slaptažodį</button>
+                    <button class="settings__button btn-purple" type='button' id="update-password-btn">Atnaujinti slaptažodį</button>
                 </form>
 
                 <!-- Employee add work schedule form -->
@@ -226,6 +228,7 @@ const employeeSettings = (data = {}) => {
                 </div>
 
                 <!-- Employee vacation list -->
+                <!--
                 <div class="settings__section-heading-row">
                     <h2 class="settings__section-heading">Mano atostogos</h2>
                     <button class="settings__section-toggler" type="button" data-box-id="vacation-section" style="display: flex;">
@@ -267,7 +270,7 @@ const employeeSettings = (data = {}) => {
                     <button class="settings__button btn-pink" type='button'>Pridėti atostogas</button>
                     <p>Atostogų laikotarpiu klientai negali registruotis vizitui nuo iki nurodytos atostogų datos, tačiau gali registruotis iki, arba po atostogų</p>
                 </div>
-
+                -->
             </div>
         </div>
         `;
@@ -293,6 +296,17 @@ const employeeSettings = (data = {}) => {
     // SCHEDULE LIST SECTION vars
     const scheduleListElem = employeeSettings.querySelector(
         "#work-schedule-list"
+    );
+
+    // CHANGE PASSWORD SECTION vars
+
+    const updatePasswordBtn = employeeSettings.querySelector(
+        "#update-password-btn"
+    );
+
+    // UPDATE USER DATA SECTION vars
+    const updateUserDataBtn = employeeSettings.querySelector(
+        "#update-user-data-btn"
     );
 
     // BASIC settings view functions
@@ -723,6 +737,109 @@ const employeeSettings = (data = {}) => {
         displaySchedules();
     };
 
+    const updatePasswordHandler = async (e) => {
+        e.preventDefault();
+        const currentPassword =
+            employeeSettings.querySelector("#password-input").value;
+        const newPassword = employeeSettings.querySelector(
+            "#new-password-input"
+        ).value;
+        const repeatPassword = employeeSettings.querySelector(
+            "#repeat-password-input"
+        ).value;
+
+        if (!currentPassword || !newPassword || !repeatPassword) {
+            displayWarning(
+                "Prašome užpildyti visus formos laukelius !",
+                employeeSettings.querySelector(".settings__content"),
+                employeeSettings.querySelector("#password-change-form")
+            );
+            return;
+        }
+        if (newPassword !== repeatPassword) {
+            displayWarning(
+                "Slaptažodžiai nesutampa. Pabandykite iš naujo.",
+                employeeSettings.querySelector(".settings__content"),
+                employeeSettings.querySelector("#password-change-form")
+            );
+            return;
+        }
+        if (newPassword.length < 6) {
+            displayWarning(
+                "Slaptažodžis turi būti sudarytas iš ne mažiau kaip 6 simbolių.",
+                employeeSettings.querySelector(".settings__content"),
+                employeeSettings.querySelector("#password-change-form")
+            );
+            return;
+        }
+        await axios
+            .put(
+                CHANGE_USER_PASSWORD_URI,
+                { password: currentPassword, newPassword: newPassword },
+                data.authHeader
+            )
+            .then((res) => {
+                displaySuccess(
+                    res.data.message,
+                    employeeSettings.querySelector(".settings__content"),
+                    employeeSettings.querySelector("#password-change-form")
+                );
+            })
+            .catch((err) => {
+                if (err.response.data.message)
+                    displayError(
+                        err.response.data.message,
+                        employeeSettings.querySelector(".settings__content"),
+                        employeeSettings.querySelector("#password-change-form")
+                    );
+            });
+        employeeSettings.querySelector("#password-input").value = "";
+        employeeSettings.querySelector("#new-password-input").value = "";
+        employeeSettings.querySelector("#repeat-password-input").value = "";
+    };
+
+    const updateUserDataHandler = async (e) => {
+        e.preventDefault();
+        const name = employeeSettings.querySelector("#name-input").value;
+        const surname = employeeSettings.querySelector("#surname-input").value;
+        const surnamePublic = employeeSettings.querySelector(
+            "#show-surname-public"
+        ).checked;
+        const phone = employeeSettings.querySelector("#phone-input").value;
+
+        if (!name || !phone) {
+            displayWarning(
+                "Būtina nurodyti informacija: vardą, telefono numerį.",
+                employeeSettings.querySelector(".settings__content"),
+                employeeSettings.querySelector("#user-info-form")
+            );
+            return;
+        }
+        const user = {
+            name: name,
+            surname: surname,
+            surnamePublic: surnamePublic,
+            phone: phone,
+        };
+        await axios
+            .put(UPDATE_USER_URI, { user }, data.authHeader)
+            .then((res) => {
+                displaySuccess(
+                    res.data.message,
+                    employeeSettings.querySelector(".settings__content"),
+                    employeeSettings.querySelector("#user-info-form")
+                );
+            })
+            .catch((err) => {
+                if (err.response.data.message)
+                    displayError(
+                        err.response.data.message,
+                        employeeSettings.querySelector(".settings__content"),
+                        employeeSettings.querySelector("#user-info-form")
+                    );
+            });
+    };
+
     // ESSENTIAL VIEW FUNCTIONS:
 
     const mountView = () => {
@@ -749,6 +866,16 @@ const employeeSettings = (data = {}) => {
 
         addScheduleButton.addEventListener("click", (e) =>
             addScheduleButtonHandler(e)
+        );
+
+        // CHANGE PASSWORD EVENTS
+        updatePasswordBtn.addEventListener("click", (e) =>
+            updatePasswordHandler(e)
+        );
+
+        // UPDATE USER DATA EVENTS
+        updateUserDataBtn.addEventListener("click", (e) =>
+            updateUserDataHandler(e)
         );
     };
 

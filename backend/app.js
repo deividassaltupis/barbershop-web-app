@@ -16,6 +16,7 @@ import addRegistrationController from "./controllers/public/addRegistrationContr
 // ---- Private controllers. For all authentificated web app users (admins and employess)
 import updateUserController from "./controllers/private/updateUserController.js";
 import getUserController from "./controllers/private/getUserController.js";
+import changePasswordController from "./controllers/private/changePasswordController.js";
 
 // ---- Private controllers. For authorized web app administrators
 import usersController from "./controllers/private/admin/usersController.js";
@@ -33,6 +34,11 @@ import getSchedulesController from "./controllers/private/employee/getSchedulesC
 import deleteScheduleController from "./controllers/private/employee/deleteScheduleController.js";
 
 import getRegistrationsController from "./controllers/private/employee/getRegistrationsController.js";
+import getSingleRegistrationController from "./controllers/private/employee/getSingleRegistrationController.js";
+import changeRegistrationDateTimeController from "./controllers/private/employee/changeRegistrationDateTimeController.js";
+import cancelRegistrationController from "./controllers/private/employee/cancelRegistrationController.js";
+import deleteRegistrationRecordController from "./controllers/private/employee/deleteRegistrationRecordController.js";
+import updateRegistrationStatusController from "./controllers/private/employee/updateRegistrationStatusController.js";
 
 // -- Middlewares
 import authentification from "./middleware/authentification.js";
@@ -102,6 +108,7 @@ app.use(authentification);
 // - USER ROUTES (for both employees and admins)
 app.get("/api/user/", getUserController);
 app.put("/api/user/", updateUserController);
+app.put("/api/user/change_password/", changePasswordController);
 
 // - ADMIN ROUTES
 
@@ -113,6 +120,26 @@ app.post("/api/admin/add_user/", addUserController);
 // --- Registrations
 
 app.post("/api/employee/get_registrations/", getRegistrationsController);
+app.get(
+    "/api/employee/get_single_registration/:id",
+    getSingleRegistrationController
+);
+app.post(
+    "/api/employee/change_registration_date_time/",
+    changeRegistrationDateTimeController
+);
+app.put(
+    "/api/employee/update_registration_status/",
+    updateRegistrationStatusController
+);
+app.delete(
+    "/api/employee/delete_registration_record/:regID",
+    deleteRegistrationRecordController
+);
+app.delete(
+    "/api/employee/cancel_registration/:regID",
+    cancelRegistrationController
+);
 
 //app.put("/api/employee/edit_registration/");
 

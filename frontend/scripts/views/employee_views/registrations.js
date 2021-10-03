@@ -1,6 +1,14 @@
 import route from "../../modules/route.js";
 import employeeNav from "../components/employeeNav.js";
-import { EMPLOYEE_GET_REGISTRATIONS_URI } from "../../utils/endpoints.js";
+import {
+    EMPLOYEE_GET_REGISTRATIONS_URI,
+    EMPLOYEE_GET_SINGLE_REGISTRATION_URI,
+    GET_FREE_REGISTRATION_DATES_AND_TIMES_URI,
+    EMPLOYEE_CHANGE_REGISTRATION_DATE_TIME_URI,
+    EMPLOYEE_CANCEL_REGISTRATION_URI,
+    EMPLOYEE_DELETE_REGISTRATION_RECORD_URI,
+    EMPLOYEE_UPDATE_REGISTRATION_STATUS_URI,
+} from "../../utils/endpoints.js";
 import { displayWarning, displaySuccess } from "../components/alerts.js";
 import pageRequest from "../../modules/pageRequest.js";
 
@@ -35,15 +43,15 @@ const employeeRegistrations = (data = {}) => {
 
                             <label for="">Nuo</label>
                             <div class="filter__input-row">
-                                <input type="text" id="show-start-year" class="filter-input-2x" placeholder="Metai" />
-                                <input type="text" id="show-start-month" class="filter-input-1x" placeholder=".m" />
+                                <input type="text" id="show-start-year" class="filter-input-2x" placeholder="metai" />
+                                <input type="text" id="show-start-month" class="filter-input-1x" placeholder="mėn" />
                                 <input type="text" id="show-start-day" class="filter-input-1x" placeholder=".d"/>
                             </div>
 
                             <label for="">Iki</label>
                             <div class="filter__input-row">
-                                <input type="text" id="show-end-year" class="filter-input-2x"  placeholder="Metai"/>
-                                <input type="text" id="show-end-month" class="filter-input-1x"  placeholder=".m"/>
+                                <input type="text" id="show-end-year" class="filter-input-2x"  placeholder="metai"/>
+                                <input type="text" id="show-end-month" class="filter-input-1x"  placeholder="mėn"/>
                                 <input type="text" id="show-end-day" class="filter-input-1x"  placeholder=".d"/>
                             </div>
                         </div>
@@ -107,6 +115,7 @@ const employeeRegistrations = (data = {}) => {
     let updateRegistrationsIntervalID = null;
 
     let editModeSelectedRegID = "";
+    let dateTimeSlots = [];
 
     const secondsToDhms = (seconds) => {
         seconds = Number(seconds);
@@ -155,10 +164,53 @@ const employeeRegistrations = (data = {}) => {
         editModeSelectedRegID = "";
     };
 
-    const handleEditButtonClick = (e) => {
+    const fetchSingleRegistration = async (regID) => {
+        return await axios
+            .get(EMPLOYEE_GET_SINGLE_REGISTRATION_URI + regID, data.authHeader)
+            .then((res) => res.data.registration)
+            .catch((err) => {
+                if (err.response.data.message)
+                    displayError(
+                        err.response.data.message,
+                        employeeRegistrations.querySelector(
+                            ".registrations__content"
+                        ),
+                        employeeRegistrations.querySelector(
+                            ".registrations__card-headings"
+                        )
+                    );
+            });
+    };
+
+    const fetchAvailableRegistrationDatesAndTimes = async (
+        employeeID,
+        serviceID
+    ) => {
+        return await axios
+            .post(GET_FREE_REGISTRATION_DATES_AND_TIMES_URI, {
+                employeeID,
+                serviceID,
+            })
+            .then((res) => res.data.freeDatesAndTimes)
+            .catch((err) => {
+                if (err.response.data.message)
+                    displayError(
+                        err.response.data.message,
+                        employeeRegistrations.querySelector(
+                            ".registrations__content"
+                        ),
+                        employeeRegistrations.querySelector(
+                            ".registrations__card-headings"
+                        )
+                    );
+            });
+    };
+
+    const handleEditButtonClick = async (e) => {
         e.preventDefault();
         if (editModeSelectedRegID) cancelRegistrationEditMode();
         editModeSelectedRegID = e.target.dataset.regId;
+
         const editRegistrationCardElem = document.createElement("div");
         editRegistrationCardElem.classList.add("card__edit-row");
         editRegistrationCardElem.id = "edit-card_" + editModeSelectedRegID;
@@ -168,13 +220,12 @@ const employeeRegistrations = (data = {}) => {
                 <form class="card__edit-form">
                     <div class="select-group">
                         <label for="">Data ir Laikas</label>
-                        <select type="text" class="edit__year-select" id="year-select">
-                            <option value=""></option>
-                            <option value="">2021-09-30 15:00 - 17:00</option>
+                        <select type="text" id="date-time-select">
+                            <option value="">Prašome palaukti, kraunama...</option>
                         </select>
                     </div>
-                    <button class="btn btn-dark-green">Išsaugoti</button>
-                    <button class="btn btn-grey">Atšaukti</button>
+                    <button class="btn btn-dark-green" id="save-registration-changes-btn">Išsaugoti</button>
+                    <button class="btn btn-grey" id="cancel-registration-edit-btn">Atšaukti</button>
                 </form>
                 <p class="card__edit-info">
                     <i class="fas fa-info-circle"></i>
@@ -185,12 +236,152 @@ const employeeRegistrations = (data = {}) => {
                     Keičiant vizito laiką rekomanduojama susisiekti su klientu ir sutarti dėl kito laiko.
                 </p>
             `;
+
+        const saveRegistrationChangesBtn =
+            editRegistrationCardElem.querySelector(
+                "#save-registration-changes-btn"
+            );
+        const cancelRegistrationEditBtn =
+            editRegistrationCardElem.querySelector(
+                "#cancel-registration-edit-btn"
+            );
+
+        saveRegistrationChangesBtn.addEventListener("click", (e) =>
+            handleSaveRegistrationChanges(e, editModeSelectedRegID)
+        );
+
+        cancelRegistrationEditBtn.addEventListener(
+            "click",
+            handleCancelRegistrationEdit
+        );
+
         registrationListElem.insertBefore(
             editRegistrationCardElem,
             registrationListElem.querySelector(
                 "#reg-card_" + editModeSelectedRegID
             ).nextSibling
         );
+
+        const registration = await fetchSingleRegistration(
+            editModeSelectedRegID
+        );
+
+        const employeeID = data.user._id;
+        const serviceID = registration.serviceID;
+
+        const freeDatesAndTimes = await fetchAvailableRegistrationDatesAndTimes(
+            employeeID,
+            serviceID
+        );
+
+        const dateTimeSelectElem =
+            editRegistrationCardElem.querySelector("#date-time-select");
+
+        dateTimeSelectElem.innerHTML = `<option value="">-</option>`;
+        if (!freeDatesAndTimes.length) {
+            displayWarning(
+                "Trijų mėnesių laikotarpyje nuo dabartinės datos nėra laisvų registracijos vietų.",
+                editRegistrationCardElem,
+                editRegistrationCardElem.querySelector(".card__edit-form")
+            );
+            return;
+        }
+        freeDatesAndTimes.forEach((dateTime) => {
+            let startDate = new Date(dateTime.startDate);
+            let endDate = new Date(dateTime.endDate);
+            dateTimeSlots.push(dateTime.slotIDs);
+
+            const dtYear = startDate.getFullYear();
+            const dtMonth = ("0" + (startDate.getMonth() + 1)).slice(-2);
+            const dtDay = ("0" + startDate.getDate()).slice(-2);
+
+            const dtStartHour = ("0" + startDate.getHours()).slice(-2);
+            const dtStartMin = ("0" + startDate.getMinutes()).slice(-2);
+            const dtEndHour = ("0" + endDate.getHours()).slice(-2);
+            const dtEndMin = ("0" + endDate.getMinutes()).slice(-2);
+
+            const optionText = /*html*/ `${dtYear}-${dtMonth}-${dtDay} ${dtStartHour}:${dtStartMin}-${dtEndHour}:${dtEndMin}`;
+
+            dateTimeSelectElem.innerHTML +=
+                /*html*/
+                `<option>${optionText}</option>`;
+        });
+    };
+
+    const changeRegistrationDateTime = async (regID, slotIDs) => {
+        return await axios
+            .post(
+                EMPLOYEE_CHANGE_REGISTRATION_DATE_TIME_URI,
+                {
+                    regID: regID,
+                    slotIDs: slotIDs,
+                },
+                data.authHeader
+            )
+            .then((res) => {
+                return {
+                    error: res.data.error,
+                    message: res.data.message,
+                };
+            })
+            .catch((err) => {
+                if (err.response.data.message)
+                    return {
+                        error: err.response.data.error,
+                        message: err.response.data.message,
+                    };
+                else
+                    return {
+                        error: true,
+                        message:
+                            "Įvyko klaida. Nepavyko gauti atsakymo iš serverio.",
+                    };
+            });
+    };
+
+    const handleSaveRegistrationChanges = async (e, regID) => {
+        e.preventDefault();
+
+        const dateTimeSelectElem =
+            registrationListElem.querySelector("#date-time-select");
+        const selectedIndex = dateTimeSelectElem.selectedIndex;
+
+        if (!selectedIndex) {
+            const editRegistrationCardElem = registrationListElem.querySelector(
+                "#edit-card_" + regID
+            );
+            displayWarning(
+                "Prašome pasirinkti naują vizito laiką.",
+                editRegistrationCardElem,
+                editRegistrationCardElem.querySelector(".card__edit-form")
+            );
+            return;
+        }
+        const slotIDs = dateTimeSlots[selectedIndex - 1];
+        const result = await changeRegistrationDateTime(regID, slotIDs);
+        if (result.error)
+            displayError(
+                result.message,
+                employeeRegistrations.querySelector(".registrations__content"),
+                employeeRegistrations.querySelector(
+                    ".registrations__card-headings"
+                )
+            );
+        else
+            displaySuccess(
+                result.message,
+                employeeRegistrations.querySelector(".registrations__content"),
+                employeeRegistrations.querySelector(
+                    ".registrations__card-headings"
+                )
+            );
+        cancelRegistrationEditMode();
+        displayRegistrations();
+    };
+
+    const handleCancelRegistrationEdit = (e) => {
+        e.preventDefault();
+        cancelRegistrationEditMode();
     };
 
     const handleFilterButtonClick = async () => {
@@ -297,9 +488,7 @@ const employeeRegistrations = (data = {}) => {
             startDate,
             endDate,
         };
-        console.log("showPeriodOption: " + showPeriodOption);
-        console.log("filter date: ");
-        console.log(dateFilter);
+
         const regArr = await fetchRegistrations(dateFilter);
 
         registrationListElem.innerHTML = "";
@@ -461,19 +650,142 @@ const employeeRegistrations = (data = {}) => {
                 </div>
             `;
             });
+
             const editRegBtns =
                 registrationListElem.querySelectorAll(".edit-reg-btn");
-            const cancelRegBtns =
-                registrationListElem.querySelectorAll(".cancel-reg-btn");
-            const customerCameBtns =
-                registrationListElem.querySelectorAll(".customer-came-btn");
-            const customerSkippedBtns = registrationListElem.querySelectorAll(
-                ".customer-skipped-btn"
-            );
             editRegBtns.forEach((btn) => {
                 btn.addEventListener("click", handleEditButtonClick);
             });
+
+            const cancelRegBtns =
+                registrationListElem.querySelectorAll(".cancel-reg-btn");
+            cancelRegBtns.forEach((btn) => {
+                btn.addEventListener("click", cancelRegistrationHandle);
+            });
+
+            const customerCameBtns =
+                registrationListElem.querySelectorAll(".customer-came-btn");
+            customerCameBtns.forEach((btn) => {
+                btn.addEventListener("click", (e) =>
+                    updateRegistrationStatusHandle(e, 2)
+                );
+            });
+
+            const customerSkippedBtns = registrationListElem.querySelectorAll(
+                ".customer-skipped-btn"
+            );
+            customerSkippedBtns.forEach((btn) => {
+                btn.addEventListener("click", (e) =>
+                    updateRegistrationStatusHandle(e, 1)
+                );
+            });
+
+            const deleteRegRecordBtns =
+                registrationListElem.querySelectorAll(".delete-reg-btn");
+            deleteRegRecordBtns.forEach((btn) => {
+                btn.addEventListener("click", deleteRegistrationRecordHandle);
+            });
         }
+    };
+
+    const cancelRegistrationHandle = async (e) => {
+        const regID = e.target.dataset.regId;
+        await axios
+            .delete(EMPLOYEE_CANCEL_REGISTRATION_URI + regID, data.authHeader)
+            .then((res) => {
+                displaySuccess(
+                    res.data.message,
+                    employeeRegistrations.querySelector(
+                        ".registrations__content"
+                    ),
+                    employeeRegistrations.querySelector(
+                        ".registrations__card-headings"
+                    )
+                );
+            })
+            .catch((err) => {
+                if (err.response.data.message)
+                    displayError(
+                        err.response.data.message,
+                        employeeRegistrations.querySelector(
+                            ".registrations__content"
+                        ),
+                        employeeRegistrations.querySelector(
+                            ".registrations__card-headings"
+                        )
+                    );
+            });
+        displayRegistrations();
+        window.scrollTo(0, 0);
+    };
+
+    const updateRegistrationStatusHandle = async (e, status) => {
+        const regID = e.target.dataset.regId;
+        await axios
+            .put(
+                EMPLOYEE_UPDATE_REGISTRATION_STATUS_URI,
+                { regID: regID, fulfilled: status },
+                data.authHeader
+            )
+            .then((res) => {
+                displaySuccess(
+                    res.data.message,
+                    employeeRegistrations.querySelector(
+                        ".registrations__content"
+                    ),
+                    employeeRegistrations.querySelector(
+                        ".registrations__card-headings"
+                    )
+                );
+            })
+            .catch((err) => {
+                if (err.response.data.message)
+                    displayError(
+                        err.response.data.message,
+                        employeeRegistrations.querySelector(
+                            ".registrations__content"
+                        ),
+                        employeeRegistrations.querySelector(
+                            ".registrations__card-headings"
+                        )
+                    );
+            });
+        displayRegistrations();
+        window.scrollTo(0, 0);
+    };
+
+    const deleteRegistrationRecordHandle = async (e) => {
+        const regID = e.target.dataset.regId;
+        await axios
+            .delete(
+                EMPLOYEE_DELETE_REGISTRATION_RECORD_URI + regID,
+                data.authHeader
+            )
+            .then((res) => {
+                displaySuccess(
+                    res.data.message,
+                    employeeRegistrations.querySelector(
+                        ".registrations__content"
+                    ),
+                    employeeRegistrations.querySelector(
+                        ".registrations__card-headings"
+                    )
+                );
+            })
+            .catch((err) => {
+                if (err.response.data.message)
+                    displayError(
+                        err.response.data.message,
+                        employeeRegistrations.querySelector(
+                            ".registrations__content"
+                        ),
+                        employeeRegistrations.querySelector(
+                            ".registrations__card-headings"
+                        )
+                    );
+            });
+        displayRegistrations();
+        window.scrollTo(0, 0);
     };
 
     const fetchRegistrations = async (dateFilter) => {
@@ -504,10 +816,6 @@ const employeeRegistrations = (data = {}) => {
         addRegistrationButton.addEventListener("click", () =>
             route("/darbuotojas_prideti_registracija", {}, unmountView)
         );
-
-        // editCardSaveButton.addEventListener("click", (e) => {
-        //     e.preventDefault();
-        // });
 
         filterButtonElem.addEventListener("click", handleFilterButtonClick);
 

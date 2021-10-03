@@ -45,14 +45,12 @@ const registration = (data = {}) => {
                         <label for='master-input'>Pasirinkti meistrą</label>
                         <select id="master-input">
                             <option value="">-</option>
-                            <option value=""></option>
                         </select>
                     </div>
                     <div class='label-input-group'>
                         <label for='service-input'>Pasirinkti paslaugą</label>
                         <select id="service-input" disabled>
                             <option value="">-</option>
-                            <option value=""></option>
                         </select>
                     </div>
                     <p>Pasirinkti data ir laiką:</p>
