@@ -45,6 +45,7 @@ const contacts = (data = {}) => {
             </div>
         </section>
 
+        <!--
         <section class='contacts-form-section container'>
             <div class='section-heading'>
                 <img src="./styles/images/icons/mustache-curled-tip-variant.png" alt="" />
@@ -78,23 +79,24 @@ const contacts = (data = {}) => {
                 <button class='btn btn-md btn-grey'>Pateikti</button>
             </form>
         </section>
+        -->
         `;
 
-    displayError(
-        "Įvyko klaida nepavyko prisijungti prie serverio",
-        contacts.querySelector(".contacts-form-section"),
-        contacts.querySelector("#contacts-form")
-    );
-    displayWarning(
-        "Prašome užpildyti visus formos laukelius",
-        contacts.querySelector(".contacts-form-section"),
-        contacts.querySelector("#contacts-form")
-    );
-    displaySuccess(
-        "Success message display",
-        contacts.querySelector(".contacts-form-section"),
-        contacts.querySelector("#contacts-form")
-    );
+    // displayError(
+    //     "Įvyko klaida nepavyko prisijungti prie serverio",
+    //     contacts.querySelector(".contacts-form-section"),
+    //     contacts.querySelector("#contacts-form")
+    // );
+    // displayWarning(
+    //     "Prašome užpildyti visus formos laukelius",
+    //     contacts.querySelector(".contacts-form-section"),
+    //     contacts.querySelector("#contacts-form")
+    // );
+    // displaySuccess(
+    //     "Success message display",
+    //     contacts.querySelector(".contacts-form-section"),
+    //     contacts.querySelector("#contacts-form")
+    // );
 
     const mountView = () => {};
 
