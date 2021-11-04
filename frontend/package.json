@@ -1,15 +1,31 @@
 {
-  "name": "frontend",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "scss": "node-sass --watch styles/scss/ -o styles/css/"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "axios": "^0.21.4"
-  }
+    "name": "frontend",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "private": true,
+    "scripts": {
+        "scss": "node-sass --watch styles/scss/ -o styles/css/",
+        "build": "webpack",
+        "dev-server": "webpack-dev-server"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "MIT",
+    "dependencies": {
+        "@babel/runtime": "^7.16.0",
+        "axios": "^0.21.4",
+        "chart.js": "^3.6.0"
+    },
+    "devDependencies": {
+        "@babel/core": "^7.16.0",
+        "@babel/plugin-transform-runtime": "^7.16.0",
+        "@babel/preset-env": "^7.16.0",
+        "babel-loader": "^8.2.3",
+        "css-loader": "^6.5.1",
+        "style-loader": "^3.3.1",
+        "webpack": "^5.61.0",
+        "webpack-cli": "^4.9.1",
+        "webpack-dev-server": "^4.4.0"
+    }
 }

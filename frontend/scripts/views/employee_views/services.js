@@ -40,8 +40,6 @@ const employeeServices = (data = {}) => {
         </div>
         `;
 
-    console.log("services inside function action");
-
     // - Variables
 
     const addServiceButton = employeeServices.querySelector(
@@ -184,7 +182,6 @@ const employeeServices = (data = {}) => {
 
     const viewDidMount = () => {
         renderUserServices();
-        console.log(data.user);
     };
 
     const unmountView = () => {

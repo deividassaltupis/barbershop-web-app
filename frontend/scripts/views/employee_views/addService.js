@@ -243,7 +243,6 @@ const employeeAddService = (data = {}) => {
             });
     };
     const addExistingServiceHandler = async () => {
-        console.log("in action");
         if (
             !existingServiceSelect.selectedIndex ||
             !existingServiceSelect.value
@@ -339,9 +338,7 @@ const employeeAddService = (data = {}) => {
         e.preventDefault();
         if (data.serviceID) editServiceHandler(data.serviceID);
         else {
-            console.log(serviceAppendTypeRadios);
             for (const radio of serviceAppendTypeRadios) {
-                console.log(radio);
                 if (radio.id === "service-append-existing" && radio.checked) {
                     addExistingServiceHandler();
                     return;

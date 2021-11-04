@@ -649,7 +649,6 @@ const employeeSettings = (data = {}) => {
             displayLatestScheduleNotification(schedules);
 
             schedules.forEach((schedule) => {
-                console.log(schedule);
                 const validFrom = new Date(schedule.startDate);
                 const vfYear = validFrom.getFullYear();
                 const vfMonth = ("0" + (validFrom.getMonth() + 1)).slice(-2);

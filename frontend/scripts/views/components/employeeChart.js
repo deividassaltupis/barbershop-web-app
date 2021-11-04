@@ -1,4 +1,7 @@
+import { Chart, registerables } from "chart.js";
 import { EMPLOYEE_GET_REGISTRATIONS_URI } from "../../utils/endpoints.js";
+
+Chart.register(...registerables);
 
 const monthNames = [
     "Sausis",
@@ -34,7 +37,6 @@ const getRegistrationsOfGivenDate = async (startDate, endDate, authHeader) => {
         startDate,
         endDate,
     };
-    console.log(dateFilter);
     let regArr = await fetchRegistrations(dateFilter, authHeader);
     regArr = regArr.filter((reg) => reg.visitStatus === 2);
     return regArr.length;
@@ -53,7 +55,6 @@ const getPastSixMonthsRegistrations = async (authHeader) => {
 
         const startDate = new Date(year, month, 1, 0, 0);
         const endDate = new Date(year, month, daysOfMonth, 23, 59);
-        console.log(daysOfMonth);
 
         const regCount = await getRegistrationsOfGivenDate(
             startDate,

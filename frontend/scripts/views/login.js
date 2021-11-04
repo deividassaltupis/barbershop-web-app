@@ -22,11 +22,11 @@ const login = (data = {}) => {
                 <form id='login__form'>
                     <div class='label-input-group'>
                         <label for='username-input'>Vartotojo vardas</label>
-                        <input type="text" id='username-input'/>
+                        <input type="text" id='username-input' readonly/>
                     </div>
                     <div class='label-input-group'>
                         <label for='password-input'>Slaptažodis</label>
-                        <input type="password" id='password-input' />
+                        <input type="password" id='password-input' readonly/>
                     </div>
                     <button class="button-link" id='forget-password'>Pamiršau slaptažodį</button>
                     <div class="login__button-row">
@@ -105,6 +105,13 @@ const login = (data = {}) => {
 
         forgetPasswordButton.addEventListener("click", () => {
             route("/pamirsau_slaptazodi", {}, unmountView);
+        });
+
+        passwordInput.addEventListener("mouseover", () => {
+            passwordInput.removeAttribute("readonly");
+        });
+        usernameInput.addEventListener("mouseover", () => {
+            usernameInput.removeAttribute("readonly");
         });
     };
 
